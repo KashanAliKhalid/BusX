@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -13,6 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^6.0.2",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.12.8",
     "nodemon": "^2.0.7"
   }
 }
