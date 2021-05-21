@@ -19,7 +19,8 @@ import React, { Component } from "react";
 import { useLocation, NavLink, useHistory } from "react-router-dom";
 const handleSelect = (eventKey) => alert(`selected ${eventKey}`);
 
-import { Nav, NavDropdown } from "react-bootstrap";
+import {Nav, NavDropdown, SplitButton, Dropdown, DropdownButton} from "react-bootstrap";
+import '../../assets/css/sidebar.css'
 
 import logo from "assets/img/reactlogo.png";
 
@@ -35,6 +36,7 @@ function Sidebar({ color, image, routes }) {
         className="sidebar-background"
         style={{
           backgroundImage: "url(" + image + ")",
+
         }}
       />
       <div className="sidebar-wrapper">
@@ -91,7 +93,7 @@ function Sidebar({ color, image, routes }) {
                     activeRoute('/admin/notifications')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Track buses</p> </span>}   onClick={()=>{history.push('/admin/notifications')}}>
+                <NavDropdown title={<span> <i className='nc-icon nc-square-pin' /> <p>Track buses</p> </span>}   onClick={()=>{history.push('/admin/trackbuses')}}>
                     <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
 
                 </NavDropdown>
@@ -100,10 +102,10 @@ function Sidebar({ color, image, routes }) {
 
             <li
                 className={
-                    activeRoute('/admin/table')
+                    activeRoute('/admin/routes')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Routes</p> </span>}   onClick={()=>{history.push('/admin/table')}}>
+                <NavDropdown title={<span> <i className='nc-icon nc-map-big' /> <p>Routes</p> </span>}   onClick={()=>{history.push('/admin/routes')}}>
                     <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
 
                 </NavDropdown>
@@ -111,10 +113,10 @@ function Sidebar({ color, image, routes }) {
 
             <li
                 className={
-                    activeRoute('/admin/icons')
+                    activeRoute('/admin/drivers')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Drivers</p> </span>}   onClick={()=>{history.push('/admin/icons')}}>
+                <NavDropdown title={<span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>}   onClick={()=>{history.push('/admin/drivers')}}>
                     <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
 
                 </NavDropdown>
@@ -122,10 +124,10 @@ function Sidebar({ color, image, routes }) {
 
             <li
                 className={
-                    activeRoute('/admin/maps')
+                    activeRoute('/admin/assets')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Assets</p> </span>}   onClick={()=>{history.push('/admin/maps')}}>
+                <NavDropdown title={<span> <i className='nc-icon nc-bus-front-12' /> <p>Assets</p> </span>}   onClick={()=>{history.push('/admin/assets')}}>
                     <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
 
                 </NavDropdown>
@@ -135,10 +137,10 @@ function Sidebar({ color, image, routes }) {
 
                 <li
                     className={
-                        activeRoute('/admin/notifications')
+                        activeRoute('/admin/fuel')
                     }
                 >
-                    <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Fuel Management</p> </span>}   onClick={()=>{history.push('/admin/notifications')}}>
+                    <NavDropdown title={<span> <i className='nc-icon nc-chart-bar-32' /> <p>Fuel Management</p> </span>}   onClick={()=>{history.push('/admin/fuel')}}>
                         <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
 
                     </NavDropdown>
@@ -148,21 +150,25 @@ function Sidebar({ color, image, routes }) {
 
             <li
                 className={
-                    activeRoute('/admin/notifications')
+                    activeRoute('/admin/data')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Data Management</p> </span>}   onClick={()=>{history.push('/admin/notifications')}}>
-                    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
+                <NavDropdown title={<span> <i className='nc-icon nc-app' /> <p>Data Management</p> </span>}   onClick={()=>{history.push('/admin/data')}}>
+                    <DropdownButton variant='dropdownright' id="dropdown-item-button" title={<span> <i style={{display: 'inline-block'}} className='nc-icon nc-backpack' /> <p style={{display: 'inline-block'}}>Students</p> </span>}>
+                        <Dropdown.Item as="button">Action</Dropdown.Item>
+                        <Dropdown.Item as="button">Another action</Dropdown.Item>
+                    </DropdownButton>
+
 
                 </NavDropdown>
             </li>
 
             <li
                 className={
-                    activeRoute('/admin/notifications')
+                    activeRoute('/admin/license')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>Licensing</p> </span>}   onClick={()=>{history.push('/admin/notifications')}}>
+                <NavDropdown title={<span> <i className='nc-icon nc-key-25' /> <p>Licensing</p> </span>}   onClick={()=>{history.push('/admin/license')}}>
                     <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
 
                 </NavDropdown>

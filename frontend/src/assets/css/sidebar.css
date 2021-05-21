@@ -1,0 +1,43 @@
+.dropdown-menu , .dropdown-item
+{
+    /*width:200px;*/
+    border-radius:3px;
+
+
+}
+
+/*#dropdown-button-drop-right*/
+/*{*/
+/*    width:300px;*/
+/*    border:none ;*/
+/*    color:black ;*/
+
+/*}*/
+
+.btn-dropdownright
+{
+
+    border:none ;
+    color:black ;
+    text-align:left;
+    width:230px;
+    paddingTop:5px;
+    height: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .btn-dropdownright {
+        width:230px;
+    }
+    .dropdown-menu, .dropdown-item
+    {
+        display:block;
+        margin-left: 15px !important;
+    }
+}
+
+.sidebar
+{
+    overflow:visible !important
+}

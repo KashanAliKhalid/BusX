@@ -2,17 +2,20 @@ import mongoose from 'mongoose'
 
 const routeSchema=mongoose.Schema({
     name:{
-        type:String,
+        type:Number,
         required:true
     },
     stops:[
         {
             latitude:{
-                type:Number
+                type:String
             },
             longitude:{
-                type:Number
+                type:String
             }
         }
     ]
 })
+
+const Route =mongoose.model('Route', routeSchema)
+export default Route;
