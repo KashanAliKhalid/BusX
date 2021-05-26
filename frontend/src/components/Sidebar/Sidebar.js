@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import { useLocation, NavLink, useHistory } from "react-router-dom";
 const handleSelect = (eventKey) => alert(`selected ${eventKey}`);
@@ -22,7 +6,6 @@ const handleSelect = (eventKey) => alert(`selected ${eventKey}`);
 import {Nav, NavDropdown, SplitButton, Dropdown, DropdownButton} from "react-bootstrap";
 import '../../assets/css/sidebar.css'
 
-import logo from "assets/img/reactlogo.png";
 
 function Sidebar({ color, image, routes }) {
   const history=useHistory();
@@ -53,7 +36,7 @@ function Sidebar({ color, image, routes }) {
             </div>
           </a>
           <a className="simple-text" href="http://www.creative-tim.com">
-            Creative Tim
+            BusX
           </a>
         </div>
         <Nav>
@@ -153,11 +136,26 @@ function Sidebar({ color, image, routes }) {
                     activeRoute('/admin/data')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-app' /> <p>Data Management</p> </span>}   onClick={()=>{history.push('/admin/data')}}>
-                    <DropdownButton variant='dropdownright' id="dropdown-item-button" title={<span> <i style={{display: 'inline-block'}} className='nc-icon nc-backpack' /> <p style={{display: 'inline-block'}}>Students</p> </span>}>
-                        <Dropdown.Item as="button">Action</Dropdown.Item>
-                        <Dropdown.Item as="button">Another action</Dropdown.Item>
+                <NavDropdown title={<span> <i className='nc-icon nc-app' /> <p>Data Management</p> </span>}>
+                    <DropdownButton variant='dropdownnested' id="dropdown-item-button" title={<span> <i  className='nc-icon nc-backpack dropdown-icon' /> <p className='dropdown-text'>Students</p> </span>}>
+                        <Dropdown.Item onClick={()=>{history.push('/admin/data/addstudent')}} className='btn-dropdownnested-item' as="button"><span> <i  className='dropdown-icon nc-icon nc-simple-add' /> <p className='dropdown-text'>Add Student</p> </span></Dropdown.Item>
+                        <Dropdown.Item onClick={()=>{history.push('/admin/data/studentlist')}} className='btn-dropdownnested-item' as="button"><span> <i  className='nc-icon nc-bullet-list-67 dropdown-icon' /> <p className='dropdown-text'>Students list</p> </span></Dropdown.Item>
+
                     </DropdownButton>
+
+                    <DropdownButton variant='dropdownnested' id="dropdown-item-button" title={<span> <i  className='nc-icon nc-bus-front-12 dropdown-icon' /> <p className='dropdown-text'>Buses</p> </span>}>
+                        <Dropdown.Item onClick={()=>{history.push('/admin/data/addbus')}} className='btn-dropdownnested-item' as="button"><span> <i  className='dropdown-icon nc-icon nc-simple-add' /> <p className='dropdown-text'>Add Bus</p> </span></Dropdown.Item>
+                        <Dropdown.Item onClick={()=>{history.push('/admin/data/buslist')}} className='btn-dropdownnested-item' as="button"><span> <i  className='nc-icon nc-bullet-list-67 dropdown-icon' /> <p className='dropdown-text'>Bus list</p> </span></Dropdown.Item>
+
+                    </DropdownButton>
+
+                    <DropdownButton variant='dropdownnested' id="dropdown-item-button" title={<span> <i  className='nc-icon nc-single-02 dropdown-icon' /> <p className='dropdown-text'>Drivers</p> </span>}>
+                        <Dropdown.Item onClick={()=>{history.push('/admin/data/adddriver')}} className='btn-dropdownnested-item' as="button"><span> <i  className='dropdown-icon nc-icon nc-simple-add' /> <p className='dropdown-text'>Add Driver</p> </span></Dropdown.Item>
+                        <Dropdown.Item onClick={()=>{history.push('/admin/data/driverlist')}} className='btn-dropdownnested-item' as="button"><span> <i  className='nc-icon nc-bullet-list-67 dropdown-icon' /> <p className='dropdown-text'>Drivers list</p> </span></Dropdown.Item>
+
+                    </DropdownButton>
+
+
 
 
                 </NavDropdown>

@@ -1,0 +1,105 @@
+.search
+{
+    width:80vw;
+    border-radius: 20px !important;
+    height:30px !important;
+}
+
+tbody tr{
+  height:5em;
+    border:1px solid black;
+}
+
+.table-entry{
+    margin-top: 10px;
+    border-bottom:1px solid rgba(0, 0, 0, .1);
+}
+
+.table-entry :hover{
+background-color:#f2f2f2;
+
+}
+
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    margin-top:5vh;
+}
+
+.page-link {
+    padding: 10px;
+    margin: 0 2px;
+    background: #ffffff;
+    color:black;
+    border-radius:10px;
+}
+
+.page-item a.page-link:hover {
+    background-color:#ff4242;
+    color:white;
+    border-radius:10px;
+    /*border:none;*/
+}
+
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #ff4242;
+    border:none;
+    border-radius:10px;
+
+}
+
+.page-item.disabled .page-link {
+    color: #fff;
+}
+
+/* visually hide except for screen readers - from bootstrap styles */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.icon-margin{
+    margin-right: 6px;
+}
+
+.btn-margin{
+    margin-right: 6px;
+
+}
+
+.far:hover{
+background:none;
+}
+
+span{
+    font-size:18px;
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 600px) {
+    span {
+        font-size:15px;
+        padding-top:2px;
+    }
+
+    .fa-2x{
+        width:3px !important;
+        height:3px !important;
+        margin-left:-5px;
+    }
+    .btn-padding{
+        padding-right:22px;
+
+    }
+}
+
+

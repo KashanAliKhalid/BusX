@@ -62,7 +62,7 @@ const busSchema=mongoose.Schema({
     },
     complaint:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Complaint'
+        ref:'Complaint',
     },
     location:{
         latitude:{

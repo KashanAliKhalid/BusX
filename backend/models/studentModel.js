@@ -1,10 +1,16 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
 const studentSchema= mongoose.Schema({
-    name:{
+    firstName:{
         type:String,
         required:true,
             },
+    lastName:{
+        type:String,
+        required:true,
+    },
+
     password:{
       type:String,
       required:true,
@@ -12,16 +18,30 @@ const studentSchema= mongoose.Schema({
 
     },
     route:{
-        route:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'Route'
-        }
+            ref:'Route',
+            default:null
     },
     bus:{
-        bus:{
           type:mongoose.Schema.Types.ObjectId,
-            ref:'Bus'
-        }
+            ref:'Bus',
+            default:null
+    },
+    address:{
+      type:String,
+      required:true
+    },
+    city:{
+        type:String,
+        required:true
+    },
+    country:{
+        type:String,
+        required:true
+    },
+    postalCode:{
+        type:Number,
+        required:true
     },
     cnic:{
         type:Number,
@@ -39,36 +59,51 @@ const studentSchema= mongoose.Schema({
         type:Number,
         required:true
     },
-    image:{
-       type:String,
-        required:true
+    photo:{
+       type:Buffer,
+        required:true,
     },
-    registration:{
+    photoType:{
+      type:String,
+      required:true
+    },
+    regNo:{
         type:String,
         required:true
     },
     nearbyAlert:{
         latitude:{
-            type:Number
+            type:Number,
+            default:0
         },
         longitude:{
-            type:Number
+            type:Number,
+            default:0
         }
     },
     stop:{
         latitude:{
-            type:Number
+            type:Number,
+            default:0
         },
         longitude:{
-            type:Number
+            type:Number,
+            default:0
         }
+    },
+    feeStatus:{
+        type:String,
     }
 
-
-
-
-
 },{timeStamps:true})
+
+studentSchema.pre('save',async function (next){
+    const user=this;
+    if(user.isModified('password')){
+        user.password= await bcrypt.hash(user.password, 8)
+    }
+    next()
+})
 
 const Student=mongoose.model('Student', studentSchema)
 

@@ -19,8 +19,8 @@ const driverSchema=mongoose.Schema({
         type:Number,
         required:true
     },
-    image:{
-        type:String,
+    photo:{
+        type:Buffer,
         required:true
     },
     complaints:[

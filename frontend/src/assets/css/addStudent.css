@@ -1,0 +1,41 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+
+.rfid-image-container
+{
+
+   position:fixed;
+    z-index:99999;
+    transition: all 1s ease;
+    display:block;
+    width:100vw;
+    height:100vh;
+    background: rgba(31,20,37, 0.3);
+    -webkit-backface-visibility: hidden;
+}
+
+@media only screen and (min-width: 600px) {
+
+    .rfid-image
+    {
+        margin-left:25px;
+    }
+}
+
+
+
+.modal-content {
+    background: transparent;
+    border:none;
+}

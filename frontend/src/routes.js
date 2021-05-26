@@ -22,6 +22,8 @@ import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
+import AddStudent from "./views/AddStudent.js";
+import StudentList from "./views/StudentList.js";
 
 const dashboardRoutes = [
 
@@ -69,11 +71,21 @@ const dashboardRoutes = [
   },
   {
     path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
     component: Notifications,
     layout: "/admin",
   },
+  {
+    path: "/data/addstudent",
+    component: AddStudent,
+    layout: "/admin",
+  },
+
+  {
+    path: "/data/studentlist",
+    component: StudentList,
+    layout: "/admin",
+  },
+
 ];
 
 export default dashboardRoutes;
