@@ -1,4 +1,5 @@
 import React from 'react'
+require('dotenv').config()
 import {
     GoogleMap,
     LoadScript,
@@ -17,7 +18,7 @@ const center = {
 
  const TrackBuses=()=>{
    return(
-       <LoadScript googleMapsApiKey= 'AIzaSyAqUgdkgi2Y7TQfQBNZidwcMHxCo3tZjbg' >
+       <LoadScript googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API} >
            <GoogleMap
                mapContainerStyle={containerStyle}
                center={center}

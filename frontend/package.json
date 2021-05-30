@@ -9,6 +9,7 @@
     "bootstrap": "4.6.0",
     "chartist": "0.10.1",
     "date-fns": "^2.22.1",
+    "dotenv": "^8.2.0",
     "filepond": "^4.27.1",
     "filepond-plugin-file-encode": "^2.1.10",
     "filepond-plugin-file-validate-type": "^1.2.6",
