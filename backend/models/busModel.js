@@ -1,13 +1,21 @@
 import mongoose from 'mongoose'
 
 const busSchema=mongoose.Schema({
-    name:{
+    busNumber:{
         type:Number,
         required:true
     },
     driver:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Driver',
+        default:null
+
+
+    },
+    route:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Route',
+        default:null
 
     },
     model:{
@@ -24,7 +32,6 @@ const busSchema=mongoose.Schema({
     },
     nextService:{
       type:Date,
-      required:true
     },
     repairHistory:[
         {
@@ -46,24 +53,27 @@ const busSchema=mongoose.Schema({
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'Driver',
+            default:null
         }
     ],
     registrationNumber:{
-        type:Number,
+        type:String,
         required:true
     },
     registrationCard:{
-        type:String,
+        type:Buffer,
         required:true
     },
     fitnessReport:{
-        type:String,
+        type:Buffer,
         required:true
     },
-    complaint:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Complaint',
-    },
+    complaint:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Complaint',
+        }
+    ],
     location:{
         latitude:{
             type:String
@@ -71,7 +81,22 @@ const busSchema=mongoose.Schema({
         longitude:{
             type:String
         }
-    }
+    },
+    photo:{
+        type:Buffer,
+        required:true
+    },
+    photoType:{
+        type:String,
+        required:true
+    },
+    students:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Student',
+            default:null
+        }
+    ]
 })
 
 const Bus=mongoose.model('Bus',busSchema)

@@ -51,7 +51,6 @@ export const addStudent=(student)=>{
 
 export const studentList=(url)=>{
     return async(dispatch)=>{
-        console.log(url)
         try {
             dispatch({
                 type:STUDENT_LIST_REQUEST
@@ -73,3 +72,75 @@ export const studentList=(url)=>{
     }
 }
 
+export const deleteStudent=(id)=>{
+    return async (dispatch)=>{
+        try{
+            dispatch({
+                type:DELETE_STUDENT_REQUEST
+            })
+
+            await axios.delete(`/admin/data/deletestudent/${id}`)
+            dispatch({
+                type:DELETE_STUDENT_SUCCESS,
+            })
+        }
+        catch(error)
+        {
+            dispatch({
+                type:DELETE_STUDENT_FAIL,
+                payload: error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+export const getStudent=(id)=>{
+    return async (dispatch)=>{
+        try{
+            dispatch({
+                type:STUDENT_DETAILS_REQUEST
+            })
+
+            const {data}=await axios.get(`/admin/data/studentprofile/${id}`)
+            dispatch({
+                type:STUDENT_DETAILS_SUCCESS,
+                payload:data
+            })
+        }
+        catch (error)
+        {
+            dispatch({
+                type:STUDENT_DETAILS_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+export const updateStudent=(id,student)=>{
+    return async (dispatch)=>{
+        try{
+            dispatch({
+                type:UPDATE_STUDENT_REQUEST
+            })
+
+            const {data}=await axios.patch(`/admin/data/updatestudent/${id}`,student)
+            dispatch({
+                type:UPDATE_STUDENT_SUCCESS,
+                payload:data
+            })
+        }
+        catch(error){
+            dispatch({
+                type:UPDATE_STUDENT_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}

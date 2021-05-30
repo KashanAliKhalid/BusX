@@ -45,3 +45,55 @@ export const studentListReducer=(state={},action)=>{
             return state
     }
 }
+
+
+export const deleteStudentReducer =(state={deleting:false},action)=>{
+    switch(action.type)
+    {
+        case DELETE_STUDENT_REQUEST:{
+            return {deleting:true}
+        }
+        case(DELETE_STUDENT_SUCCESS):{
+            return{deleting:false, success:true}
+        }
+        case(DELETE_STUDENT_FAIL): {
+            return{deleting:false,error:action.payload}
+        }
+        default:
+            return state
+    }
+}
+
+export const studentProfileReducer =(state={},action)=>{
+    switch(action.type)
+    {
+        case STUDENT_DETAILS_REQUEST:{
+            return{loading:true}
+        }
+        case STUDENT_DETAILS_SUCCESS:{
+            return{ loading:false, student:action.payload}
+        }
+        case STUDENT_DETAILS_FAIL:{
+            return{loading:false, error:action.payload}
+        }
+        default:
+            return state
+    }
+}
+
+export const updateStudentReducer =(state={}, action)=>{
+    switch(action.type)
+    {
+        case UPDATE_STUDENT_REQUEST:{
+            return {updateLoading:true}
+        }
+        case UPDATE_STUDENT_SUCCESS:{
+            return {updateLoading: false, updatedStudent:action.payload}
+        }
+        case UPDATE_STUDENT_FAIL:{
+            return {updateLoading:false, error:action.payload}
+        }
+        default:
+            return state;
+    }
+}

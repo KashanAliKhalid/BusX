@@ -24,6 +24,12 @@ import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import AddStudent from "./views/AddStudent.js";
 import StudentList from "./views/StudentList.js";
+import StudentProfile from './views/StudentProfile.js'
+import AddBus from "./views/AddBus";
+import BusList from "./views/BusList"
+import TrackBuses from "./views/TrackBuses";
+import BusProfile from "./views/BusProfile";
+
 
 const dashboardRoutes = [
 
@@ -63,10 +69,8 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/maps",
-    name: "Maps",
-    icon: "nc-icon nc-pin-3",
-    component: Maps,
+    path: "/trackbuses",
+    component: TrackBuses,
     layout: "/admin",
   },
   {
@@ -85,7 +89,27 @@ const dashboardRoutes = [
     component: StudentList,
     layout: "/admin",
   },
+  {
+    path: "/data/studentprofile/:id",
+    component: StudentProfile,
+    layout: "/admin",
+  },
+  {
+    path: "/data/addbus",
+    component: AddBus,
+    layout: "/admin",
+  },
+  {
+    path: "/data/buslist",
+    component: BusList,
+    layout: "/admin",
+  },
+  {
+    path:"/data/busprofile/:id",
+    component:BusProfile,
+    layout: "/admin",
 
+  }
 ];
 
 export default dashboardRoutes;

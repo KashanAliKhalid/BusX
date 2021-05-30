@@ -2,12 +2,19 @@
 .loader{
     padding:0;
     margin:0;
-    width:100vw;
+    width:82vw;
     height:100vh;
     background: #E0C247;
     background: -webkit-linear-gradient(top left, #E0C247, #E0CD50);
     background: -moz-linear-gradient(top left, #E0C247, #E0CD50);
     background: linear-gradient(to bottom right, #E0C247, #E0CD50);
+}
+
+@media only screen and (max-width: 600px) {
+    .loader {
+        width:92.5vw;
+        height:100vh;
+    }
 }
 .wrapper-loader{
     width:200px;

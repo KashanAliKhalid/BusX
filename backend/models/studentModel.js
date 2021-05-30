@@ -91,8 +91,11 @@ const studentSchema= mongoose.Schema({
             default:0
         }
     },
-    feeStatus:{
-        type:String,
+    // feeStatus:{
+    //     type:String,
+    // },
+    attendance:{
+        type:Boolean,
     }
 
 },{timeStamps:true})

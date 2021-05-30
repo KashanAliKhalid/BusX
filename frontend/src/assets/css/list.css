@@ -102,4 +102,24 @@ span{
     }
 }
 
+/*.form-check input[type="checkbox"], .form-check-radio input[type="radio"]*/
+/*{*/
+/*    opacity:1;*/
+/*    visibility: visible;*/
+/*    margin-top:25px;*/
+/*}*/
+
+.checkbox{
+    margin-top:-28px;
+    margin-right:50px !important;
+}
+
+.form-check .form-check-sign::after{
+    color:red;
+}
+
+.form-check{
+    padding-left:0 !important;
+}
+
 

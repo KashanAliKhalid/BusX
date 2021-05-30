@@ -73,7 +73,7 @@ function Sidebar({ color, image, routes }) {
 
             <li
                 className={
-                    activeRoute('/admin/notifications')
+                    activeRoute('/admin/trackbuses')
                 }
             >
                 <NavDropdown title={<span> <i className='nc-icon nc-square-pin' /> <p>Track buses</p> </span>}   onClick={()=>{history.push('/admin/trackbuses')}}>

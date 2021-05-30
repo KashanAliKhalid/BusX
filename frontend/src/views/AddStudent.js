@@ -27,7 +27,7 @@ import {
     Col, Alert, Modal,
 } from "react-bootstrap";
 
-import '../assets/css/addStudent.css'
+import '../assets/css/addData.css'
 
 
 const User=({match})=> {

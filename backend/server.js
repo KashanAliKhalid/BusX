@@ -3,6 +3,8 @@ import connectDB from "./config/db.js";
 import express from 'express'
 import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
 import studentRoutes from "./routes/admin/studentRoutes.js";
+import busRoutes from "./routes/admin/busRoutes.js";
+
 import bodyParser from 'body-parser'
 
 
@@ -19,6 +21,8 @@ res.send('API is running')
 })
 
 app.use('/admin/data',studentRoutes)
+app.use('/admin/data',busRoutes)
+
 
 // notFound();
 // errorHandler();
