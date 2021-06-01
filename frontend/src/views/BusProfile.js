@@ -4,7 +4,7 @@ import QRCode from 'qrcode.react'
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import {useDispatch, useSelector} from "react-redux";
-import {getBus} from '../actions/busActions.js';
+import {getBus,updateBus} from '../actions/busActions.js';
 
 
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
@@ -32,12 +32,16 @@ import {
 
 import '../assets/css/addData.css'
 import ProfileLoader from "../components/Loaders/ProfileLoader";
+import UpdateLoader from "../components/Loaders/UpdateLoader";
 
 
 const BusProfile=({match})=> {
     const dispatch= useDispatch();
     const busProfile=useSelector(state=>state.busProfile)
+    const updatedBusProfile=useSelector(state=>state.updatedBus)
+
     const {bus,loading,error}=busProfile;
+    const{updateLoading, updatedBus}=updatedBusProfile;
 
     const[busNumber,setBusNumber] =useState(null);
     const[registrationNumber,setRegistrationNumber] =useState(null);
@@ -51,32 +55,36 @@ const BusProfile=({match})=> {
 
 
     const onSubmitHandler= (e)=>{
+        console.log("hi")
         e.preventDefault();
         const data={
             busNumber,registrationNumber,manufacturer,model,purchaseDate,
-            registrationCard:registrationCard[0].getFileEncodeBase64String(),
-            fitnessReport:fitnessReport[0].getFileEncodeBase64String(),
-            photo:profile[0].getFileEncodeBase64String(),
-            photoType:profile[0].fileType,
+            registrationCard:registrationCard===''? bus.registrationCard: registrationCard[0].getFileEncodeBase64String(),
+            fitnessReport:fitnessReport===''? bus.fitnessReport: fitnessReport[0].getFileEncodeBase64String(),
+            photo:profile===''? bus.photo: profile[0].getFileEncodeBase64String(),
+            photoType:profile===''?bus.photoType: profile[0].fileType,
         }
-        dispatch(addBus(data))
+        dispatch(updateBus(bus._id,data))
     }
 
     useEffect(()=>{
         dispatch(getBus(match.params.id))
 
-    },[dispatch])
+    },[dispatch,updatedBus])
 
     const showProfile=()=>{
         if(bus!==undefined)
         {
-            return (
+            if(updateLoading===true)
+                return <UpdateLoader/>
+            else
+                return (
                 <Container fluid>
                     <Row>
                         <Col md="8">
                             <Card>
                                 <Card.Header>
-                                    <Card.Title as="h4">Add Bus</Card.Title>
+                                    <Card.Title as="h4">{bus.registrationNumber} Profile</Card.Title>
                                 </Card.Header>
                                 <Card.Body>
                                     <Form onSubmit={(e)=>{onSubmitHandler(e)}}>
@@ -148,7 +156,6 @@ const BusProfile=({match})=> {
                                         <Row>
                                             <Col className="pl-3" md="4">
                                                 <FilePond
-                                                    required={true}
                                                     allowMultiple={false}
                                                     labelIdle='Bus Image <span class="filepond--label-action">Browse</span>'
                                                     imageResizeTargetHeight={150}
@@ -160,7 +167,6 @@ const BusProfile=({match})=> {
                                             </Col>
                                             <Col className="pl-3" md="4">
                                                 <FilePond
-                                                    required={true}
                                                     acceptedFileTypes={['application/pdf']}
                                                     allowMultiple={false}
                                                     labelIdle='Bus Registration Card <span class="filepond--label-action">Browse</span>'
@@ -171,7 +177,6 @@ const BusProfile=({match})=> {
                                             </Col>
                                             <Col className="pl-3" md="4">
                                                 <FilePond
-                                                    required={true}
                                                     allowMultiple={false}
                                                     acceptedFileTypes={['application/pdf']}
                                                     labelIdle='Bus Fitness report <span class="filepond--label-action">Browse</span>'
@@ -185,8 +190,11 @@ const BusProfile=({match})=> {
                                             className="btn-fill pull-right"
                                             type="submit"
                                             variant="info"
+                                            onClick={(e) => {
+                                                onSubmitHandler(e)
+                                            }}
                                         >
-                                            Add Bus
+                                            Update Profile
                                         </Button>
                                         <div className="clearfix"></div>
                                     </Form>
@@ -211,12 +219,13 @@ const BusProfile=({match})=> {
                                                 {
                                                     profile === '' ?
                                                         <img
-                                                            style={{objectFit:'contain'}}
+                                                            style={{width:'auto', height:'auto'}}
                                                             alt="check"
                                                             className="avatar border-gray"
                                                             src={`data:${bus.photoType};charset=utf8;base64,${Buffer.from(bus.photo).toString('ascii')}`}
                                                         ></img>
                                                         : profile[0] !==undefined? <img
+                                                            style={{width:'auto', height:'auto'}}
                                                             alt="check"
                                                             className="avatar border-gray"
                                                             src={`data:${profile[0].fileType};charset=utf8;base64,${profile[0].getFileEncodeBase64String()}`}

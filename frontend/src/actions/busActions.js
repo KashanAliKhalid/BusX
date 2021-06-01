@@ -15,18 +15,11 @@ import{
     BUS_DETAILS_REQUEST,
     BUS_DETAILS_SUCCESS,
     BUS_DETAILS_FAIL,
+    BUS_COUNT_REQUEST,
+    BUS_COUNT_SUCCESS,
+    BUS_COUNT_FAIL
 } from '../constants/busConstants'
-import {
-    DELETE_STUDENT_FAIL,
-    DELETE_STUDENT_REQUEST,
-    DELETE_STUDENT_SUCCESS,
-    STUDENT_DETAILS_FAIL,
-    STUDENT_DETAILS_REQUEST,
-    STUDENT_DETAILS_SUCCESS,
-    STUDENT_LIST_FAIL,
-    STUDENT_LIST_REQUEST,
-    STUDENT_LIST_SUCCESS
-} from "../constants/studentConstants";
+
 
 export const addBus=(bus)=>{
     return async (dispatch)=>{
@@ -123,6 +116,55 @@ export const getBus=(id)=>{
         {
             dispatch({
                 type:BUS_DETAILS_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+
+export const updateBus=(id,bus)=>{
+    return async (dispatch)=>{
+        try{
+            dispatch({
+                type:UPDATE_BUS_REQUEST
+            })
+
+            const {data}=await axios.patch(`/admin/data/updatebus/${id}`,bus)
+            dispatch({
+                type:UPDATE_BUS_SUCCESS,
+                payload:data
+            })
+        }
+        catch(error){
+            dispatch({
+                type:UPDATE_BUS_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+export const countBus=()=>{
+    return async(dispatch)=>{
+        try{
+            dispatch({
+                type:BUS_COUNT_REQUEST
+            })
+
+            const count=await axios.get('/admin/data/buscount')
+            dispatch({
+                type:BUS_COUNT_SUCCESS,
+                payload:count
+            })
+        }
+        catch (error) {
+            dispatch({
+                type:BUS_COUNT_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message

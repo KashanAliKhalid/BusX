@@ -88,5 +88,11 @@ const updateStudent=asyncHandler(async (req,res)=>{
 
 })
 
-export {addStudent, studentList,deleteStudent, getStudent,updateStudent}
+
+const studentCount=asyncHandler (async(req,res)=>{
+    const count= await Student.countDocuments({})
+    res.json({count})
+})
+
+export {addStudent, studentList,deleteStudent, getStudent,updateStudent,studentCount}
 

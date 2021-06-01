@@ -32,6 +32,7 @@ const busSchema=mongoose.Schema({
     },
     nextService:{
       type:Date,
+        default:null
     },
     repairHistory:[
         {

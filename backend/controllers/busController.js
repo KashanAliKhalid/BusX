@@ -56,4 +56,36 @@ const getBus=asyncHandler(async(req,res)=>{
     }
 })
 
-export {addBus,busList,deleteBus, getBus}
+
+const updateBus=asyncHandler(async (req,res)=>{
+    const bus= await Bus.findById(req.params.id)
+
+    if(bus){
+        bus.busNumber= req.body.busNumber || bus.busNumber;
+        bus.registrationNumber=req.body.registrationNumber || bus.registrationNumber;
+        bus.photo=req.body.photo || bus.photo
+        bus.purchaseDate=req.body.purchaseDate || bus.purchaseDate;
+        bus.model= req.body.model||bus.model;
+        bus.manufacturer= req.body.manufacturer || bus.manufacturer;
+        bus.registrationCard= req.body.registration || bus.registrationCard;
+        bus.fitnessReport= req.body.fitnessReport || bus.fitnessReport
+        bus.photoType= req.body.photoType || bus.photoType
+
+        const updatedStudent=await bus.save()
+        res.json(updatedStudent)
+    }
+    else{
+        res.status(404);
+        throw new Error('Bus not found')
+    }
+
+
+})
+
+
+const busCount=asyncHandler (async(req,res)=>{
+    const count= await Bus.countDocuments({})
+    res.json({count})
+})
+
+export {addBus,busList,deleteBus, getBus,updateBus, busCount}

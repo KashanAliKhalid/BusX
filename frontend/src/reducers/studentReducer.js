@@ -14,7 +14,11 @@ import{
     STUDENT_DETAILS_REQUEST,
     STUDENT_DETAILS_SUCCESS,
     STUDENT_DETAILS_FAIL,
+    STUDENT_COUNT_REQUEST,
+    STUDENT_COUNT_SUCCESS,
+    STUDENT_COUNT_FAIL
 } from '../constants/studentConstants'
+import {BUS_COUNT_FAIL, BUS_COUNT_REQUEST, BUS_COUNT_SUCCESS} from "../constants/busConstants";
 
 
 export const addStudentReducer=(state={},action)=>{
@@ -92,6 +96,22 @@ export const updateStudentReducer =(state={}, action)=>{
         }
         case UPDATE_STUDENT_FAIL:{
             return {updateLoading:false, error:action.payload}
+        }
+        default:
+            return state;
+    }
+}
+
+export const studentCountReducer = (state={},action)=>{
+    switch(action.type){
+        case STUDENT_COUNT_REQUEST:{
+            return{studentLoading:true}
+        }
+        case STUDENT_COUNT_SUCCESS:{
+            return{studentLoading:false, studentCount:action.payload}
+        }
+        case STUDENT_COUNT_FAIL:{
+            return{studentLoading:false, error:action.payload}
         }
         default:
             return state;

@@ -14,20 +14,20 @@ import {
 import  '../assets/css/list.css'
 import Pagination from 'react-responsive-pagination';
 import 'font-awesome/css/font-awesome.min.css';
-import {busList,deleteBus} from '../actions/busActions'
+import {driverList,deleteDriver} from '../actions/driverActions'
 import SimpleLoader from '../components/Loaders/SimpleLoader'
 import DeleteLoader from '../components/Loaders/DeleteLoader'
 
 
-const BusList=({history, location,url})=>{
-    const redirect=url || '/admin/data/busprofile/'
+const DriverList=({history, location})=>{
+
     const dispatch= useDispatch()
-    const busListData =useSelector(state=>state.busList)
-    const deleted =useSelector(state=>state.busDelete)
+    const driverListData =useSelector(state=>state.driverList)
+    const deleted =useSelector(state=>state.driverDelete)
 
 
 
-    const{loading,error,buses}=busListData
+    const{loading,error,drivers}=driverListData
     const{success,deleting}=deleted
     const [currentPage, setCurrentPage] = useState(1);
     const[search, setSearch]=useState('')
@@ -36,16 +36,16 @@ const BusList=({history, location,url})=>{
 
 
     const handleDelete=(id)=>{
-        dispatch(deleteBus(id))
+        dispatch(deleteDriver(id))
     }
 
 
     useEffect(()=>{
         if(location.search){
-            dispatch(busList(location.pathname+location.search))
+            dispatch(driverList(location.pathname+location.search))
         }
         else{
-            dispatch(busList(location.pathname))
+            dispatch(driverList(location.pathname))
         }
 
 
@@ -55,9 +55,9 @@ const BusList=({history, location,url})=>{
         setCurrentPage(1)
         setSearch(value)
         if(value!=='')
-            history.push(`/admin/data/buslist?search=${value}`)
+            history.push(`/admin/data/driverlist?search=${value}`)
         else{
-            history.push(`/admin/data/buslist`)
+            history.push(`/admin/data/driverlist`)
         }
     }
 
@@ -65,10 +65,10 @@ const BusList=({history, location,url})=>{
         setCurrentPage(page);
         if(search==='')
         {
-            history.push(`/admin/data/buslist?page=${page}`)
+            history.push(`/admin/data/driverlist?page=${page}`)
         }
         else{
-            history.push(`/admin/data/buslist?search=${search}&page=${page}`)
+            history.push(`/admin/data/driverlist?search=${search}&page=${page}`)
         }
     }
 
@@ -88,13 +88,13 @@ const BusList=({history, location,url})=>{
                         onEnter={handleSearch}
                     />
                     {
-                        buses===undefined? '' : buses.buses.map(bus =>{
+                        drivers===undefined? '' : drivers.drivers.map(driver =>{
                             return(
-                                <div key={bus._id}  className='table-entry'>
+                                <div key={driver._id}  className='table-entry'>
                                     <Row  className='justify-content-center flex-row align-items-center' >
                                         <Col xs={10} md={1}>
                                             <img style={{objectFit:'contain'}} className='img-thumbnail ' width={100} height={100}
-                                                 src={`data:${bus.photoType};charset=utf8;base64,${Buffer.from(bus.photo).toString('ascii')}`} />
+                                                 src={`data:${driver.photoType};charset=utf8;base64,${Buffer.from(driver.photo).toString('ascii')}`} />
 
                                         </Col>
                                         <Col xs={2} className='d-md-none'>
@@ -110,8 +110,8 @@ const BusList=({history, location,url})=>{
                                         </Col>
                                         <Col  xs={6} md={6}>
                                             <p >
-                                                <span>{bus.registrationNumber} </span><br/>
-                                                <span>Bus Number:{bus.busNumber}</span>
+                                                <span>{driver.firstName} {driver.lastName} </span><br/>
+                                                <span>{driver.cnic}</span>
                                             </p>
 
                                         </Col>
@@ -122,7 +122,7 @@ const BusList=({history, location,url})=>{
                                                     <Tooltip id="tooltip-829164576">Remove</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{handleDelete(bus._id)}}  size='sm' className='btn-fill btn-padding btn-margin' variant="danger"><i className=" far fa-trash-alt fa-2x "> </i></Button>
+                                                <Button onClick={()=>{handleDelete(driver._id)}}  size='sm' className='btn-fill btn-padding btn-margin' variant="danger"><i className=" far fa-trash-alt fa-2x "> </i></Button>
                                             </OverlayTrigger>
 
 
@@ -131,7 +131,7 @@ const BusList=({history, location,url})=>{
                                                     <Tooltip id="tooltip-829164576">Profile</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{history.push(`${redirect}${bus._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
+                                                <Button onClick={()=>{history.push(`/admin/data/driverprofile/${driver._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
                                             </OverlayTrigger>
                                         </Col>
                                         <Col md={1} className='d-none d-md-block'>
@@ -152,9 +152,9 @@ const BusList=({history, location,url})=>{
 
                     }
                     {
-                        buses===undefined? '' : (<Pagination
-                            current={buses.page}
-                            total={buses.pages}
+                        drivers===undefined? '' : (<Pagination
+                            current={drivers.page}
+                            total={drivers.pages}
                             onPageChange={pageChangeHandler}
                         />)
                     }
@@ -172,4 +172,4 @@ const BusList=({history, location,url})=>{
     );
 }
 
-export default BusList;
+export default DriverList;

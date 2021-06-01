@@ -29,6 +29,9 @@ import AddBus from "./views/AddBus";
 import BusList from "./views/BusList"
 import TrackBuses from "./views/TrackBuses";
 import BusProfile from "./views/BusProfile";
+import AddDriver from "./views/AddDriver";
+import DriverList from "./views/DriverList";
+import DriverProfile from "./views/DriverProfile";
 
 
 const dashboardRoutes = [
@@ -109,7 +112,27 @@ const dashboardRoutes = [
     component:BusProfile,
     layout: "/admin",
 
-  }
+  },
+  {
+    path:"/data/adddriver",
+    component:AddDriver,
+    layout: "/admin",
+
+  },
+  {
+    path:"/data/driverlist",
+    component:DriverList,
+    layout: "/admin",
+
+  },
+  {
+    path:"/data/driverprofile/:id",
+    component:DriverProfile,
+    layout: "/admin",
+
+  },
+
+
 ];
 
 export default dashboardRoutes;

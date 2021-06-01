@@ -4,6 +4,8 @@ import express from 'express'
 import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
 import studentRoutes from "./routes/admin/studentRoutes.js";
 import busRoutes from "./routes/admin/busRoutes.js";
+import driverRoutes from "./routes/admin/driverRoutes.js";
+
 
 import bodyParser from 'body-parser'
 
@@ -22,6 +24,7 @@ res.send('API is running')
 
 app.use('/admin/data',studentRoutes)
 app.use('/admin/data',busRoutes)
+app.use('/admin/data',driverRoutes)
 
 
 // notFound();

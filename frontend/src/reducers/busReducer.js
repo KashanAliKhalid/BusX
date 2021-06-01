@@ -1,4 +1,4 @@
-import{
+import {
     ADD_BUS_REQUEST,
     ADD_BUS_SUCCESS,
     ADD_BUS_FAIL,
@@ -14,18 +14,11 @@ import{
     BUS_DETAILS_REQUEST,
     BUS_DETAILS_SUCCESS,
     BUS_DETAILS_FAIL,
+    BUS_COUNT_REQUEST,
+    BUS_COUNT_SUCCESS,
+    BUS_COUNT_FAIL
 } from '../constants/busConstants'
-import {
-    DELETE_STUDENT_FAIL,
-    DELETE_STUDENT_REQUEST,
-    DELETE_STUDENT_SUCCESS,
-    STUDENT_DETAILS_FAIL,
-    STUDENT_DETAILS_REQUEST,
-    STUDENT_DETAILS_SUCCESS,
-    STUDENT_LIST_FAIL,
-    STUDENT_LIST_REQUEST,
-    STUDENT_LIST_SUCCESS
-} from "../constants/studentConstants";
+
 
 export const addBusReducer=(state={},action)=>{
     switch(action.type)
@@ -95,5 +88,40 @@ export const busProfileReducer =(state={},action)=>{
         }
         default:
             return state
+    }
+}
+
+
+
+export const updateBusReducer =(state={}, action)=>{
+    switch(action.type)
+    {
+        case UPDATE_BUS_REQUEST:{
+            return {updateLoading:true}
+        }
+        case UPDATE_BUS_SUCCESS:{
+            return {updateLoading: false, updatedBus:action.payload}
+        }
+        case UPDATE_BUS_FAIL:{
+            return {updateLoading:false, error:action.payload}
+        }
+        default:
+            return state;
+    }
+}
+
+export const busCountReducer = (state={},action)=>{
+    switch(action.type){
+        case BUS_COUNT_REQUEST:{
+            return{busLoading:true}
+        }
+        case BUS_COUNT_SUCCESS:{
+            return{busLoading:false,busCount:action.payload}
+        }
+        case BUS_COUNT_FAIL:{
+            return{busLoading:false, error:action.payload}
+        }
+        default:
+            return state;
     }
 }

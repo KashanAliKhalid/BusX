@@ -1,40 +1,42 @@
-import axios from 'axios'
 import{
-    ADD_STUDENT_REQUEST,
-    ADD_STUDENT_SUCCESS,
-    ADD_STUDENT_FAIL,
-    UPDATE_STUDENT_REQUEST,
-    UPDATE_STUDENT_SUCCESS,
-    UPDATE_STUDENT_FAIL,
-    DELETE_STUDENT_REQUEST,
-    DELETE_STUDENT_SUCCESS,
-    DELETE_STUDENT_FAIL,
-    STUDENT_LIST_REQUEST,
-    STUDENT_LIST_SUCCESS,
-    STUDENT_LIST_FAIL,
-    STUDENT_DETAILS_REQUEST,
-    STUDENT_DETAILS_SUCCESS,
-    STUDENT_DETAILS_FAIL,
-    STUDENT_COUNT_REQUEST,
-    STUDENT_COUNT_SUCCESS,
-    STUDENT_COUNT_FAIL
-} from '../constants/studentConstants'
+    ADD_DRIVER_REQUEST,
+    ADD_DRIVER_SUCCESS,
+    ADD_DRIVER_FAIL,
+    UPDATE_DRIVER_REQUEST,
+    UPDATE_DRIVER_SUCCESS,
+    UPDATE_DRIVER_FAIL,
+    DELETE_DRIVER_REQUEST,
+    DELETE_DRIVER_SUCCESS,
+    DELETE_DRIVER_FAIL,
+    DRIVER_LIST_REQUEST,
+    DRIVER_LIST_SUCCESS,
+    DRIVER_LIST_FAIL,
+    DRIVER_DETAILS_REQUEST,
+    DRIVER_DETAILS_SUCCESS,
+    DRIVER_DETAILS_FAIL,
+    DRIVER_COUNT_REQUEST,
+    DRIVER_COUNT_SUCCESS,
+    DRIVER_COUNT_FAIL
+} from '../constants/driverConstants'
+import axios from 'axios'
 import {BUS_COUNT_FAIL, BUS_COUNT_REQUEST, BUS_COUNT_SUCCESS} from "../constants/busConstants";
 
-export const addStudent=(student)=>{
+
+
+export const addDriver=(Driver)=>{
     return async (dispatch)=>{
         try{
             dispatch({
-                type:ADD_STUDENT_REQUEST
+                type:ADD_DRIVER_REQUEST
             })
 
-            const {data}= await axios.post('/admin/data/addStudent',student,{
+            const {data}= await axios.post('/admin/data/adddriver',Driver,{
                 headers:{
                     'Content-Type': 'application/json'
                 }
             })
             dispatch({
-                type:ADD_STUDENT_SUCCESS,
+                type:ADD_DRIVER_SUCCESS,
                 payload:data,
             })
         }
@@ -46,28 +48,29 @@ export const addStudent=(student)=>{
                     : error.message
 
             dispatch({
-                type:ADD_STUDENT_FAIL,
+                type:ADD_DRIVER_FAIL,
                 payload:message
             })
         }
     }
 }
 
-export const studentList=(url)=>{
+export const driverList=(url)=>{
     return async(dispatch)=>{
+        console.log(url)
         try {
             dispatch({
-                type:STUDENT_LIST_REQUEST
+                type:DRIVER_LIST_REQUEST
             })
             const {data} = await axios.get(url.toString())
             dispatch({
-                type:STUDENT_LIST_SUCCESS,
+                type:DRIVER_LIST_SUCCESS,
                 payload:data
             })
         }
         catch (error) {
             dispatch({
-                type:STUDENT_LIST_FAIL,
+                type:DRIVER_LIST_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message,
@@ -76,22 +79,23 @@ export const studentList=(url)=>{
     }
 }
 
-export const deleteStudent=(id)=>{
+export const deleteDriver=(id)=>{
     return async (dispatch)=>{
+        console.log(id)
         try{
             dispatch({
-                type:DELETE_STUDENT_REQUEST
+                type:DELETE_DRIVER_REQUEST
             })
 
-            await axios.delete(`/admin/data/deletestudent/${id}`)
+            await axios.delete(`/admin/data/deletedriver/${id}`)
             dispatch({
-                type:DELETE_STUDENT_SUCCESS,
+                type:DELETE_DRIVER_SUCCESS,
             })
         }
         catch(error)
         {
             dispatch({
-                type:DELETE_STUDENT_FAIL,
+                type:DELETE_DRIVER_FAIL,
                 payload: error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -100,23 +104,24 @@ export const deleteStudent=(id)=>{
     }
 }
 
-export const getStudent=(id)=>{
+export const getDriver=(id)=>{
     return async (dispatch)=>{
+        console.log(id)
         try{
             dispatch({
-                type:STUDENT_DETAILS_REQUEST
+                type:DRIVER_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/studentprofile/${id}`)
+            const {data}=await axios.get(`/admin/data/driverprofile/${id}`)
             dispatch({
-                type:STUDENT_DETAILS_SUCCESS,
+                type:DRIVER_DETAILS_SUCCESS,
                 payload:data
             })
         }
         catch (error)
         {
             dispatch({
-                type:STUDENT_DETAILS_FAIL,
+                type:DRIVER_DETAILS_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -125,22 +130,22 @@ export const getStudent=(id)=>{
     }
 }
 
-export const updateStudent=(id,student)=>{
+export const updateDriver=(id,driver)=>{
     return async (dispatch)=>{
         try{
             dispatch({
-                type:UPDATE_STUDENT_REQUEST
+                type:UPDATE_DRIVER_REQUEST
             })
 
-            const {data}=await axios.patch(`/admin/data/updatestudent/${id}`,student)
+            const {data}=await axios.patch(`/admin/data/updatedriver/${id}`,driver)
             dispatch({
-                type:UPDATE_STUDENT_SUCCESS,
+                type:UPDATE_DRIVER_SUCCESS,
                 payload:data
             })
         }
         catch(error){
             dispatch({
-                type:UPDATE_STUDENT_FAIL,
+                type:UPDATE_DRIVER_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -150,22 +155,22 @@ export const updateStudent=(id,student)=>{
 }
 
 
-export const countStudent=()=>{
+export const countDriver=()=>{
     return async(dispatch)=>{
         try{
             dispatch({
-                type:STUDENT_COUNT_REQUEST
+                type:DRIVER_COUNT_REQUEST
             })
 
-            const count=await axios.get('/admin/data/studentcount')
+            const count=await axios.get('/admin/data/drivercount')
             dispatch({
-                type:STUDENT_COUNT_SUCCESS,
+                type:DRIVER_COUNT_SUCCESS,
                 payload:count
             })
         }
         catch (error) {
             dispatch({
-                type:STUDENT_COUNT_FAIL,
+                type:DRIVER_COUNT_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message

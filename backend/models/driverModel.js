@@ -1,7 +1,12 @@
 import mongoose from 'mongoose'
+import bcrypt from "bcryptjs";
 
 const driverSchema=mongoose.Schema({
-    name:{
+    firstName:{
+        type:String,
+        required:true,
+    },
+    lastName:{
         type:String,
         required:true,
     },
@@ -15,6 +20,14 @@ const driverSchema=mongoose.Schema({
         type:Number,
         required:true
     },
+    age:{
+        type:Number,
+        required:true
+    },
+    dob:{
+      type:Date,
+      required:true,
+    },
     contact:{
         type:Number,
         required:true
@@ -22,6 +35,26 @@ const driverSchema=mongoose.Schema({
     photo:{
         type:Buffer,
         required:true
+    },
+    city:{
+        type:String,
+        required:true
+    },
+    country:{
+        type:String,
+        required:true
+    },
+    address:{
+      type:String,
+      required:true
+    },
+    postalCode:{
+        type:Number,
+        required:true
+    },
+    photoType:{
+      type:String,
+      required:true
     },
     complaints:[
         {
@@ -48,9 +81,18 @@ const driverSchema=mongoose.Schema({
         }
     ],
     license:{
-        type:String,
+        type:Buffer,
         required:true
     }
+})
+
+
+driverSchema.pre('save',async function (next){
+    const user=this;
+    if(user.isModified('password')){
+        user.password= await bcrypt.hash(user.password, 8)
+    }
+    next()
 })
 
 const Driver =mongoose.model('Driver',driverSchema)

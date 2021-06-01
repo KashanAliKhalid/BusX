@@ -46,18 +46,9 @@ function Sidebar({ color, image, routes }) {
                 activeRoute('/admin/dashboard')
               }
           >
-            <NavDropdown title={<span> <i className='nc-icon nc-chart-pie-35' /> <p>Dashboard </p> </span>}   onClick={()=>{history.push('/admin/dashboard')}}>
-              <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-
-            </NavDropdown>
-            {/*<NavLink*/}
-            {/*  to={prop.layout + prop.path}*/}
-            {/*  className="nav-link"*/}
-            {/*  activeClassName="active"*/}
-            {/*>*/}
-            {/*  <i className={prop.icon} />*/}
-            {/*  <p>{prop.name}</p>*/}
-            {/*</NavLink>*/}
+            <NavLink   className="nav-link" to={'/admin/dashboard'}>
+                <span> <i className='nc-icon nc-chart-pie-35' /> <p>Dashboard </p> </span>
+            </NavLink>
           </li>
 
           <li
@@ -76,11 +67,9 @@ function Sidebar({ color, image, routes }) {
                     activeRoute('/admin/trackbuses')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-square-pin' /> <p>Track buses</p> </span>}   onClick={()=>{history.push('/admin/trackbuses')}}>
-                    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-
-                </NavDropdown>
-
+                <NavLink to='/admin/trackbuses'   className="nav-link" >
+                    <span> <i className='nc-icon nc-square-pin' /> <p>Track buses</p> </span>
+                </NavLink>
             </li>
 
             <li
@@ -99,10 +88,14 @@ function Sidebar({ color, image, routes }) {
                     activeRoute('/admin/drivers')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>}   onClick={()=>{history.push('/admin/drivers')}}>
-                    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
+                <NavLink to='/admin/drivers'   className="nav-link">
+                    <span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>
+                </NavLink>
 
-                </NavDropdown>
+                {/*<NavDropdown title={<span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>}   onClick={()=>{history.push('/admin/drivers')}}>*/}
+                {/*    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>*/}
+
+                {/*</NavDropdown>*/}
             </li>
 
             <li
