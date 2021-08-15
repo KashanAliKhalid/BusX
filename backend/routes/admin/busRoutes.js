@@ -3,12 +3,14 @@ import {addBus,busList,deleteBus,getBus,updateBus,busCount} from '../../controll
 
 const router =express.Router()
 
-router.route('/addbus').post(addBus)
-router.route('/buslist').get(busList)
-router.route('/deletebus/:id').delete(deleteBus)
-router.route('/busprofile/:id').get(getBus)
-router.route('/updatebus/:id').patch(updateBus)
-router.route('/buscount').get(busCount)
+router.route('/data/addbus').post(addBus)
+router.route('/data/buslist').get(busList)
+router.route('/data/deletebus/:id').delete(deleteBus)
+router.route('/data/updatebusprofile/:id').get(getBus)
+router.route('/data/updatebus/:id').patch(updateBus)
+router.route('/data/buscount').get(busCount)
+router.route('/assets').get(busList)
+router.route('/busdetails/:id').get(getBus)
 
 
 export default router

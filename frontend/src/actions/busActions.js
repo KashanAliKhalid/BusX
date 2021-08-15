@@ -106,7 +106,7 @@ export const getBus=(id)=>{
                 type:BUS_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/busprofile/${id}`)
+            const {data}=await axios.get(`/admin/data/updatebusprofile/${id}`)
             dispatch({
                 type:BUS_DETAILS_SUCCESS,
                 payload:data

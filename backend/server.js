@@ -22,9 +22,9 @@ app.get('/',(req,res)=>{
 res.send('API is running')
 })
 
-app.use('/admin/data',studentRoutes)
-app.use('/admin/data',busRoutes)
-app.use('/admin/data',driverRoutes)
+app.use('/admin/',studentRoutes)
+app.use('/admin/',busRoutes)
+app.use('/admin/',driverRoutes)
 
 
 // notFound();

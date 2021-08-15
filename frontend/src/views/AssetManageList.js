@@ -19,7 +19,7 @@ import SimpleLoader from '../components/Loaders/SimpleLoader'
 import DeleteLoader from '../components/Loaders/DeleteLoader'
 
 
-const BusList=({history, location,url})=>{
+const AssetManageList=({history, location,url})=>{
     const dispatch= useDispatch()
     const busListData =useSelector(state=>state.busList)
     const deleted =useSelector(state=>state.busDelete)
@@ -54,9 +54,9 @@ const BusList=({history, location,url})=>{
         setCurrentPage(1)
         setSearch(value)
         if(value!=='')
-            history.push(`/admin/data/buslist?search=${value}`)
+            history.push(`/admin/assets?search=${value}`)
         else{
-            history.push(`/admin/data/buslist`)
+            history.push(`/admin/assets`)
         }
     }
 
@@ -64,10 +64,10 @@ const BusList=({history, location,url})=>{
         setCurrentPage(page);
         if(search==='')
         {
-            history.push(`/admin/data/buslist?page=${page}`)
+            history.push(`/admin/assets?page=${page}`)
         }
         else{
-            history.push(`/admin/data/buslist?search=${search}&page=${page}`)
+            history.push(`/admin/assets?search=${search}&page=${page}`)
         }
     }
 
@@ -130,7 +130,7 @@ const BusList=({history, location,url})=>{
                                                     <Tooltip id="tooltip-829164576">Profile</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{history.push(`/admin/data/busprofile/${bus._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
+                                                <Button onClick={()=>{history.push(`/admin/busdetails/${bus._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
                                             </OverlayTrigger>
                                         </Col>
                                         <Col md={1} className='d-none d-md-block'>
@@ -171,4 +171,4 @@ const BusList=({history, location,url})=>{
     );
 }
 
-export default BusList;
+export default AssetManageList;

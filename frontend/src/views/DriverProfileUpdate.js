@@ -37,7 +37,7 @@ import UpdateLoader from "../components/Loaders/UpdateLoader";
 import ProfileLoader from "../components/Loaders/ProfileLoader";
 
 
-const DriverProfile=({match})=> {
+const DriverProfileUpdate=({match})=> {
     const dispatch= useDispatch();
     const driverProfile =useSelector(state=>state.driverProfile)
     const updateDriverData=useSelector(state=>state.updatedDriver)
@@ -379,4 +379,4 @@ const DriverProfile=({match})=> {
     );
 }
 
-export default DriverProfile;
+export default DriverProfileUpdate;

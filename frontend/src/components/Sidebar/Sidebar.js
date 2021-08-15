@@ -92,10 +92,6 @@ function Sidebar({ color, image, routes }) {
                     <span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>
                 </NavLink>
 
-                {/*<NavDropdown title={<span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>}   onClick={()=>{history.push('/admin/drivers')}}>*/}
-                {/*    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>*/}
-
-                {/*</NavDropdown>*/}
             </li>
 
             <li
@@ -103,10 +99,10 @@ function Sidebar({ color, image, routes }) {
                     activeRoute('/admin/assets')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-bus-front-12' /> <p>Assets</p> </span>}   onClick={()=>{history.push('/admin/assets')}}>
-                    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
+                <NavLink to='/admin/assets'   className="nav-link">
+                    <span> <i className='nc-icon nc-bus-front-12' /> <p>Assets</p> </span>
+                </NavLink>
 
-                </NavDropdown>
             </li>
 
 

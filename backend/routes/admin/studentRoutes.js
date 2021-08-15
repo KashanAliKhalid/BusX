@@ -3,12 +3,12 @@ import {addStudent,studentList,deleteStudent, getStudent,updateStudent,studentCo
 
 const router =express.Router()
 
-router.route('/addStudent').post(addStudent)
-router.route('/studentlist').get(studentList)
-router.route('/deletestudent/:id').delete(deleteStudent)
-router.route('/studentprofile/:id').get(getStudent)
-router.route('/updatestudent/:id').patch(updateStudent)
-router.route('/studentcount').get(studentCount)
+router.route('/data/addStudent').post(addStudent)
+router.route('/data/studentlist').get(studentList)
+router.route('/data/deletestudent/:id').delete(deleteStudent)
+router.route('/data/updatestudentprofile/:id').get(getStudent)
+router.route('/data/updatestudent/:id').patch(updateStudent)
+router.route('/data/studentcount').get(studentCount)
 
 
 export default router

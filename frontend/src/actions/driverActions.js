@@ -112,7 +112,7 @@ export const getDriver=(id)=>{
                 type:DRIVER_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/driverprofile/${id}`)
+            const {data}=await axios.get(`/admin/data/updatedriverprofile/${id}`)
             dispatch({
                 type:DRIVER_DETAILS_SUCCESS,
                 payload:data

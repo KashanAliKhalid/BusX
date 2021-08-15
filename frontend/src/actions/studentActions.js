@@ -107,7 +107,7 @@ export const getStudent=(id)=>{
                 type:STUDENT_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/studentprofile/${id}`)
+            const {data}=await axios.get(`/admin/data/updatestudentprofile/${id}`)
             dispatch({
                 type:STUDENT_DETAILS_SUCCESS,
                 payload:data

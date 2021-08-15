@@ -32,7 +32,7 @@ import {
 import '../assets/css/addData.css'
 
 
-const StudentProfile=({match})=> {
+const StudentProfileUpdate=({match})=> {
     const dispatch= useDispatch();
     const studentProfile =useSelector(state=>state.studentProfile)
     const updateStudentData=useSelector(state=>state.updatedStudent)
@@ -430,4 +430,4 @@ const StudentProfile=({match})=> {
     );
 };
 
-export default StudentProfile;
+export default StudentProfileUpdate;

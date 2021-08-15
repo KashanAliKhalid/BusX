@@ -20,19 +20,19 @@ import UserProfile from "views/UserProfile.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
-import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import AddStudent from "./views/AddStudent.js";
 import StudentList from "./views/StudentList.js";
-import StudentProfile from './views/StudentProfile.js'
+import StudentProfileUpdate from './views/StudentProfileUpdate'
 import AddBus from "./views/AddBus";
 import BusList from "./views/BusList"
 import TrackBuses from "./views/TrackBuses";
-import BusProfile from "./views/BusProfile";
+import BusProfileUpdate from "./views/BusProfileUpdate";
 import AddDriver from "./views/AddDriver";
 import DriverList from "./views/DriverList";
-import DriverProfile from "./views/DriverProfile";
-
+import DriverProfileUpdate from "./views/DriverProfileUpdate";
+import AssetManageList from "./views/AssetManageList";
+import BusDetails from "./views/BusDetails";
 
 const dashboardRoutes = [
 
@@ -94,7 +94,7 @@ const dashboardRoutes = [
   },
   {
     path: "/data/studentprofile/:id",
-    component: StudentProfile,
+    component: StudentProfileUpdate,
     layout: "/admin",
   },
   {
@@ -109,7 +109,7 @@ const dashboardRoutes = [
   },
   {
     path:"/data/busprofile/:id",
-    component:BusProfile,
+    component:BusProfileUpdate,
     layout: "/admin",
 
   },
@@ -127,7 +127,19 @@ const dashboardRoutes = [
   },
   {
     path:"/data/driverprofile/:id",
-    component:DriverProfile,
+    component:DriverProfileUpdate,
+    layout: "/admin",
+
+  },
+  {
+    path:"/assets",
+    component:AssetManageList,
+    layout: "/admin",
+
+  },
+  {
+    path:"/busdetails",
+    component:BusDetails,
     layout: "/admin",
 
   },

@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from'react-redux'
 import store from './store'
+import Login from 'layouts/Login'
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -21,7 +22,9 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" />
+      <Route path="/login" render={(props) => <Login {...props} />} />
+
+      <Redirect from="/" to="/login"/>
     </Switch>
   </BrowserRouter>
     </Provider>,

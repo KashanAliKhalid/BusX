@@ -1,0 +1,275 @@
+html,body{
+    height: 100%;
+    overflow: hidden;
+}
+
+.login{
+    /*background-image:gray;*/
+    background-image:url("https://kuow-prod.imgix.net/store/f343ba473f2d291ef05871208b20e9f2.jpg?ixlib=rails-2.1.4&auto=format&crop=faces&fit=crop&h=634&w=924");
+    width:100vw;
+    background-size:cover;
+    height:100vh;
+    /*background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);*/
+
+
+}
+
+.login-container{
+    border-radius:10px;
+    overflow:hidden;
+    background-color:white;
+    height:80vh;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 600px) {
+    .login-container {
+        position: relative;
+        top:0;
+        left:0;
+        transform: none;
+    }
+}
+
+.login-left
+{
+    height:80vh;
+    background:white;
+}
+
+.login-left h2{
+    font-family: 'Nunito', serif;
+    font-weight: 700;
+
+}
+
+.login-right{
+    height:80vh;
+    background-image:url("https://st3.depositphotos.com/1371034/12628/v/950/depositphotos_126286610-stock-illustration-seamless-grill-pattern-abstract-decorative.jpg");
+    /*background: linear-gradient(*/
+    /*        45deg,*/
+    /*        rgba(45, 45, 45, 1) 9%,*/
+    /*        rgba(0, 0, 0, 1) 100%*/
+    /*);*/
+    background-size:cover;
+    background-position:center;
+    border-radius:10px;
+    overflow:hidden;
+    border-top-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom:18px solid white;
+
+}
+
+.login-avatar-container
+{
+    width:220px;
+    height:220px;
+    border:1px solid rgba(128, 128, 128, 0.5);
+    border-radius:5px;
+    position:relative;
+    cursor:pointer;
+
+}
+
+.login-avatar-container h5
+{
+    margin-top:10px;
+    font-weight:bold;
+    font-family:'Nunito'
+
+}
+
+.checkSymbol{
+    position:absolute;
+    top:150px;
+    margin-left:-20px;
+}
+
+.login-account{
+    font-weight:bold;
+    font-family:'Nunito'
+}
+
+.login-hellotext{
+    color:grey;
+    font-family:"Nunito";
+
+}
+
+.login-copyright{
+    /*color:gray;*/
+    color:black;
+    font-weight: bold;
+    font-family: "Nunito", serif;
+    font-size:12px;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
+#login-trackingtext{
+    color:black;
+    font-weight:bold;
+    font-family:Khula;
+    font-size:3.2rem;
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+    0px 8px 13px rgba(0,0,0,0.1),
+    0px 18px 23px rgba(0,0,0,0.1);
+}
+
+.hidden {
+    opacity:0;
+}
+.console-container {
+
+    font-size:2rem;
+    text-align:left;
+    display:block;
+    color:black;
+    margin-top:20px;
+}
+.console-underscore {
+    display:inline-block;
+    position:relative;
+    top:-0.14em;
+    left:10px;
+}
+
+.login-form-label {
+    float:left;
+    background-color:#fdda00;
+    padding:3px;
+    color:black;
+    font-family: 'Nunito', serif;
+    font-weight:bold;
+    position: absolute;
+    top: -10px;
+    left:20px;
+    font-size:12px;
+}
+
+.login-form-group{
+    position:relative;
+}
+
+.login-form-field{
+    font-family: 'Nunito', serif;
+    height:50px !important;
+    padding-top:20px !important;
+    padding-left: 30px !important;
+
+}
+
+.login-form-field:focus{
+    border:2px solid black !important;
+
+}
+
+.login-field-icon{
+    position:absolute;
+    top:22px;
+    left:8px;
+    color:gray;
+    font-size:15px;
+}
+
+.login-form-checkbox
+{
+    border-radius:50px !important;
+    border:2px solid black;
+    height:20px;
+    width:20px;
+    cursor:pointer;
+}
+
+.login-form-checkbox--img{
+position:absolute;
+    left:-1px;
+    top:-1px;
+    cursor:pointer;
+}
+
+.login-form-checkbox--label{
+    position:absolute;
+    left:20px;
+    font-family: 'Nunito', serif;
+    font-weight:bold;
+}
+
+.login-forgot{
+position:absolute;
+    right:0;
+    top:5px;
+    cursor: pointer;
+    font-family:'Nunito';
+    font-weight:bold;
+}
+
+.login-social
+{
+    width:30px !important;
+    height:30px !important;
+}
+
+.login-submit{
+    background-color:transparent !important;
+    color:black !important;
+    font-family: 'Nunito', serif;
+    font-size:15px !important;
+    font-weight:800 !important;
+    position:relative !important;
+    z-index:1;
+    border-radius:7px;
+    width:200px;
+    border:none !important;
+    transition: 0.4s !important;
+
+}
+
+.login-submit:hover:before{
+    background-color:white;
+}
+
+
+.login-submit::before{
+    content:" ";
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:4px;
+    left:4px;
+    background:#fdda00 ;
+    z-index:-1;
+    border-radius:7px;
+    transition: 0.4s !important;
+
+}
+
+.login-submit::after{
+    content:" ";
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:3;
+    border-radius:7px;
+    border:2px solid black !important;
+    transition: 0.4s !important;
+
+}
+
+.login-phone{
+    font-family: 'Nunito', serif;
+    font-weight:bold;
+    font-size:12px;
+    color:gray;
+}
+
+.login-mobile-user{
+    font-family: 'Nunito', serif;
+    font-weight:bold;
+}

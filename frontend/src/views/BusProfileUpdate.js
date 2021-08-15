@@ -35,7 +35,7 @@ import ProfileLoader from "../components/Loaders/ProfileLoader";
 import UpdateLoader from "../components/Loaders/UpdateLoader";
 
 
-const BusProfile=({match})=> {
+const BusProfileUpdate=({match})=> {
     const dispatch= useDispatch();
     const busProfile=useSelector(state=>state.busProfile)
     const updatedBusProfile=useSelector(state=>state.updatedBus)
@@ -258,4 +258,4 @@ const BusProfile=({match})=> {
     );
 }
 
-export default BusProfile;
+export default BusProfileUpdate;

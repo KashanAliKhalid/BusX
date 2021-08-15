@@ -85,8 +85,8 @@ const updateDriver=asyncHandler(async (req,res)=>{
         res.json(updatedStudent)
     }
     else{
-        res.status(404);
-        throw new Error('Student not found')
+            res.status(404);
+            throw new Error('Student not found')
     }
 
 
