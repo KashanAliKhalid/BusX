@@ -61,6 +61,7 @@ const getDriver=asyncHandler(async(req,res)=>{
 
 const updateDriver=asyncHandler(async (req,res)=>{
     const driver= await Driver.findById(req.params.id)
+    console.log(req.body.password)
 
     if(driver){
         driver.lastName= req.body.lastName || driver.lastName;
@@ -77,10 +78,11 @@ const updateDriver=asyncHandler(async (req,res)=>{
         driver.photoType= req.body.photoType || driver.photoType
         driver.license= req.body.license || driver.license
 
-        if(req.body.password!=='')
+        if(req.body.password!=='' && req.body.password!==null)
         {
             driver.password=req.body.password
         }
+        console.log(driver.password)
         const updatedStudent=await driver.save()
         res.json(updatedStudent)
     }

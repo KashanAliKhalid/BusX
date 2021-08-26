@@ -95,7 +95,8 @@ const studentSchema= mongoose.Schema({
     //     type:String,
     // },
     attendance:{
-        type:Boolean,
+        type:String,
+        default:"present"
     }
 
 },{timeStamps:true})

@@ -5,6 +5,8 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getBus,updateBus} from '../actions/busActions.js';
+import LoginButton from "../components/Buttons/LoginButton";
+
 
 
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
@@ -186,16 +188,14 @@ const BusProfileUpdate=({match})=> {
                                                 />
                                             </Col>
                                         </Row>
-                                        <Button
-                                            className="btn-fill pull-right"
-                                            type="submit"
-                                            variant="info"
+                                        <LoginButton
+                                            className="pull-right"
                                             onClick={(e) => {
                                                 onSubmitHandler(e)
                                             }}
-                                        >
-                                            Update Profile
-                                        </Button>
+                                            width={200}
+                                            content="Update Profile"
+                                        />
                                         <div className="clearfix"></div>
                                     </Form>
                                 </Card.Body>

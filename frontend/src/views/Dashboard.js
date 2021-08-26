@@ -21,7 +21,7 @@ import {
 } from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 
-function Dashboard() {
+function Dashboard({history}) {
 
   const dispatch= useDispatch()
   const bus =useSelector(state=>state.busCount)

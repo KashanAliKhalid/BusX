@@ -9,6 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey, faEnvelope, } from '@fortawesome/free-solid-svg-icons'
 import { SocialIcon } from 'react-social-icons';
 import Switch from "react-switch";
+import LoginButton from "../components/Buttons/LoginButton";
+import {userLogin} from '../actions/userActions'
+import {useDispatch,useSelector} from "react-redux";
 
 import {
     Button,
@@ -19,10 +22,29 @@ import {
     Col,
 } from "react-bootstrap";
 
-const Login = () => {
+const Login = ({history}) => {
     const [selectedUser,setSelectedUser]=useState('Admin')
     const [checkbox, setCheckbox]=useState('none')
     const [checked,setChecked]=useState(false)
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+    const [remember,setRemember]=useState(false)
+
+    const dispatch=useDispatch()
+
+    const userLogindata=useSelector(state=>state.userLogin)
+    const {loading,error,userInfo}=userLogindata
+
+    useEffect(()=>{
+        if(userInfo!==null && userInfo!==undefined)
+        {
+            if(userInfo.type==="Admin")
+            {
+                history.push('/admin/dashboard')
+            }
+        }
+    },[userLogindata])
+
 
     window.addEventListener('load',()=>{
         consoleText(['Stop Looking.','Start Tracking.'], 'login-trackingtext',['#fdda00','#303236']);
@@ -32,7 +54,6 @@ const Login = () => {
      const handleSwitchChange=()=> {
         //false==admin
          //true=superadmin
-        setChecked(!checked)
          if(checked===true)
          {
              setChecked(false)
@@ -44,15 +65,26 @@ const Login = () => {
          }
     }
 
-    const checkboxHandler=()=>{
-        if(checkbox==='none')
-            setCheckbox('block')
-        else
-            setCheckbox('none')
+    const submitHandler=(e)=>{
+        e.preventDefault();
+        dispatch(userLogin(email,password,selectedUser,remember))
     }
-    // function([string1, string2],target id,[color1,color2])
+
+
+    const checkboxHandler=()=>{
+        if(checkbox==='none') {
+            setCheckbox('block');
+            setRemember(true);
+        }
+        else {
+            setCheckbox('none')
+            setRemember(false)
+        }
+
+    }
 
     function consoleText(words, id, colors) {
+
         if (colors === undefined) colors = ['#fff'];
         var visible = true;
         var con = document.getElementById('console');
@@ -60,48 +92,56 @@ const Login = () => {
         var x = 1;
         var waiting = false;
         var target = document.getElementById(id)
-        target.setAttribute('style', 'color:' + colors[0])
-        window.setInterval(function() {
+        if(target!==null)
+        {
 
-            if (letterCount === 0 && waiting === false) {
-                waiting = true;
-                target.innerHTML = words[0].substring(0, letterCount)
-                window.setTimeout(function() {
-                    var usedColor = colors.shift();
-                    colors.push(usedColor);
-                    var usedWord = words.shift();
-                    words.push(usedWord);
-                    x = 1;
-                    target.setAttribute('style', 'color:' + colors[0])
+            target.setAttribute('style', 'color:' + colors[0])
+            window.setInterval(function() {
+
+                if (letterCount === 0 && waiting === false) {
+                    waiting = true;
+                    target.innerHTML = words[0].substring(0, letterCount)
+                    window.setTimeout(function() {
+                        var usedColor = colors.shift();
+                        colors.push(usedColor);
+                        var usedWord = words.shift();
+                        words.push(usedWord);
+                        x = 1;
+                        target.setAttribute('style', 'color:' + colors[0])
+                        letterCount += x;
+                        waiting = false;
+                    }, 1000)
+                } else if (letterCount === words[0].length + 1 && waiting === false) {
+                    waiting = true;
+                    window.setTimeout(function() {
+                        x = -1;
+                        letterCount += x;
+                        waiting = false;
+                    }, 1000)
+                } else if (waiting === false) {
+                    target.innerHTML = words[0].substring(0, letterCount)
                     letterCount += x;
-                    waiting = false;
-                }, 1000)
-            } else if (letterCount === words[0].length + 1 && waiting === false) {
-                waiting = true;
-                window.setTimeout(function() {
-                    x = -1;
-                    letterCount += x;
-                    waiting = false;
-                }, 1000)
-            } else if (waiting === false) {
-                target.innerHTML = words[0].substring(0, letterCount)
-                letterCount += x;
-            }
-        }, 120)
-        window.setInterval(function() {
-            if (visible === true) {
-                con.className = 'console-underscore hidden'
-                visible = false;
+                }
+            }, 120)
+            window.setInterval(function() {
+                if (visible === true) {
+                    con.className = 'console-underscore hidden'
+                    visible = false;
 
-            } else {
-                con.className = 'console-underscore'
+                } else {
+                    con.className = 'console-underscore'
 
-                visible = true;
-            }
-        }, 400)
+                    visible = true;
+                }
+            }, 400)
+
+        }
+
     }
     return (
-        <div className='login'>
+        loading==true? '' :
+            (
+            <div className='login'>
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
@@ -113,7 +153,7 @@ const Login = () => {
                     </Row>
                     <h2 className="mt-4 pt-4">Login to you account!</h2>
                     <Container>
-                    <Form>
+                    <Form onSubmit={submitHandler}>
                         <Row className="justify-content-center">
                             <Col className="mt-3" md="10">
                                 <Form.Group className="login-form-group mt-4">
@@ -123,6 +163,8 @@ const Login = () => {
                                         required='true'
                                         placeholder="Email"
                                         type="email"
+                                        value={email}
+                                        onChange={e=>{setEmail(e.target.value)}}
                                     >
                                     </Form.Control>
                                     <FontAwesomeIcon className="login-field-icon" icon={faEnvelope} />
@@ -136,6 +178,8 @@ const Login = () => {
                                         required='true'
                                         placeholder="Password"
                                         type="password"
+                                        value={password}
+                                        onChange={e=>setPassword(e.target.value)}
                                     >
                                     </Form.Control>
                                     <FontAwesomeIcon className="login-field-icon" icon={faKey} />
@@ -149,9 +193,7 @@ const Login = () => {
 
                                     <h5 className="login-forgot ml-5">Forgot password?</h5>
                                 </Form.Group>
-                                <Button type="submit" className="login-submit mt-2 float-left mr-auto">
-                                    Login
-                                </Button>
+                                <LoginButton type="submit" className="mt-2 float-left" width={200} content="Login"/>
                                 <Row className="d-flex flex-column align-items-center justify-content-center d-md-none">
                                     <Switch
                                         className="mt-2 ml-5"
@@ -222,6 +264,7 @@ const Login = () => {
 
             </div>
         </div>
+            )
     );
 };
 

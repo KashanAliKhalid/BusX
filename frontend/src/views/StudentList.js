@@ -127,7 +127,7 @@ const StudentList=({history, location})=>{
                         students===undefined? '' : students.students.map(student =>{
                         return(
 
-                            <div onClick={(e)=>{e.target.className.includes('click')===true ? history.push(`/admin/data/studentprofile/${student._id}`) :console.log(e.target) }}  key={student._id}  className='table-entry'>
+                            <div key={student._id}  className='table-entry'>
                                 <Row  className=' click justify-content-center flex-row align-items-center' >
                                     <Col className='click'   xs={10} md={1}>
                                         <img className='img-thumbnail click' width={100} height={100}
@@ -174,7 +174,7 @@ const StudentList=({history, location})=>{
                                                 <Tooltip id="tooltip-829164576">Profile</Tooltip>
                                             }
                                         >
-                                        <Button size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
+                                        <Button onClick={()=>{history.push(`/admin/data/studentprofile/${student._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
                                         </OverlayTrigger>
                                     </Col>
                                     <Col md={1} className='d-none d-md-block'>

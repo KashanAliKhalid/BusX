@@ -5,6 +5,7 @@ import {notFound, errorHandler} from "./middleware/errorMiddleware.js";
 import studentRoutes from "./routes/admin/studentRoutes.js";
 import busRoutes from "./routes/admin/busRoutes.js";
 import driverRoutes from "./routes/admin/driverRoutes.js";
+import adminRoutes from "./routes/admin/adminRoutes.js";
 
 
 import bodyParser from 'body-parser'
@@ -25,6 +26,9 @@ res.send('API is running')
 app.use('/admin/',studentRoutes)
 app.use('/admin/',busRoutes)
 app.use('/admin/',driverRoutes)
+app.use('/admin/',adminRoutes)
+
+
 
 
 // notFound();

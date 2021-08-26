@@ -28,8 +28,23 @@ import {
 
 } from "./reducers/driverReducer"
 
-const initialState={
 
+import{
+    userLoginReducer
+
+} from "./reducers/userReducer";
+
+let userInfoFromStorage = localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null
+
+if(userInfoFromStorage===null)
+   userInfoFromStorage= sessionStorage.getItem('userInfo')
+        ? JSON.parse(sessionStorage.getItem('userInfo'))
+        :null
+
+const initialState={
+    userLogin: { userInfo: userInfoFromStorage },
 }
 
 const reducer= combineReducers({
@@ -52,7 +67,10 @@ const reducer= combineReducers({
     driverDelete:deleteDriverReducer,
     driverProfile:driverProfileReducer,
     updatedDriver:updateDriverReducer,
-    driverCount:driverCountReducer
+    driverCount:driverCountReducer,
+
+    userLogin:userLoginReducer,
+
 })
 
 
