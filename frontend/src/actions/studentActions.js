@@ -22,17 +22,22 @@ import{
 import {BUS_COUNT_FAIL, BUS_COUNT_REQUEST, BUS_COUNT_SUCCESS} from "../constants/busConstants";
 
 export const addStudent=(student)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:ADD_STUDENT_REQUEST
             })
 
-            const {data}= await axios.post('/admin/data/addStudent',student,{
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
                 }
-            })
+            }
+
+            const {data}= await axios.post('/admin/data/addStudent',student,config)
             dispatch({
                 type:ADD_STUDENT_SUCCESS,
                 payload:data,
@@ -54,12 +59,22 @@ export const addStudent=(student)=>{
 }
 
 export const studentList=(url)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
         try {
             dispatch({
                 type:STUDENT_LIST_REQUEST
             })
-            const {data} = await axios.get(url.toString())
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data} = await axios.get(url.toString(),config)
             dispatch({
                 type:STUDENT_LIST_SUCCESS,
                 payload:data
@@ -77,13 +92,22 @@ export const studentList=(url)=>{
 }
 
 export const deleteStudent=(id)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:DELETE_STUDENT_REQUEST
             })
 
-            await axios.delete(`/admin/data/deletestudent/${id}`)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            await axios.delete(`/admin/data/deletestudent/${id}`,config)
             dispatch({
                 type:DELETE_STUDENT_SUCCESS,
             })
@@ -101,13 +125,22 @@ export const deleteStudent=(id)=>{
 }
 
 export const getStudent=(id)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:STUDENT_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/updatestudentprofile/${id}`)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.get(`/admin/data/updatestudentprofile/${id}`,config)
             dispatch({
                 type:STUDENT_DETAILS_SUCCESS,
                 payload:data
@@ -126,13 +159,22 @@ export const getStudent=(id)=>{
 }
 
 export const updateStudent=(id,student)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:UPDATE_STUDENT_REQUEST
             })
 
-            const {data}=await axios.patch(`/admin/data/updatestudent/${id}`,student)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.patch(`/admin/data/updatestudent/${id}`,student,config)
             dispatch({
                 type:UPDATE_STUDENT_SUCCESS,
                 payload:data
@@ -151,13 +193,22 @@ export const updateStudent=(id,student)=>{
 
 
 export const countStudent=()=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
         try{
             dispatch({
                 type:STUDENT_COUNT_REQUEST
             })
 
-            const count=await axios.get('/admin/data/studentcount')
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const count=await axios.get('/admin/data/studentcount',config)
             dispatch({
                 type:STUDENT_COUNT_SUCCESS,
                 payload:count

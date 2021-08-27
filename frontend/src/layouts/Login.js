@@ -19,7 +19,7 @@ import {
     Form,
     Container,
     Row,
-    Col,
+    Col, Alert,
 } from "react-bootstrap";
 
 const Login = ({history}) => {
@@ -43,7 +43,7 @@ const Login = ({history}) => {
                 history.push('/admin/dashboard')
             }
         }
-    },[userLogindata])
+    },[userInfo])
 
 
     window.addEventListener('load',()=>{
@@ -139,7 +139,7 @@ const Login = ({history}) => {
 
     }
     return (
-        loading==true? '' :
+        // loading==true? '' :
             (
             <div className='login'>
             <div id='stars'></div>
@@ -147,13 +147,28 @@ const Login = ({history}) => {
             <div id='stars3'></div>
             <div className="row login-container container no-gutters mt-3 pr-2 pt-2">
                 <div className="col-12 col-md-6 login-left no-gutters text-center d-flex flex-column">
+
                     <Row>
                         <img height="70" width="70" className="login-logo ml-4 mt-2" src={logo} alt="logo"/>
                         <p className="text-left login-phone mt-3 ml-3">Ph. +92.320.1234.567</p>
                     </Row>
                     <h2 className="mt-4 pt-4">Login to you account!</h2>
                     <Container>
-                    <Form onSubmit={submitHandler}>
+                        <Alert className='login-error' style={{opacity:`${error? '1' :'0'}`, visibility:`${error? 'visible' :'hidden'}`}} variant="danger">
+                            <button
+                                aria-hidden={true}
+                                className="close login-error-close"
+                                data-dismiss="alert"
+                                type="button"
+                            >
+                                {/*<i className="nc-icon nc-simple-remove"></i>*/}
+                            </button>
+                            <span>
+                    Wrong Email or Password
+                  </span>
+                        </Alert>
+
+                    <Form onSubmit={e=>{submitHandler(e)}}>
                         <Row className="justify-content-center">
                             <Col className="mt-3" md="10">
                                 <Form.Group className="login-form-group mt-4">

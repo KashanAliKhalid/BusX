@@ -24,17 +24,21 @@ import {BUS_COUNT_FAIL, BUS_COUNT_REQUEST, BUS_COUNT_SUCCESS} from "../constants
 
 
 export const addDriver=(Driver)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:ADD_DRIVER_REQUEST
             })
 
-            const {data}= await axios.post('/admin/data/adddriver',Driver,{
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
                 headers:{
-                    'Content-Type': 'application/json'
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
                 }
-            })
+            }
+            const {data}= await axios.post('/admin/data/adddriver',Driver,config)
             dispatch({
                 type:ADD_DRIVER_SUCCESS,
                 payload:data,
@@ -56,13 +60,22 @@ export const addDriver=(Driver)=>{
 }
 
 export const driverList=(url)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
         console.log(url)
         try {
             dispatch({
                 type:DRIVER_LIST_REQUEST
             })
-            const {data} = await axios.get(url.toString())
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            const {data} = await axios.get(url.toString(),config)
             dispatch({
                 type:DRIVER_LIST_SUCCESS,
                 payload:data
@@ -80,14 +93,22 @@ export const driverList=(url)=>{
 }
 
 export const deleteDriver=(id)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         console.log(id)
         try{
             dispatch({
                 type:DELETE_DRIVER_REQUEST
             })
 
-            await axios.delete(`/admin/data/deletedriver/${id}`)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            await axios.delete(`/admin/data/deletedriver/${id}`,config)
             dispatch({
                 type:DELETE_DRIVER_SUCCESS,
             })
@@ -105,14 +126,23 @@ export const deleteDriver=(id)=>{
 }
 
 export const getDriver=(id)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         console.log(id)
         try{
             dispatch({
                 type:DRIVER_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/updatedriverprofile/${id}`)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.get(`/admin/data/updatedriverprofile/${id}`,config)
             dispatch({
                 type:DRIVER_DETAILS_SUCCESS,
                 payload:data
@@ -131,13 +161,22 @@ export const getDriver=(id)=>{
 }
 
 export const updateDriver=(id,driver)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:UPDATE_DRIVER_REQUEST
             })
 
-            const {data}=await axios.patch(`/admin/data/updatedriver/${id}`,driver)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.patch(`/admin/data/updatedriver/${id}`,driver,config)
             dispatch({
                 type:UPDATE_DRIVER_SUCCESS,
                 payload:data
@@ -156,13 +195,22 @@ export const updateDriver=(id,driver)=>{
 
 
 export const countDriver=()=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
         try{
             dispatch({
                 type:DRIVER_COUNT_REQUEST
             })
 
-            const count=await axios.get('/admin/data/drivercount')
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const count=await axios.get('/admin/data/drivercount',config)
             dispatch({
                 type:DRIVER_COUNT_SUCCESS,
                 payload:count

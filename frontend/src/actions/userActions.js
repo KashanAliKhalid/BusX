@@ -13,28 +13,26 @@ export const userLogin=(email,password,userType,remember)=>{
                     'Content-Type':'application/json'
                 }
             }
-            console.log(userType,remember)
+
+
             if(userType === 'Admin') {
                 const {data} = await axios.post('/admin/login',
                     {email, password},
                     config
                 )
-
-                dispatch({
-                    type:USER_LOGIN_SUCCESS,
-                    payload:data
-                })
-
-                if(remember==true)
-                    localStorage.setItem("userInfo",JSON.stringify(data))
-                else
-                    sessionStorage.setItem('userInfo',JSON.stringify(data))
             }
             else if(userType==='Super Admin')
                 console.log("super admin")
 
+            dispatch({
+                type:USER_LOGIN_SUCCESS,
+                payload:data
+            })
 
-
+            if(remember==true)
+                localStorage.setItem("userInfo",JSON.stringify(data))
+            else
+                sessionStorage.setItem('userInfo',JSON.stringify(data))
 
 
         } catch(error){

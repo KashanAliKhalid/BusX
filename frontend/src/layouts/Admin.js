@@ -41,7 +41,7 @@ function Admin({history}) {
 
   },[userInfo])
 
-  const redirect=()=> <Redirect to='/login'/>
+  const redirect=(url)=> <Redirect to={`${url}`}/>
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
@@ -74,34 +74,42 @@ function Admin({history}) {
 
 
   }, [location]);
+
+  const adminPage=()=>{
+    if(userInfo===null)
+      return redirect('/login');
+    else if(userInfo.type!=="Admin")
+    {
+      return redirect('/403')
+    }
+  }
   return (
 
     <>
 
       {
-        userInfo===null ? redirect() :
-            <div>
-            <div className="wrapper">
-              <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
-              <div className="main-panel" ref={mainPanel}>
-                <AdminNavbar />
-                <div className="content">
-                  <Switch>{getRoutes(routes)}</Switch>
-                </div>
-              </div>
-            </div>
-        <FixedPlugin
-        hasImage={hasImage}
-        setHasImage={() => setHasImage(!hasImage)}
-        color={color}
-        setColor={(color) => setColor(color)}
-        image={image}
-        setImage={(image) => setImage(image)}
-        />
-            </div>
+        adminPage()
 
       }
-
+      <div>
+        <div className="wrapper">
+          <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
+          <div className="main-panel" ref={mainPanel}>
+            <AdminNavbar />
+            <div className="content">
+              <Switch>{getRoutes(routes)}</Switch>
+            </div>
+          </div>
+        </div>
+        <FixedPlugin
+            hasImage={hasImage}
+            setHasImage={() => setHasImage(!hasImage)}
+            color={color}
+            setColor={(color) => setColor(color)}
+            image={image}
+            setImage={(image) => setImage(image)}
+        />
+      </div>
     </>
 
   );

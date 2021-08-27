@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import {Provider} from'react-redux'
 import store from './store'
 import Login from 'layouts/Login'
+import Forbidden from "./views/403";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
@@ -23,7 +24,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/login" render={(props) => <Login {...props} />} />
-
+      <Route path="/403" render={(props) => <Forbidden {...props} />} />
       <Redirect from="/" to="/login"/>
     </Switch>
   </BrowserRouter>

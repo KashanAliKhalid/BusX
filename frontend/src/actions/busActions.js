@@ -22,13 +22,20 @@ import{
 
 
 export const addBus=(bus)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:ADD_BUS_REQUEST,
             })
+            const {userLogin:{userInfo}}=getState()
 
-            const {data}= await axios.post('/admin/data/addbus', bus)
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            const {data}= await axios.post('/admin/data/addbus', bus,config)
 
             dispatch({
                 type:ADD_BUS_SUCCESS,
@@ -51,12 +58,22 @@ export const addBus=(bus)=>{
 }
 
 export const busList=(url)=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
         try {
             dispatch({
                 type:BUS_LIST_REQUEST
             })
-            const {data} = await axios.get(url.toString())
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data} = await axios.get(url.toString(),config)
             dispatch({
                 type:BUS_LIST_SUCCESS,
                 payload:data
@@ -74,13 +91,21 @@ export const busList=(url)=>{
 }
 
 export const deleteBus=(id)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:DELETE_BUS_REQUEST
             })
 
-            await axios.delete(`/admin/data/deletebus/${id}`)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            await axios.delete(`/admin/data/deletebus/${id}`,config)
             dispatch({
                 type:DELETE_BUS_SUCCESS,
             })
@@ -100,13 +125,21 @@ export const deleteBus=(id)=>{
 
 
 export const getBus=(id)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:BUS_DETAILS_REQUEST
             })
 
-            const {data}=await axios.get(`/admin/data/updatebusprofile/${id}`)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            const {data}=await axios.get(`/admin/data/updatebusprofile/${id}`,config)
             dispatch({
                 type:BUS_DETAILS_SUCCESS,
                 payload:data
@@ -126,13 +159,22 @@ export const getBus=(id)=>{
 
 
 export const updateBus=(id,bus)=>{
-    return async (dispatch)=>{
+    return async (dispatch,getState)=>{
         try{
             dispatch({
                 type:UPDATE_BUS_REQUEST
             })
 
-            const {data}=await axios.patch(`/admin/data/updatebus/${id}`,bus)
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.patch(`/admin/data/updatebus/${id}`,bus,config)
             dispatch({
                 type:UPDATE_BUS_SUCCESS,
                 payload:data
@@ -150,13 +192,22 @@ export const updateBus=(id,bus)=>{
 }
 
 export const countBus=()=>{
-    return async(dispatch)=>{
+    return async(dispatch,getState)=>{
         try{
             dispatch({
                 type:BUS_COUNT_REQUEST
             })
 
-            const count=await axios.get('/admin/data/buscount')
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const count=await axios.get('/admin/data/buscount',config)
             dispatch({
                 type:BUS_COUNT_SUCCESS,
                 payload:count

@@ -225,3 +225,28 @@ position:absolute;
     font-family: 'Nunito', serif;
     font-weight:bold;
 }
+
+.login-error{
+    background-color:#e40613 !important;
+    height:20px;
+    text-align:center;
+    transition: opacity 2s ease-in;
+    width:430px;
+    margin-left: 50px;
+}
+
+.login-error span{
+    text-align:center;
+    font-size:15px !important;
+    margin-top:-10px;
+    margin-left:20px;
+
+}
+
+.login-error-close{
+    width:17px !important;
+    height:17px !important;
+    margin-top: -8px !important;
+    display:none !important;
+
+}
