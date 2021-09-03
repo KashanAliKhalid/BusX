@@ -12,7 +12,6 @@ const protectAdmin=asyncHandler ( async(req,res,next)=>{
 
             req.admin=await Admin.findById(decoded.id).select('-password')
         } catch(error){
-            console.error(error)
             res.status(401)
             throw new Error('Not authorized, token failed')
         }

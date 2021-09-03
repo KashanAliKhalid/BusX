@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getStudent, updateStudent} from '../actions/studentActions'
 import ProfileLoader from "../components/Loaders/ProfileLoader";
 import UpdateLoader from "../components/Loaders/UpdateLoader";
-import LoginButton from "../components/Buttons/LoginButton";
+import YellowButton from "../components/Buttons/YellowButton";
 
 
 
@@ -347,7 +347,7 @@ const StudentProfileUpdate=({match})=> {
                                             {profile === '' ? '' : console.log(profile)}
                                         </Row>
 
-                                        <LoginButton disabled={addProfileButton} onClick={(e) => {
+                                        <YellowButton disabled={addProfileButton} onClick={(e) => {
                                             onSubmitHandler(e)
                                         }} width={200} className="pull-right" content={'Update Profile'}/>
                                         <div className="clearfix"></div>

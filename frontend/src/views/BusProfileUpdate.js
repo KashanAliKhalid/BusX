@@ -5,7 +5,7 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getBus,updateBus} from '../actions/busActions.js';
-import LoginButton from "../components/Buttons/LoginButton";
+import YellowButton from "../components/Buttons/YellowButton";
 
 
 
@@ -188,7 +188,7 @@ const BusProfileUpdate=({match})=> {
                                                 />
                                             </Col>
                                         </Row>
-                                        <LoginButton
+                                        <YellowButton
                                             className="pull-right"
                                             onClick={(e) => {
                                                 onSubmitHandler(e)

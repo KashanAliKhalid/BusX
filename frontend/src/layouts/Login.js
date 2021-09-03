@@ -9,9 +9,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faKey, faEnvelope, } from '@fortawesome/free-solid-svg-icons'
 import { SocialIcon } from 'react-social-icons';
 import Switch from "react-switch";
-import LoginButton from "../components/Buttons/LoginButton";
+import YellowButton from "../components/Buttons/YellowButton";
 import {userLogin} from '../actions/userActions'
 import {useDispatch,useSelector} from "react-redux";
+import SignInLoader from "../components/Loaders/signInLoader";
 
 import {
     Button,
@@ -139,9 +140,8 @@ const Login = ({history}) => {
 
     }
     return (
-        // loading==true? '' :
-            (
             <div className='login'>
+                {loading==true? <SignInLoader/> : ''}
             <div id='stars'></div>
             <div id='stars2'></div>
             <div id='stars3'></div>
@@ -171,10 +171,10 @@ const Login = ({history}) => {
                     <Form onSubmit={e=>{submitHandler(e)}}>
                         <Row className="justify-content-center">
                             <Col className="mt-3" md="10">
-                                <Form.Group className="login-form-group mt-4">
-                                    <label className="login-form-label px-2">Email</label>
+                                <Form.Group className="yellow-form-group mt-4">
+                                    <label className="yellow-form-label px-2">Email</label>
                                     <Form.Control
-                                        className="login-form-field"
+                                        className="yellow-form-field"
                                         required='true'
                                         placeholder="Email"
                                         type="email"
@@ -186,10 +186,10 @@ const Login = ({history}) => {
 
                                 </Form.Group>
 
-                                <Form.Group className="login-form-group mt-4">
-                                    <label className="login-form-label px-2">Password</label>
+                                <Form.Group className="yellow-form-group mt-4">
+                                    <label className="yellow-form-label px-2">Password</label>
                                     <Form.Control
-                                        className="login-form-field"
+                                        className="yellow-form-field"
                                         required='true'
                                         placeholder="Password"
                                         type="password"
@@ -200,7 +200,7 @@ const Login = ({history}) => {
                                     <FontAwesomeIcon className="login-field-icon" icon={faKey} />
                                 </Form.Group>
 
-                                <Form.Group onClick={checkboxHandler} className="login-form-group mt-4">
+                                <Form.Group onClick={checkboxHandler} className="yellow-form-group mt-4">
                                     <label className=" px-2 login-form-checkbox--label"  >Remember Me</label>
                                     <img style={{display:`${checkbox}`}} className="login-form-checkbox--img"  width={23} height={23} src={checkSymbol} alt=""/>
                                     <div className="login-form-checkbox">
@@ -208,7 +208,7 @@ const Login = ({history}) => {
 
                                     <h5 className="login-forgot ml-5">Forgot password?</h5>
                                 </Form.Group>
-                                <LoginButton type="submit" className="mt-2 float-left" width={200} content="Login"/>
+                                <YellowButton type="submit" className="mt-2 float-left" width={200} content="Login"/>
                                 <Row className="d-flex flex-column align-items-center justify-content-center d-md-none">
                                     <Switch
                                         className="mt-2 ml-5"
@@ -279,7 +279,7 @@ const Login = ({history}) => {
 
             </div>
         </div>
-            )
+
     );
 };
 

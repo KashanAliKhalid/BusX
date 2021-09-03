@@ -5,6 +5,7 @@ import generateToken from "../utils/generateToken.js";
 
 const authAdmin= asyncHandler(async(req,res)=>{
 const {email,password}=req.body
+
     const user=await Admin.findOne({email})
 
     if(user && await user.matchPassword(password)) {
@@ -13,11 +14,14 @@ const {email,password}=req.body
             name:user.name,
             email:user.email,
             token:generateToken(user._id),
-            type:'Admin'
+            type:'Admin',
+            instituteLocation:user.instituteLocation
         })
     } else{
-        res.json(401)
+        res.status(404)
         throw new Error('invalid email or password')
+
+
     }
 
 })

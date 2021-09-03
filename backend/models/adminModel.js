@@ -17,7 +17,21 @@ const adminSchema=mongoose.Schema({
     institute:{
         type:String,
         required:true
+    },
+    instituteLocation:{
+        lat:{
+            type:Number,
+            required:true
+        },
+        lng:{
+            type:Number,
+            required:true
+        }
+
+
     }
+
+
 
 },{timeStamps:true})
 

@@ -138,7 +138,7 @@ html,body{
     left:10px;
 }
 
-.login-form-label {
+.yellow-form-label {
     float:left;
     background-color:#fdda00;
     padding:3px;
@@ -151,11 +151,11 @@ html,body{
     font-size:12px;
 }
 
-.login-form-group{
+.yellow-form-group{
     position:relative;
 }
 
-.login-form-field{
+.yellow-form-field{
     font-family: 'Nunito', serif;
     height:50px !important;
     padding-top:20px !important;
@@ -163,7 +163,7 @@ html,body{
 
 }
 
-.login-form-field:focus{
+.yellow-form-field:focus{
     border:2px solid black !important;
 
 }

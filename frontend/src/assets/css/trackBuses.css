@@ -1,0 +1,15 @@
+/*x */
+.draw-route-button{
+    margin-top:70vh;
+
+}
+
+.draw-route-button::after{
+    border:none !important;
+}
+
+.draw-route-button::before{
+    top:0;
+    left:0;
+    background:white;
+}

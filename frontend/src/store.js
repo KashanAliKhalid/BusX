@@ -34,6 +34,10 @@ import{
 
 } from "./reducers/userReducer";
 
+import {
+    addRouteReducer
+} from "./reducers/routeReducer";
+
 let userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
@@ -70,6 +74,8 @@ const reducer= combineReducers({
     driverCount:driverCountReducer,
 
     userLogin:userLoginReducer,
+
+    addedRoute:addRouteReducer
 
 })
 

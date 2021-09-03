@@ -33,6 +33,7 @@ import DriverList from "./views/DriverList";
 import DriverProfileUpdate from "./views/DriverProfileUpdate";
 import AssetManageList from "./views/AssetManageList";
 import BusDetails from "./views/BusDetails";
+import AddRoute from "./views/AddRoute";
 
 const dashboardRoutes = [
 
@@ -76,6 +77,12 @@ const dashboardRoutes = [
     component: TrackBuses,
     layout: "/admin",
   },
+  {
+    path: "/routes",
+    component: AddRoute,
+    layout: "/admin",
+  },
+
   {
     path: "/notifications",
     component: Notifications,

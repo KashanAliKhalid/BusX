@@ -60,6 +60,8 @@ function Admin({history}) {
   };
   React.useEffect(() => {
 
+    if(userInfo!==null)
+    {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
       mainPanel.current.scrollTop = 0;
@@ -72,15 +74,40 @@ function Admin({history}) {
         element.parentNode.removeChild(element);
       }
 
+    }
+
 
   }, [location]);
 
   const adminPage=()=>{
-    if(userInfo===null)
+    if(userInfo==null)
       return redirect('/login');
     else if(userInfo.type!=="Admin")
     {
       return redirect('/403')
+    }
+    else{
+      return (
+          <div>
+            <div className="wrapper">
+              <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
+              <div className="main-panel" ref={mainPanel}>
+                <AdminNavbar />
+                <div className="content">
+                  <Switch>{getRoutes(routes)}</Switch>
+                </div>
+              </div>
+            </div>
+            <FixedPlugin
+                hasImage={hasImage}
+                setHasImage={() => setHasImage(!hasImage)}
+                color={color}
+                setColor={(color) => setColor(color)}
+                image={image}
+                setImage={(image) => setImage(image)}
+            />
+          </div>
+      )
     }
   }
   return (
@@ -91,25 +118,7 @@ function Admin({history}) {
         adminPage()
 
       }
-      <div>
-        <div className="wrapper">
-          <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
-          <div className="main-panel" ref={mainPanel}>
-            <AdminNavbar />
-            <div className="content">
-              <Switch>{getRoutes(routes)}</Switch>
-            </div>
-          </div>
-        </div>
-        <FixedPlugin
-            hasImage={hasImage}
-            setHasImage={() => setHasImage(!hasImage)}
-            color={color}
-            setColor={(color) => setColor(color)}
-            image={image}
-            setImage={(image) => setImage(image)}
-        />
-      </div>
+
     </>
 
   );

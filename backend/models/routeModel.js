@@ -3,18 +3,29 @@ import mongoose from 'mongoose'
 const routeSchema=mongoose.Schema({
     name:{
         type:Number,
-        required:true
+        required:true,
+        unique:true
     },
     stops:[
         {
-            latitude:{
-                type:String
+            lat:{
+                type:Number,
+                required:true
             },
-            longitude:{
-                type:String
+            lng:{
+                type:Number,
+                required:true
             }
         }
-    ]
+    ],
+    distance:{
+        type:Number,
+        required:true
+    },
+    traveltime:{
+        type:Number,
+        required:true
+    }
 })
 
 const Route =mongoose.model('Route', routeSchema)

@@ -6,7 +6,7 @@ import studentRoutes from "./routes/admin/studentRoutes.js";
 import busRoutes from "./routes/admin/busRoutes.js";
 import driverRoutes from "./routes/admin/driverRoutes.js";
 import adminRoutes from "./routes/admin/adminRoutes.js";
-
+import routeRoutes from "./routes/admin/routeRoutes.js";
 
 import bodyParser from 'body-parser'
 
@@ -27,6 +27,7 @@ app.use('/admin/',studentRoutes)
 app.use('/admin/',busRoutes)
 app.use('/admin/',driverRoutes)
 app.use('/admin/',adminRoutes)
+app.use('/admin/',routeRoutes)
 
 
 

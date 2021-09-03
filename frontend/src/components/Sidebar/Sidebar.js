@@ -72,16 +72,17 @@ function Sidebar({ color, image, routes }) {
                 </NavLink>
             </li>
 
+
             <li
                 className={
                     activeRoute('/admin/routes')
                 }
             >
-                <NavDropdown title={<span> <i className='nc-icon nc-map-big' /> <p>Routes</p> </span>}   onClick={()=>{history.push('/admin/routes')}}>
-                    <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-
-                </NavDropdown>
+                <NavLink to='/admin/routes'   className="nav-link" >
+                    <span> <i className='nc-icon nc-map-big' /> <p>Routes</p> </span>
+                </NavLink>
             </li>
+            
 
             <li
                 className={
