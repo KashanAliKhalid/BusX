@@ -2,6 +2,12 @@ import React, {useEffect, useState,useRef} from 'react'
 require('dotenv').config()
 import {useDispatch, useSelector} from "react-redux";
 import {addRoute} from "../actions/routeActions";
+import MapsLoader from "../components/Loaders/MapsLoader";
+import Geocode from "react-geocode";
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API);
+Geocode.setLanguage("en");
+Geocode.setLocationType("ROOFTOP");
+
 
 import {
     GoogleMap,
@@ -122,19 +128,21 @@ const AddRoute=()=>{
         lat: 33.68749873779495,
         lng: 73.05121603557306
     })
-    const [routeNumber,setRouteNumber]=useState('')
     const[origin,setOrigin]=useState('')
     const [destination,setDestination]=useState('')
     const [response,setResponse]=useState('')
     const [path,setPath]=useState([])
-    const [distance,setDistance]=useState([])
-    const [time,setTime]=useState([])
+    const [distance,setDistance]=useState(0)
+    const [time,setTime]=useState(0)
+    const [addresses,setAddresses]=useState([])
 
     const [req,setReq]=useState(0)
     const textInput = useRef(null);
 
     const userLogindata=useSelector(state=>state.userLogin)
-    const {loading,error,userInfo}=userLogindata
+    const routeData=useSelector(state=>state.addedRoute)
+    const {userInfo}=userLogindata
+    const {loading,error,route}=routeData
     const dispatch=useDispatch()
 
 
@@ -155,10 +163,34 @@ const AddRoute=()=>{
         setStops(markers)
     }
 
+    const stopAddresses=()=>{
+        const addressArr=[]
+        stops.forEach((value,index,arr)=>{
+            if(index!==0)
+            {
+                Geocode.fromLatLng(value.lat.toString(), value.lng.toString()).then(
+                    (response) => {
+                        const address = response.results[0].formatted_address;
+                        addressArr.push(address)
+                        console.log(addressArr)
+                        setAddresses(addressArr)
+
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
+            }
+
+
+        })
+    }
+
     const deleteMarker=(deleteStop)=>{
         let updatedStops=stops.filter((stop)=>{
             return !(JSON.stringify(stop)===JSON.stringify(deleteStop))
         })
+        stopAddresses()
         setStops(updatedStops);
     }
     const renderMarkers=()=>{
@@ -174,7 +206,7 @@ const AddRoute=()=>{
                     draggable={true}
                     onDragEnd={(e)=>{
                         const updateStop=[...stops]
-                        updateStop[index]=e.latLng.toJSON()
+                        updateStop[index]=e.latLng.toJSON();
                         setStops(updateStop)
                     }}
                     animation='DROP'
@@ -196,11 +228,12 @@ const AddRoute=()=>{
         })
         updatePath.shift()
         updatePath.pop()
-        setDistance([])
-        setTime([])
+        setDistance(0)
+        setTime(0)
         setReq(0)
         setPath(updatePath)
-    }
+        stopAddresses()
+        }
 
     const directionsCallback =(response)=> {
         if (response !== null) {
@@ -215,17 +248,27 @@ const AddRoute=()=>{
     const calculateDistance=()=>{
         if(destination !=='' && origin!=='')
         {
-            return stops.map((stop,index)=>{
-
-                if(index!==(stops.length-1)){
-                    let originDistance=stops[index]
-                    let destinationDistance=stops[index+1]
+            let destinations=[]
+            let origins=[]
+            stops.forEach((value,index,arr)=>{
+                if(index===0)
+                {
+                    origins.push(value)
+                }
+                else if(index===(arr.length-1))
+                {
+                    destinations.push(value)
+                }
+                else {
+                    destinations.push(value)
+                    origins.push(value)
+                }
+            })
 
                     return ( <DistanceMatrixService
-                        key={index}
                         options={{
-                            destinations: [{lat:destinationDistance.lat, lng:destinationDistance.lng}],
-                            origins: [{lng:originDistance.lng, lat:originDistance.lat}],
+                            destinations: destinations,
+                            origins: origins,
                             travelMode: "DRIVING",
                             drivingOptions:{
                                 departureTime: new Date(Date.now()),
@@ -233,20 +276,18 @@ const AddRoute=()=>{
 
                         }}
                         callback = {(response) => {
-                            console.log(req);
-                            setReq(req+1);
-                            let arr=[...distance]
-                            let arrTime=[...time]
-                            arrTime.push(response.rows[0].elements[0].duration.value)
-                            arr.push(response.rows[0].elements[0].distance.value)
-                            setDistance(arr);
-                            setTime(arrTime)
+                            let distance=0
+                            let duration=0
+                            response.rows.forEach((value,index,arr)=>{
+                                distance=distance +value.elements[index].distance.value
+                                duration=duration+value.elements[index].duration.value
+                            })
+                            setDistance(distance);
+                            setTime(duration)
                         }}
                     />)
                 }
 
-            })
-        }
     }
 
     const onPlacesChanged = () =>setCenter(textInput.current.state.searchBox.getPlaces()[0].geometry.location.toJSON());
@@ -254,16 +295,17 @@ const AddRoute=()=>{
     const routeClickHandler=()=>{
         const addStops=[...stops]
         addStops.shift()
-        const data={name,stops:addStops,
-        distance:distance.reduce(function(acc, val) { return acc + val; }, 0)/1000,
-            traveltime:time.reduce(function(acc, val) { return acc + val; }, 0)/60
+        const data={name,stops:addStops,addresses,
+            traveltime:(time/60).toFixed(2),
+            distance:(distance/1000).toFixed(2)
         }
         dispatch(addRoute(data));
 
     }
 
-    return(
-        <LoadScript libraries={libraries} googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API} >
+    const loadContent=()=>{
+
+       return   <LoadScript libraries={libraries} googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API} >
             <Form>
                 <Row>
                     <Col xs={6}>
@@ -301,7 +343,7 @@ const AddRoute=()=>{
                                 <Col xs="7">
                                     <div className="numbers">
                                         <p className="card-category">Estimated Travel time</p>
-                                        <Card.Title as="h4">{[...new Set(time)].reduce(function(acc, val) { return acc + val; }, 0)/60} Minutes</Card.Title>
+                                        <Card.Title as="h4">{(time/60).toFixed(2)} Minutes</Card.Title>
                                     </div>
                                 </Col>
                             </Row>
@@ -320,7 +362,7 @@ const AddRoute=()=>{
                                 <Col xs="7">
                                     <div className="numbers">
                                         <p className="card-category">Route Distance</p>
-                                        <Card.Title as="h4">{[...new Set(distance)].reduce(function(acc, val) { return acc + val; }, 0)/1000} Km</Card.Title>
+                                        <Card.Title as="h4">{(distance/1000).toFixed(2)} Km</Card.Title>
                                     </div>
                                 </Col>
                             </Row>
@@ -443,6 +485,15 @@ const AddRoute=()=>{
 
             </GoogleMap>
         </LoadScript>
+
+    }
+
+    return(
+        <>
+        {
+            loading===true? <MapsLoader/>: loadContent()
+        }
+        </>
     )
 }
 

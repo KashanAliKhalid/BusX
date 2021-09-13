@@ -12,7 +12,6 @@ const addDriver= asyncHandler(async(req,res)=>{
 
 const driverList= asyncHandler(async(req,res)=>{
     const pageSize=10;
-    console.log("hi")
     const page = Number(req.query.page) || 1
     const keyword = req.query.search
         ? {

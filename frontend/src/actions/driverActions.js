@@ -38,7 +38,7 @@ export const addDriver=(Driver)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
-            const {data}= await axios.post('/admin/data/adddriver',Driver,config)
+            const {data}= await axios.post('/admin/data/driver',Driver,config)
             dispatch({
                 type:ADD_DRIVER_SUCCESS,
                 payload:data,
@@ -108,7 +108,7 @@ export const deleteDriver=(id)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
-            await axios.delete(`/admin/data/deletedriver/${id}`,config)
+            await axios.delete(`/admin/data/driver/${id}`,config)
             dispatch({
                 type:DELETE_DRIVER_SUCCESS,
             })
@@ -142,7 +142,7 @@ export const getDriver=(id)=>{
                 }
             }
 
-            const {data}=await axios.get(`/admin/data/updatedriverprofile/${id}`,config)
+            const {data}=await axios.get(`/admin/data/driver/${id}`,config)
             dispatch({
                 type:DRIVER_DETAILS_SUCCESS,
                 payload:data
@@ -176,7 +176,7 @@ export const updateDriver=(id,driver)=>{
                 }
             }
 
-            const {data}=await axios.patch(`/admin/data/updatedriver/${id}`,driver,config)
+            const {data}=await axios.patch(`/admin/data/driver/${id}`,driver,config)
             dispatch({
                 type:UPDATE_DRIVER_SUCCESS,
                 payload:data

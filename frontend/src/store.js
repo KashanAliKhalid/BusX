@@ -35,7 +35,12 @@ import{
 } from "./reducers/userReducer";
 
 import {
-    addRouteReducer
+    addRouteReducer,
+    routeListReducer,
+    deleteRouteReducer,
+    routeDetailsReducer,
+    updateRouteReducer,
+    routeCountReducer,
 } from "./reducers/routeReducer";
 
 let userInfoFromStorage = localStorage.getItem('userInfo')
@@ -75,7 +80,12 @@ const reducer= combineReducers({
 
     userLogin:userLoginReducer,
 
-    addedRoute:addRouteReducer
+    addedRoute:addRouteReducer,
+    routeList:routeListReducer,
+    routeDelete:deleteRouteReducer,
+    routeDetails:routeDetailsReducer,
+    updatedRoute:updateRouteReducer,
+    routeCount:routeCountReducer,
 
 })
 

@@ -1,7 +1,4 @@
-import React,{useState,useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-
-// react-bootstrap components
+import React, {useEffect, useState} from 'react';
 import SearchField from "react-search-field";
 import {
     Button,
@@ -14,37 +11,30 @@ import {
 import  '../assets/css/list.css'
 import Pagination from 'react-responsive-pagination';
 import 'font-awesome/css/font-awesome.min.css';
-import {busList,deleteBus} from '../actions/busActions'
-import SimpleLoader from '../components/Loaders/SimpleLoader'
-import DeleteLoader from '../components/Loaders/DeleteLoader'
+import {routeList,deleteRoute} from '../actions/routeActions'
+import {useDispatch, useSelector} from "react-redux";
+import DeleteLoader from "../components/Loaders/DeleteLoader";
 
-
-const BusList=({history, location})=>{
+const RouteList = ({history, location}) => {
     const dispatch= useDispatch()
-    const busListData =useSelector(state=>state.busList)
-    const deleted =useSelector(state=>state.busDelete)
+    const routeListData =useSelector(state=>state.routeList)
+    const deleted =useSelector(state=>state.routeDelete)
 
-
-
-    const{loading,error,buses}=busListData
+    const{loading,error,routes}=routeListData
     const{success,deleting}=deleted
     const [currentPage, setCurrentPage] = useState(1);
     const[search, setSearch]=useState('')
 
-
-
-
     const handleDelete=(id)=>{
-        dispatch(deleteBus(id))
+        dispatch(deleteRoute(id))
     }
-
 
     useEffect(()=>{
         if(location.search){
-            dispatch(busList(location.pathname+location.search))
+            dispatch(routeList(location.pathname+location.search))
         }
         else{
-            dispatch(busList(location.pathname))
+            dispatch(routeList(location.pathname))
         }
 
 
@@ -55,9 +45,9 @@ const BusList=({history, location})=>{
         setCurrentPage(1)
         setSearch(value)
         if(value!=='')
-            history.push(`/admin/data/buslist?search=${value}`)
+            history.push(`/admin/routes?search=${value}`)
         else{
-            history.push(`/admin/data/buslist`)
+            history.push(`/admin/routes`)
         }
     }
 
@@ -65,10 +55,10 @@ const BusList=({history, location})=>{
         setCurrentPage(page);
         if(search==='')
         {
-            history.push(`/admin/data/buslist?page=${page}`)
+            history.push(`/admin/routes?page=${page}`)
         }
         else{
-            history.push(`/admin/data/buslist?search=${search}&page=${page}`)
+            history.push(`/admin/routes?search=${search}&page=${page}`)
         }
     }
 
@@ -88,13 +78,13 @@ const BusList=({history, location})=>{
                         onEnter={handleSearch}
                     />
                     {
-                        buses===undefined? '' : buses.buses.map(bus =>{
+                        routes===undefined? '' : routes.routes.map(route =>{
                             return(
-                                <div key={bus._id}  className='table-entry'>
+                                <div key={route._id}  className='table-entry'>
                                     <Row  className='justify-content-center flex-row align-items-center' >
                                         <Col xs={10} md={1}>
-                                            <img style={{objectFit:'contain'}} className='img-thumbnail ' width={100} height={100}
-                                                 src={`data:${bus.photoType};charset=utf8;base64,${Buffer.from(bus.photo).toString('ascii')}`} />
+                                            {/*<img style={{objectFit:'contain'}} className='img-thumbnail ' width={100} height={100}*/}
+                                            {/*     src={`data:${bus.photoType};charset=utf8;base64,${Buffer.from(bus.photo).toString('ascii')}`} />*/}
 
                                         </Col>
                                         <Col xs={2} className='d-md-none'>
@@ -110,8 +100,8 @@ const BusList=({history, location})=>{
                                         </Col>
                                         <Col  xs={6} md={6}>
                                             <p >
-                                                <span>{bus.registrationNumber} </span><br/>
-                                                <span>Bus Number:{bus.busNumber}</span>
+                                                <span>{route.name} </span><br/>
+                                                <span>Routes:{route.stops.length}</span>
                                             </p>
 
                                         </Col>
@@ -122,7 +112,7 @@ const BusList=({history, location})=>{
                                                     <Tooltip id="tooltip-829164576">Remove</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{handleDelete(bus._id)}}  size='sm' className='btn-fill btn-padding btn-margin' variant="danger"><i className=" far fa-trash-alt fa-2x "> </i></Button>
+                                                <Button onClick={()=>{handleDelete(route._id)}}  size='sm' className='btn-fill btn-padding btn-margin' variant="danger"><i className=" far fa-trash-alt fa-2x "> </i></Button>
                                             </OverlayTrigger>
 
 
@@ -131,7 +121,7 @@ const BusList=({history, location})=>{
                                                     <Tooltip id="tooltip-829164576">Profile</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{history.push(`/admin/data/busprofile/${bus._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
+                                                <Button onClick={()=>{history.push(`/admin/data/busprofile/${route._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
                                             </OverlayTrigger>
                                         </Col>
                                         <Col md={1} className='d-none d-md-block'>
@@ -152,9 +142,9 @@ const BusList=({history, location})=>{
 
                     }
                     {
-                        buses===undefined? '' : (<Pagination
-                            current={buses.page}
-                            total={buses.pages}
+                        routes===undefined? '' : (<Pagination
+                            current={routes.page}
+                            total={routes.pages}
                             onPageChange={pageChangeHandler}
                         />)
                     }
@@ -163,13 +153,12 @@ const BusList=({history, location})=>{
             )
     }
 
-    return (
-        <>
-            {
-                loading==true? <SimpleLoader/> : list()
-            }
-        </>
-    );
-}
 
-export default BusList;
+    return (
+        <div>
+
+        </div>
+    );
+};
+
+export default RouteList;

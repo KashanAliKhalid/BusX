@@ -19,7 +19,6 @@ import{
     STUDENT_COUNT_SUCCESS,
     STUDENT_COUNT_FAIL
 } from '../constants/studentConstants'
-import {BUS_COUNT_FAIL, BUS_COUNT_REQUEST, BUS_COUNT_SUCCESS} from "../constants/busConstants";
 
 export const addStudent=(student)=>{
     return async (dispatch,getState)=>{

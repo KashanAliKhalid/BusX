@@ -21,6 +21,7 @@ import{
 } from '../constants/routeConstants'
 
 
+
 export const addRoute=(route)=>{
     return async (dispatch,getState)=>{
         try{
@@ -56,3 +57,173 @@ export const addRoute=(route)=>{
         }
     }
 }
+
+export const routeList=(url)=>{
+    return async(dispatch,getState)=>{
+        try {
+            dispatch({
+                type:ROUTE_LIST_REQUEST
+            })
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data} = await axios.get(url.toString(),config)
+            dispatch({
+                type:ROUTE_LIST_SUCCESS,
+                payload:data
+            })
+        }
+        catch (error) {
+            dispatch({
+                type:ROUTE_LIST_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+            })
+        }
+    }
+}
+
+
+export const deleteRoute=(id)=>{
+    return async (dispatch,getState)=>{
+        try{
+            dispatch({
+                type:DELETE_ROUTE_REQUEST
+            })
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            await axios.delete(`/admin/data/deletestudent/${id}`,config)
+            dispatch({
+                type:DELETE_ROUTE_SUCCESS,
+            })
+        }
+        catch(error)
+        {
+            dispatch({
+                type:DELETE_ROUTE_FAIL,
+                payload: error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+export const getRoute=(id)=>{
+    return async (dispatch,getState)=>{
+        try{
+            dispatch({
+                type:ROUTE_DETAILS_REQUEST
+            })
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.get(`/admin/data/updatestudentprofile/${id}`,config)
+            dispatch({
+                type:ROUTE_DETAILS_SUCCESS,
+                payload:data
+            })
+        }
+        catch (error)
+        {
+            dispatch({
+                type:ROUTE_DETAILS_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+export const updateStudent=(id,student)=>{
+    return async (dispatch,getState)=>{
+        try{
+            dispatch({
+                type:UPDATE_ROUTE_REQUEST
+            })
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const {data}=await axios.patch(`/admin/data/updatestudent/${id}`,student,config)
+            dispatch({
+                type:UPDATE_ROUTE_SUCCESS,
+                payload:data
+            })
+        }
+        catch(error){
+            dispatch({
+                type:UPDATE_ROUTE_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+
+export const countStudent=()=>{
+    return async(dispatch,getState)=>{
+        try{
+            dispatch({
+                type:ROUTE_COUNT_REQUEST
+            })
+
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+            const count=await axios.get('/admin/data/studentcount',config)
+            dispatch({
+                type:ROUTE_COUNT_SUCCESS,
+                payload:count
+            })
+        }
+        catch (error) {
+            dispatch({
+                type:ROUTE_COUNT_FAIL,
+                payload:error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message
+            })
+        }
+    }
+}
+
+

@@ -25,7 +25,13 @@ const routeSchema=mongoose.Schema({
     traveltime:{
         type:Number,
         required:true
-    }
+    },
+    addresses:[
+        {
+                type: String,
+                required: true
+        }
+    ]
 })
 
 const Route =mongoose.model('Route', routeSchema)
