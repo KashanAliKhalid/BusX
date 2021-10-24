@@ -151,6 +151,7 @@ const BusProfileUpdate=({match})=> {
                                                         onChange={(e)=>setBusNumber(e.target.value)}
                                                         value={busNumber===null ? bus.busNumber : busNumber}
                                                         type="number"
+
                                                     ></Form.Control>
                                                 </Form.Group>
                                             </Col>
@@ -190,9 +191,7 @@ const BusProfileUpdate=({match})=> {
                                         </Row>
                                         <YellowButton
                                             className="pull-right"
-                                            onClick={(e) => {
-                                                onSubmitHandler(e)
-                                            }}
+                                            type="submit"
                                             width={200}
                                             content="Update Profile"
                                         />

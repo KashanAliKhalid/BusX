@@ -16,7 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import UserProfile from "views/UserProfile.js";
+import AdminProfile from "views/AdminProfile.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
@@ -34,6 +34,8 @@ import DriverProfileUpdate from "./views/DriverProfileUpdate";
 import AssetManageList from "./views/AssetManageList";
 import BusDetails from "./views/BusDetails";
 import AddRoute from "./views/AddRoute";
+import UpdateRoute from "./views/UpdateRoute";
+import RouteList from "./views/RouteList";
 
 const dashboardRoutes = [
 
@@ -45,10 +47,13 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/user",
-    name: "User Profile",
-    icon: "nc-icon nc-circle-09",
-    component: UserProfile,
+    path: "/route/:id",
+    component: UpdateRoute,
+    layout: "/admin",
+  },
+  {
+    path: "/profile",
+    component: AdminProfile,
     layout: "/admin",
   },
   {
@@ -74,12 +79,12 @@ const dashboardRoutes = [
   },
   {
     path: "/trackbuses",
-    component: TrackBuses,
+    component: AddRoute,
     layout: "/admin",
   },
   {
     path: "/routes",
-    component: AddRoute,
+    component: RouteList,
     layout: "/admin",
   },
 
@@ -91,6 +96,11 @@ const dashboardRoutes = [
   {
     path: "/data/addstudent",
     component: AddStudent,
+    layout: "/admin",
+  },
+  {
+    path: "/addroute",
+    component: AddRoute,
     layout: "/admin",
   },
 

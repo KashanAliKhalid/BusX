@@ -12,7 +12,6 @@ const adminSchema=mongoose.Schema({
     },
     password:{
         type:String,
-        required:true
     },
     institute:{
         type:String,

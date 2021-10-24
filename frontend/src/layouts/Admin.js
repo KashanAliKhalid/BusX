@@ -60,7 +60,7 @@ function Admin({history}) {
   };
   React.useEffect(() => {
 
-    if(userInfo!==null)
+    if(userInfo!==null && userInfo.type==="Admin")
     {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
@@ -98,14 +98,14 @@ function Admin({history}) {
                 </div>
               </div>
             </div>
-            <FixedPlugin
-                hasImage={hasImage}
-                setHasImage={() => setHasImage(!hasImage)}
-                color={color}
-                setColor={(color) => setColor(color)}
-                image={image}
-                setImage={(image) => setImage(image)}
-            />
+            {/*<FixedPlugin*/}
+            {/*    hasImage={hasImage}*/}
+            {/*    setHasImage={() => setHasImage(!hasImage)}*/}
+            {/*    color={color}*/}
+            {/*    setColor={(color) => setColor(color)}*/}
+            {/*    image={image}*/}
+            {/*    setImage={(image) => setImage(image)}*/}
+            {/*/>*/}
           </div>
       )
     }

@@ -112,6 +112,7 @@ const User=({match})=> {
                         <Form.Control
                             style={{width:'310px',marginLeft:'-0.5px'} }
                             placeholder="RFID"
+                            required
                             type="number"
                             value={rfid}
                             onChange={(e)=>{setRfid(e.target.value) ;handleRFID()}}
@@ -125,7 +126,7 @@ const User=({match})=> {
                                 <Card.Title as="h4">Add Student</Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                <Form>
+                                <Form onSubmit={(e)=>{onSubmitHandler(e)}}>
                                     <Row>
                                         <Col className="pr-1" md="5">
                                             <Form.Group>
@@ -135,6 +136,7 @@ const User=({match})=> {
                                                     value={contact}
                                                     placeholder="03XX5XXXXXX"
                                                     type="number"
+                                                    required
                                                 ></Form.Control>
                                             </Form.Group>
                                         </Col>
@@ -146,6 +148,7 @@ const User=({match})=> {
                                                     type="text"
                                                     onChange={(e)=>setRegNo(e.target.value)}
                                                     value={regNo}
+                                                    required
                                                 ></Form.Control>
                                             </Form.Group>
                                         </Col>
@@ -159,6 +162,7 @@ const User=({match})=> {
                                                     type="email"
                                                     onChange={(e)=>setEmail(e.target.value)}
                                                     value={email}
+                                                    required
                                                 ></Form.Control>
                                             </Form.Group>
                                         </Col>
@@ -171,6 +175,7 @@ const User=({match})=> {
                                                     onChange={(e)=>setFirstName(e.target.value)}
                                                     value={firstName}
                                                     type="text"
+                                                    required
                                                 ></Form.Control>
                                             </Form.Group>
                                         </Col>
@@ -181,6 +186,7 @@ const User=({match})=> {
                                                     onChange={(e)=>setLastName(e.target.value)}
                                                     value={lastName}
                                                     type="text"
+                                                    required
                                                 ></Form.Control>
                                             </Form.Group>
                                         </Col>
@@ -194,6 +200,7 @@ const User=({match})=> {
                                                     data-dismiss="alert"
                                                     type="button"
                                                     onClick={()=>{setPasswordWarning('none')}}
+
                                                 >
                                                     <i className="nc-icon nc-simple-remove"></i>
                                                 </button>
@@ -211,6 +218,7 @@ const User=({match})=> {
                                                 <Form.Control
                                                     placeholder="3630229314081"
                                                     type="number"
+                                                    required
                                                     onChange={(value)=>validateNum(value,13)}
                                                     value={cnic}
                                                 ></Form.Control>
@@ -223,6 +231,7 @@ const User=({match})=> {
                                                     type="password"
                                                     onChange={(e)=>setPassword(e.target.value)}
                                                     value={password}
+                                                    required
                                                 ></Form.Control>
                                             </Form.Group>
                                         </Col>
@@ -233,6 +242,7 @@ const User=({match})=> {
                                                     type="password"
                                                     onChange={(e)=>setConfirmPassword(e.target.value)}
                                                     value={confirmPassword}
+                                                    required
                                                     onBlur={validatePassword}
                                                 ></Form.Control>
                                             </Form.Group>
@@ -246,6 +256,7 @@ const User=({match})=> {
                                                     placeholder="Home Address"
                                                     type="text"
                                                     value={address}
+                                                    required
                                                     onChange={(e)=>{setAddress(e.target.value)}}
                                                 ></Form.Control>
                                             </Form.Group>
@@ -267,6 +278,7 @@ const User=({match})=> {
                                                 <label>Country</label>
                                                 <Form.Control
                                                     type="text"
+                                                    required
                                                     value={country}
                                                     onChange={(e)=>{setCountry(e.target.value)}}
                                                 ></Form.Control>
@@ -277,6 +289,7 @@ const User=({match})=> {
                                                 <label>Postal Code</label>
                                                 <Form.Control
                                                     placeholder="ZIP Code"
+                                                    required
                                                     type="number"
                                                     value={postalCode}
                                                     onChange={(e)=>{setPostalCode(e.target.value)}}
@@ -293,6 +306,7 @@ const User=({match})=> {
                                                 <Form.Control
                                                     placeholder="RFID"
                                                     type="number"
+                                                    required
                                                     value={rfid}
                                                     onChange={(e)=>{setRfid(e.target.value) ;handleRFID()}}
                                                     onFocus={handleRFID}
@@ -318,7 +332,6 @@ const User=({match})=> {
                                         type="submit"
                                         variant="info"
                                         disabled={addProfileButton}
-                                        onClick={(e)=>{onSubmitHandler(e)}}
                                     >
                                         Add student
                                     </Button>

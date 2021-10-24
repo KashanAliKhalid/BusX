@@ -7,13 +7,17 @@ import {
     Col,
     Form, Tooltip, OverlayTrigger,
 } from "react-bootstrap";
+import YellowButton from "../components/Buttons/YellowButton";
 
 import  '../assets/css/list.css'
 import Pagination from 'react-responsive-pagination';
 import 'font-awesome/css/font-awesome.min.css';
+import Route from '../assets/img/route.png'
 import {routeList,deleteRoute} from '../actions/routeActions'
 import {useDispatch, useSelector} from "react-redux";
 import DeleteLoader from "../components/Loaders/DeleteLoader";
+import MapsLoader from "../components/Loaders/MapsLoader";
+
 
 const RouteList = ({history, location}) => {
     const dispatch= useDispatch()
@@ -23,7 +27,7 @@ const RouteList = ({history, location}) => {
     const{loading,error,routes}=routeListData
     const{success,deleting}=deleted
     const [currentPage, setCurrentPage] = useState(1);
-    const[search, setSearch]=useState('')
+    const[search, setSearch]=useState(0)
 
     const handleDelete=(id)=>{
         dispatch(deleteRoute(id))
@@ -41,7 +45,7 @@ const RouteList = ({history, location}) => {
 
     },[location,dispatch,success])
 
-    const handleSearch= (value,event)=>{
+    const handleSearch= (value)=>{
         setCurrentPage(1)
         setSearch(value)
         if(value!=='')
@@ -65,26 +69,36 @@ const RouteList = ({history, location}) => {
     const list=()=>{
         if(deleting===true)
         {
-            setTimeout(function(){return; }, 2000);
             return <DeleteLoader/>
         }
         else
             return(
 
                 <Container fluid>
-                    <SearchField
-                        placeholder="Search Name"
-                        classNames="search"
-                        onEnter={handleSearch}
-                    />
+                    <Row>
+                        <Col xs={9} md={10}>
+                            <SearchField
+                                placeholder="Search Name"
+                                classNames="search search-route"
+                                onEnter={handleSearch}
+                            />
+                        </Col>
+                        <Col className="ml-xs-2" xs={3} md={2}>
+                            <YellowButton onClick={()=>{history.push('/admin/addroute')}} content=" Add Routes"/>
+                        </Col>
+
+
+                    </Row>
+
+
                     {
                         routes===undefined? '' : routes.routes.map(route =>{
                             return(
                                 <div key={route._id}  className='table-entry'>
                                     <Row  className='justify-content-center flex-row align-items-center' >
                                         <Col xs={10} md={1}>
-                                            {/*<img style={{objectFit:'contain'}} className='img-thumbnail ' width={100} height={100}*/}
-                                            {/*     src={`data:${bus.photoType};charset=utf8;base64,${Buffer.from(bus.photo).toString('ascii')}`} />*/}
+                                            <img style={{objectFit:'contain'}} className='img-thumbnail ' width={100} height={100}
+                                                 src={Route} />
 
                                         </Col>
                                         <Col xs={2} className='d-md-none'>
@@ -101,7 +115,7 @@ const RouteList = ({history, location}) => {
                                         <Col  xs={6} md={6}>
                                             <p >
                                                 <span>{route.name} </span><br/>
-                                                <span>Routes:{route.stops.length}</span>
+                                                <span>Stops:{route.stops.length}</span>
                                             </p>
 
                                         </Col>
@@ -118,10 +132,10 @@ const RouteList = ({history, location}) => {
 
                                             <OverlayTrigger
                                                 overlay={
-                                                    <Tooltip id="tooltip-829164576">Profile</Tooltip>
+                                                    <Tooltip id="tooltip-829164576">Route Details</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{history.push(`/admin/data/busprofile/${route._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
+                                                <Button onClick={()=>{history.push(`/admin/route/${route._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
                                             </OverlayTrigger>
                                         </Col>
                                         <Col md={1} className='d-none d-md-block'>
@@ -155,9 +169,11 @@ const RouteList = ({history, location}) => {
 
 
     return (
-        <div>
-
-        </div>
+        <>
+        {
+            loading===true? <MapsLoader/>: list()
+}
+        </>
     );
 };
 

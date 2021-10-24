@@ -94,5 +94,7 @@ const studentCount=asyncHandler (async(req,res)=>{
     res.json({count})
 })
 
+
+
 export {addStudent, studentList,deleteStudent, getStudent,updateStudent,studentCount}
 

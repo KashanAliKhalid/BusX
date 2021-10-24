@@ -73,8 +73,15 @@ export const routeList=(url)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
+            if(!url)
+            {
+                var {data} = await axios.get('/admin/allroutes',config)
+            }
+            else{
+                var {data} = await axios.get(url.toString(),config)
 
-            const {data} = await axios.get(url.toString(),config)
+            }
+
             dispatch({
                 type:ROUTE_LIST_SUCCESS,
                 payload:data
@@ -108,7 +115,7 @@ export const deleteRoute=(id)=>{
                 }
             }
 
-            await axios.delete(`/admin/data/deletestudent/${id}`,config)
+            await axios.delete(`/admin/route/${id}`,config)
             dispatch({
                 type:DELETE_ROUTE_SUCCESS,
             })
@@ -141,7 +148,7 @@ export const getRoute=(id)=>{
                 }
             }
 
-            const {data}=await axios.get(`/admin/data/updatestudentprofile/${id}`,config)
+            const {data}=await axios.get(`/admin/route/${id}`,config)
             dispatch({
                 type:ROUTE_DETAILS_SUCCESS,
                 payload:data
@@ -159,7 +166,7 @@ export const getRoute=(id)=>{
     }
 }
 
-export const updateStudent=(id,student)=>{
+export const updateRoute=(id,route)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
@@ -175,7 +182,7 @@ export const updateStudent=(id,student)=>{
                 }
             }
 
-            const {data}=await axios.patch(`/admin/data/updatestudent/${id}`,student,config)
+            const {data}=await axios.patch(`/admin/route/${id}`,route,config)
             dispatch({
                 type:UPDATE_ROUTE_SUCCESS,
                 payload:data

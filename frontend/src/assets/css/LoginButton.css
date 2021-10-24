@@ -12,6 +12,11 @@
     transition: 0.4s !important;
 
 }
+@media only screen and (max-width: 600px) {
+    .login-button {
+        font-size:10px !important;
+    }
+}
 
 .login-button:hover:before{
     background-color:white;

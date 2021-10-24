@@ -9,8 +9,6 @@ const busSchema=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Driver',
         default:null
-
-
     },
     route:{
         type:mongoose.Schema.Types.ObjectId,

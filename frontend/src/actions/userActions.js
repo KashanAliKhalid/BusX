@@ -1,4 +1,10 @@
-import {USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT} from "../constants/userConstants";
+import {USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS,
+    USER_UPDATE_FAIL,
+    USER_PROFILE_REQUEST,
+    USER_PROFILE_SUCCESS,
+    USER_PROFILE_FAIL
+} from "../constants/userConstants";
 import axios from "axios";
 
 export const userLogin=(email,password,userType,remember)=>{
@@ -56,3 +62,89 @@ export const userLogout = () => {
 
     }
 }
+
+export const updateUser=(id,user,userType)=>{
+    return async (dispatch,getState)=>{
+        try{
+            dispatch({
+                type:USER_UPDATE_REQUEST
+            })
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+
+
+
+
+            if(userType === 'Admin') {
+                var {data} = await axios.patch(`/admin/update/${id}`,
+                    user,
+                    config
+                )
+            }
+            // else if(userType==='Super Admin')
+            //     console.log("super admin")
+
+            dispatch({
+                type:USER_UPDATE_SUCCESS,
+                payload:data
+            })
+
+
+
+        } catch(error){
+            dispatch({
+                type:USER_UPDATE_FAIL,
+                payload:error.response && error.response.data.message ?
+                    error.response.data.message :error.message,
+            })
+        }
+    }
+}
+
+export const userProfile=(id,userType)=>{
+    return async (dispatch,getState)=>{
+        try{
+            dispatch({
+                type:USER_PROFILE_REQUEST
+            })
+            const {userLogin:{userInfo}}=getState()
+
+            const config={
+                headers:{
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
+            }
+            if(userType === 'Admin') {
+                var {data} = await axios.get(`/admin/profile/:id`,
+                    config
+                )
+            }
+            // else if(userType==='Super Admin')
+            //     console.log("super admin")
+
+            dispatch({
+                type:USER_PROFILE_SUCCESS,
+                payload:data
+            })
+
+
+
+        } catch(error){
+            dispatch({
+                type:USER_PROFILE_FAIL,
+                payload:error.response && error.response.data.message ?
+                    error.response.data.message :error.message,
+            })
+        }
+    }
+}
+
+
+

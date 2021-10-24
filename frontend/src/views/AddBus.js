@@ -1,10 +1,11 @@
 import React from "react";
-import { useState } from "react";
-import QRCode from 'qrcode.react'
+import { useState,useEffect } from "react";
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import {useDispatch, useSelector} from "react-redux";
 import {addBus} from '../actions/busActions.js';
+import {routeList} from '../actions/routeActions'
+import {driverList} from '../actions/driverActions'
 
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import FilePondPluginImageResize from "filepond-plugin-image-resize";
@@ -35,6 +36,8 @@ import '../assets/css/addData.css'
 const AddBus=({match})=> {
     const dispatch= useDispatch();
     const addedBus=useSelector(state=>state.addedBus)
+    const {routes} =useSelector(state=>state.routeList)
+    const {drivers} =useSelector(state=>state.driverList)
     const {bus,loading,error}=addedBus;
 
     const[busNumber,setBusNumber] =useState('');
@@ -45,23 +48,31 @@ const AddBus=({match})=> {
     const[manufacturer,setManufacturer]=useState('')
     const[model,setModel]=useState('')
     const [purchaseDate, setPurchaseDate]=useState('')
+    const [driver, setDriver]=useState('')
+    const [route, setRoute]=useState('')
 
 
 
     const onSubmitHandler= (e)=>{
         e.preventDefault();
         const data={
-            busNumber,registrationNumber,manufacturer,model,purchaseDate,
+            busNumber,registrationNumber,manufacturer,model,purchaseDate,route,driver,
             registrationCard:registrationCard[0].getFileEncodeBase64String(),
             fitnessReport:fitnessReport[0].getFileEncodeBase64String(),
-            photo:profile[0].getFileEncodeBase64String(),
-            photoType:profile[0].fileType,
+            photo:profile===undefined?'':profile[0].getFileEncodeBase64String(),
+            photoType:profile===undefined?'':profile[0].fileType,
         }
         dispatch(addBus(data))
     }
 
+    useEffect(()=>{
+
+            dispatch(routeList())
+            dispatch(driverList())
 
 
+
+    },[dispatch])
 
     return (
         <>
@@ -108,7 +119,7 @@ const AddBus=({match})=> {
                                                 <Form.Control
                                                     required='true'
                                                     placeholder="1998"
-                                                    type="email"
+                                                    type="number"
                                                     onChange={(e)=>setModel(e.target.value)}
                                                     value={model}
                                                 ></Form.Control>
@@ -137,6 +148,53 @@ const AddBus=({match})=> {
                                                     value={busNumber}
                                                     type="number"
                                                 ></Form.Control>
+                                            </Form.Group>
+                                        </Col>
+
+                                        <Col className="pl-1" md="4">
+                                            <Form.Group controlId="exampleForm.ControlSelect1">
+                                                <Form.Label>Driver Name</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    value={driver}
+                                                    required={true}
+                                                    onChange={e=>{
+                                                        setDriver(e.target.value)
+                                                    }}
+                                                >
+                                                    <option value=""></option>
+                                                    {
+                                                        !drivers?'': drivers.drivers.map((value)=>{
+                                                            return(<option value={value._id}>{`${value.firstName} ${value.lastName}`}</option>)
+                                                        })
+                                                    }
+                                                </Form.Control>
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col className="pl-3" md="4">
+                                            <Form.Group controlId="exampleForm.ControlSelect1">
+                                                <Form.Label>Route Number</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    value={route}
+                                                    required={true}
+                                                    onChange={e=>{
+                                                        console.log(e.target.value)
+                                                        setRoute(e.target.value)
+                                                    }}
+                                                >
+                                                    <option value=""></option>
+                                                    {
+                                                        !routes?'': routes.routes.map((value)=>{
+                                                            return(<option value={value._id}>{value.name}</option>)
+                                                        })
+                                                    }
+
+
+                                                </Form.Control>
                                             </Form.Group>
                                         </Col>
                                     </Row>

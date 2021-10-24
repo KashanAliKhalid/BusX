@@ -5,6 +5,15 @@
     height:30px !important;
 }
 
+.search-route{
+    width:67vw !important;
+}
+@media only screen and (max-width: 600px) {
+    .search-route {
+        width:10vw !important;
+    }
+}
+
 tbody tr{
   height:5em;
     border:1px solid black;
@@ -121,5 +130,7 @@ span{
 .form-check{
     padding-left:0 !important;
 }
+
+
 
 

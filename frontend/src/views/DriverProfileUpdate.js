@@ -130,6 +130,7 @@ const DriverProfileUpdate=({match})=> {
                                                             onChange={(e)=>setFirstName(e.target.value)}
                                                             value={firstName===null?driver.firstName : firstName}
                                                             type="text"
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -140,6 +141,7 @@ const DriverProfileUpdate=({match})=> {
                                                             onChange={(e)=>setLastName(e.target.value)}
                                                             value={lastName===null?driver.lastName:lastName}
                                                             type="text"
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -152,6 +154,7 @@ const DriverProfileUpdate=({match})=> {
                                                             onChange={(e)=>setAge(e.target.value)}
                                                             value={age===null?driver.age : age}
                                                             type="number"
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -162,6 +165,7 @@ const DriverProfileUpdate=({match})=> {
                                                             onChange={(e)=>setDob(e.target.value)}
                                                             value={dob===null?driver.dob:dob}
                                                             type="date"
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -194,6 +198,7 @@ const DriverProfileUpdate=({match})=> {
                                                             value={contact===null?driver.contact:contact}
                                                             placeholder="03XX5XXXXXX"
                                                             type="number"
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -205,6 +210,7 @@ const DriverProfileUpdate=({match})=> {
                                                             type="number"
                                                             onChange={(value)=>validateNum(value,13)}
                                                             value={cnic===null?driver.cnic:cnic}
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -242,6 +248,7 @@ const DriverProfileUpdate=({match})=> {
                                                             type="text"
                                                             value={address===null? driver.address :address}
                                                             onChange={(e)=>{setAddress(e.target.value)}}
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -254,6 +261,7 @@ const DriverProfileUpdate=({match})=> {
                                                             type="text"
                                                             value={city===null?driver.city:city}
                                                             onChange={(e)=>{setCity(e.target.value)}}
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -264,6 +272,7 @@ const DriverProfileUpdate=({match})=> {
                                                             type="text"
                                                             value={country===null?driver.country:country}
                                                             onChange={(e)=>{setCountry(e.target.value)}}
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -275,6 +284,7 @@ const DriverProfileUpdate=({match})=> {
                                                             type="number"
                                                             value={postalCode===null? driver.postalCode: postalCode}
                                                             onChange={(e)=>{setPostalCode(e.target.value)}}
+                                                            required
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -311,7 +321,6 @@ const DriverProfileUpdate=({match})=> {
                                                 type="submit"
                                                 variant="info"
                                                 disabled={addProfileButton}
-                                                onClick={(e)=>{onSubmitHandler(e)}}
                                             >
                                                 Update Profile
                                             </Button>

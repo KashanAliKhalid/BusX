@@ -75,7 +75,14 @@ export const driverList=(url)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
-            const {data} = await axios.get(url.toString(),config)
+            if(!url)
+            {
+                var {data} = await axios.get('/admin/data/alldrivers',config)
+            }
+            else{
+                var {data} = await axios.get(url.toString(),config)
+
+            }
             dispatch({
                 type:DRIVER_LIST_SUCCESS,
                 payload:data

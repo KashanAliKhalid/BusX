@@ -109,7 +109,7 @@ const AddDriver=({match})=> {
                                 <Card.Title as="h4">Add Driver</Card.Title>
                             </Card.Header>
                             <Card.Body>
-                                <Form>
+                                <Form onSubmit={(e)=>{onSubmitHandler(e)}}>
 
                                     <Row>
                                         <Col className="pr-1" md="6">
@@ -300,7 +300,6 @@ const AddDriver=({match})=> {
                                         type="submit"
                                         variant="info"
                                         disabled={addProfileButton}
-                                        onClick={(e)=>{onSubmitHandler(e)}}
                                     >
                                         Add driver
                                     </Button>

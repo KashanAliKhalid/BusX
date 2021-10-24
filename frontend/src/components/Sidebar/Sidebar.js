@@ -30,7 +30,7 @@ function Sidebar({ color, image, routes }) {
           >
             <div className="logo-img">
               <img
-                src={require("assets/img/reactlogo.png").default}
+                src={require("assets/img/logo2.png").default}
                 alt="..."
               />
             </div>
@@ -53,13 +53,12 @@ function Sidebar({ color, image, routes }) {
 
           <li
               className={
-                activeRoute('/admin/user')
+                activeRoute('/admin/profile')
               }
           >
-            <NavDropdown title={<span> <i className='nc-icon nc-circle-09' /> <p>User Profile</p> </span>}   onClick={()=>{history.push('/admin/user')}}>
-              <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-
-            </NavDropdown>
+              <NavLink   className="nav-link" to={'/admin/profile'}>
+                  <span> <i className='nc-icon nc-circle-09' /> <p>User Profile </p> </span>
+              </NavLink>
           </li>
 
             <li
@@ -82,7 +81,7 @@ function Sidebar({ color, image, routes }) {
                     <span> <i className='nc-icon nc-map-big' /> <p>Routes</p> </span>
                 </NavLink>
             </li>
-            
+
 
             <li
                 className={

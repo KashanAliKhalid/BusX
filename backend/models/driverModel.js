@@ -25,7 +25,7 @@ const driverSchema=mongoose.Schema({
         required:true
     },
     dob:{
-      type:Date,
+      type:String,
       required:true,
     },
     contact:{
@@ -83,7 +83,19 @@ const driverSchema=mongoose.Schema({
     license:{
         type:Buffer,
         required:true
+    },
+
+    currentLocation:{
+        lat:{
+            type:Number,
+        },
+        lng:{
+            type:Number,
+        }
+
+
     }
+
 })
 
 

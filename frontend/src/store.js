@@ -29,8 +29,10 @@ import {
 } from "./reducers/driverReducer"
 
 
-import{
-    userLoginReducer
+import {
+    userLoginReducer,
+    updateUserReducer,
+    userProfileReducer
 
 } from "./reducers/userReducer";
 
@@ -79,6 +81,8 @@ const reducer= combineReducers({
     driverCount:driverCountReducer,
 
     userLogin:userLoginReducer,
+    updatedUser:updateUserReducer,
+    userProfile:userProfileReducer,
 
     addedRoute:addRouteReducer,
     routeList:routeListReducer,

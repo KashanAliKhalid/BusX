@@ -31,6 +31,16 @@ const driverList= asyncHandler(async(req,res)=>{
 
 })
 
+const allDrivers= asyncHandler(async(req,res)=>{
+
+
+
+    const drivers=await Driver.find()
+
+
+    res.json({ drivers })
+
+})
 
 const deleteDriver=asyncHandler(async(req,res)=>{
     const driver=await Driver.findById(req.params.id)
@@ -98,4 +108,4 @@ const driverCount=asyncHandler (async(req,res)=>{
     res.json({count})
 })
 
-export { addDriver,deleteDriver,getDriver,driverList,updateDriver,driverCount}
+export { addDriver,deleteDriver,getDriver,driverList,updateDriver,driverCount,allDrivers}

@@ -15,12 +15,11 @@ const routeList= asyncHandler(async(req,res)=>{
     const page = Number(req.query.page) || 1
     const keyword = req.query.search
         ? {
-            name: {
-                $regex: req.query.search,
-                $options: 'i',
-            },
+            name: parseInt(req.query.search)
         }
         : {}
+
+
 
     const count= await Route.countDocuments({...keyword})
     const routes=await Route.find({...keyword})
@@ -28,6 +27,18 @@ const routeList= asyncHandler(async(req,res)=>{
     .skip(pageSize*(page-1))
 
     res.json({ routes, page, pages: Math.ceil(count / pageSize) })
+
+})
+
+
+const allRoutes= asyncHandler(async(req,res)=>{
+
+
+
+    const routes=await Route.find()
+
+
+    res.json({ routes })
 
 })
 
@@ -85,4 +96,4 @@ const routeCount=asyncHandler (async(req,res)=>{
 })
 
 
-export {addRoute,routeList,deleteRoute,updateRoute,routeCount,getRoute}
+export {addRoute,routeList,deleteRoute,updateRoute,routeCount,getRoute,allRoutes}

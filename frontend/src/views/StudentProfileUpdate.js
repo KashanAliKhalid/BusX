@@ -129,6 +129,7 @@ const StudentProfileUpdate=({match})=> {
                                 style={{width: '310px', marginLeft: '-0.5px'}}
                                 placeholder="RFID"
                                 type="number"
+                                required
                                 value={rfid===null?student.rfid :rfid}
                                 onChange={(e) => {
                                     setRfid(e.target.value)
@@ -144,7 +145,7 @@ const StudentProfileUpdate=({match})=> {
                                     <Card.Title as="h4">{student.firstName} {student.lastName}'s Profile</Card.Title>
                                 </Card.Header>
                                 <Card.Body>
-                                    <Form>
+                                    <Form onSubmit={(e)=>{onSubmitHandler(e)}}>
                                         <Row>
                                             <Col className="pr-1" md="5">
                                                 <Form.Group>
@@ -154,6 +155,7 @@ const StudentProfileUpdate=({match})=> {
                                                         value={contact===null? student.contact :contact}
                                                         placeholder="03XX5XXXXXX"
                                                         type="number"
+                                                        required
                                                         defaultValue={6456465465}
                                                     ></Form.Control>
                                                 </Form.Group>
@@ -165,6 +167,7 @@ const StudentProfileUpdate=({match})=> {
                                                         placeholder="SP18-BCS-073"
                                                         type="text"
                                                         onChange={(e) => setRegNo(e.target.value)}
+                                                        required
                                                         value={regNo===null? student.regNo: regNo}
                                                     ></Form.Control>
                                                 </Form.Group>
@@ -177,6 +180,7 @@ const StudentProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         placeholder="Email"
                                                         type="email"
+                                                        required
                                                         onChange={(e) => setEmail(e.target.value)}
                                                         value={email===null ? student.email: email}
                                                     ></Form.Control>
@@ -191,6 +195,7 @@ const StudentProfileUpdate=({match})=> {
                                                         onChange={(e) => setFirstName(e.target.value)}
                                                         value={firstName===null ? student.firstName : firstName }
                                                         type="text"
+                                                        required
                                                     ></Form.Control>
                                                 </Form.Group>
                                             </Col>
@@ -201,6 +206,7 @@ const StudentProfileUpdate=({match})=> {
                                                         onChange={(e) => setLastName(e.target.value)}
                                                         value={lastName===null?student.lastName :lastName}
                                                         type="text"
+                                                        required
                                                     ></Form.Control>
                                                 </Form.Group>
                                             </Col>
@@ -233,6 +239,7 @@ const StudentProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         placeholder="3630229314081"
                                                         type="number"
+                                                        required
                                                         onChange={(value) => validateNum(value, 13)}
                                                         value={cnic === null ? student.cnic : cnic}
                                                     ></Form.Control>
@@ -267,6 +274,7 @@ const StudentProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         placeholder="Home Address"
                                                         type="text"
+                                                        required
                                                         value={address===null?student.address:address}
                                                         onChange={(e) => {
                                                             setAddress(e.target.value)
@@ -282,6 +290,7 @@ const StudentProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         type="text"
                                                         value={city===null?student.city:city}
+                                                        required
                                                         onChange={(e) => {
                                                             setCity(e.target.value)
                                                         }}
@@ -297,6 +306,7 @@ const StudentProfileUpdate=({match})=> {
                                                         onChange={(e) => {
                                                             setCountry(e.target.value)
                                                         }}
+                                                        required
                                                     ></Form.Control>
                                                 </Form.Group>
                                             </Col>
@@ -306,6 +316,7 @@ const StudentProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         placeholder="ZIP Code"
                                                         type="number"
+                                                        required
                                                         value={postalCode===null?student.postalCode:postalCode}
                                                         onChange={(e) => {
                                                             setPostalCode(e.target.value)
@@ -323,6 +334,7 @@ const StudentProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         placeholder="RFID"
                                                         type="number"
+                                                        required
                                                         value={rfid===null?student.rfid:rfid}
                                                         onChange={(e) => {
                                                             setRfid(e.target.value);
@@ -344,12 +356,10 @@ const StudentProfileUpdate=({match})=> {
                                                     maxFileSize='100KB'
                                                 />
                                             </Col>
-                                            {profile === '' ? '' : console.log(profile)}
                                         </Row>
 
-                                        <YellowButton disabled={addProfileButton} onClick={(e) => {
-                                            onSubmitHandler(e)
-                                        }} width={200} className="pull-right" content={'Update Profile'}/>
+                                        <YellowButton type="Submit" disabled={addProfileButton}
+                                         width={200} className="pull-right" content={'Update Profile'}/>
                                         <div className="clearfix"></div>
                                     </Form>
                                 </Card.Body>
@@ -411,9 +421,6 @@ const StudentProfileUpdate=({match})=> {
         }
     }
 
-    const check=()=>{
-        console.log(student)
-    }
 
     return (
         <>
