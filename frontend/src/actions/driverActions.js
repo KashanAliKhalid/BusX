@@ -61,7 +61,6 @@ export const addDriver=(Driver)=>{
 
 export const driverList=(url)=>{
     return async(dispatch,getState)=>{
-        console.log(url)
         try {
             dispatch({
                 type:DRIVER_LIST_REQUEST

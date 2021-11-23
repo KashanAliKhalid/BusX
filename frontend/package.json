@@ -1,5 +1,5 @@
 {
-  "name": "light-bootstrap-dashboard-react",
+  "name": "busx",
   "version": "2.0.0",
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
@@ -36,7 +36,8 @@
     "react-search-field": "^1.2.1",
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.3.2"
   },
   "optionalDependencies": {
     "jquery": "3.5.1",

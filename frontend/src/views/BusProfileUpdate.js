@@ -123,7 +123,7 @@ const BusProfileUpdate=({match})=> {
                                                     <Form.Control
                                                         required='true'
                                                         placeholder="1998"
-                                                        type="email"
+                                                        type="number"
                                                         onChange={(e)=>setModel(e.target.value)}
                                                         value={model===null? bus.model : model}
                                                     ></Form.Control>

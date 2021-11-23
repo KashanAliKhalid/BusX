@@ -60,13 +60,7 @@ function Dashboard({history}) {
                   </Col>
                 </Row>
               </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update Now
-                </div>
-              </Card.Footer>
+
             </Card>
           </Col>
           <Col lg="3" sm="6">
@@ -86,13 +80,7 @@ function Dashboard({history}) {
                   </Col>
                 </Row>
               </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update Now
-                </div>
-              </Card.Footer>
+
             </Card>
           </Col>
           <Col lg="3" sm="6">
@@ -112,13 +100,7 @@ function Dashboard({history}) {
                   </Col>
                 </Row>
               </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update Now
-                </div>
-              </Card.Footer>
+
             </Card>
           </Col>
           <Col lg="3" sm="6">
@@ -138,13 +120,6 @@ function Dashboard({history}) {
                   </Col>
                 </Row>
               </Card.Body>
-              <Card.Footer>
-                <hr></hr>
-                <div className="stats">
-                  <i className="fas fa-redo mr-1"></i>
-                  Update now
-                </div>
-              </Card.Footer>
             </Card>
           </Col>
         </Row>

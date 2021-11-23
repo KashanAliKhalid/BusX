@@ -17,7 +17,6 @@
 */
 import Dashboard from "views/Dashboard.js";
 import AdminProfile from "views/AdminProfile.js";
-import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
@@ -36,6 +35,8 @@ import BusDetails from "./views/BusDetails";
 import AddRoute from "./views/AddRoute";
 import UpdateRoute from "./views/UpdateRoute";
 import RouteList from "./views/RouteList";
+import Profile from "./views/Profile";
+import FuelManagement from "./views/FuelManagement";
 
 const dashboardRoutes = [
 
@@ -57,10 +58,8 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/table",
-    name: "Table List",
-    icon: "nc-icon nc-notes",
-    component: TableList,
+    path: "/drivers",
+    component: DriverList,
     layout: "/admin",
   },
   {
@@ -79,7 +78,7 @@ const dashboardRoutes = [
   },
   {
     path: "/trackbuses",
-    component: AddRoute,
+    component: TrackBuses,
     layout: "/admin",
   },
   {
@@ -150,13 +149,25 @@ const dashboardRoutes = [
   },
   {
     path:"/assets",
-    component:AssetManageList,
+    component:BusList,
     layout: "/admin",
 
   },
   {
     path:"/busdetails",
     component:BusDetails,
+    layout: "/admin",
+
+  },
+  {
+    path:"/busprofile/:id",
+    component:Profile,
+    layout: "/admin",
+
+  },
+  {
+    path:"/fuel",
+    component:FuelManagement,
     layout: "/admin",
 
   },

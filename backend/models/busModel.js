@@ -95,7 +95,15 @@ const busSchema=mongoose.Schema({
             ref:'Student',
             default:null
         }
-    ]
+    ],
+    currentLocation:{
+        lat:{
+            type:Number
+        },
+        lng:{
+            type:Number
+        }
+    },
 })
 
 const Bus=mongoose.model('Bus',busSchema)

@@ -9,6 +9,7 @@ router.route('/data/driverlist').get(protectAdmin,driverList)
 router.route('/data/driver/:id').delete(protectAdmin,deleteDriver).get(protectAdmin,getDriver).patch(protectAdmin,updateDriver)
 router.route('/data/drivercount').get(protectAdmin,driverCount)
 router.route('/data/alldrivers').get(protectAdmin,allDrivers)
+router.route('/drivers').get(protectAdmin,driverList)
 
 
 

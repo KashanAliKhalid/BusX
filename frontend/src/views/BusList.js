@@ -72,6 +72,16 @@ const BusList=({history, location})=>{
         }
     }
 
+    const divert=(id)=>{
+        if(location.pathname.toString().includes('data'))
+        {
+            history.push(`/admin/data/busprofile/${id}`)
+        }
+        else{
+            history.push(`/admin/busprofile/${id}`)
+        }
+    }
+
     const list=()=>{
         if(deleting===true)
         {
@@ -131,7 +141,7 @@ const BusList=({history, location})=>{
                                                     <Tooltip id="tooltip-829164576">Profile</Tooltip>
                                                 }
                                             >
-                                                <Button onClick={()=>{history.push(`/admin/data/busprofile/${bus._id}`)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
+                                                <Button onClick={()=>{divert(bus._id)}} size='sm'  className='btn-fill btn-padding' variant="primary"><i className=" icon-margin far fa-id-card fa-2x "> </i></Button>
                                             </OverlayTrigger>
                                         </Col>
                                         <Col md={1} className='d-none d-md-block'>
