@@ -1,6 +1,8 @@
 import asyncHandler from "express-async-handler"
 import Admin from "../models/adminModel.js";
 import generateToken from "../utils/generateToken.js";
+import nodemailer from 'nodemailer'
+import jwt from "jsonwebtoken";
 
 
 const authAdmin= asyncHandler(async(req,res)=>{
@@ -27,6 +29,41 @@ const {email,password}=req.body
 
 })
 
+const forgotPassword=asyncHandler(async (req,res)=>{
+    const {email}=req.body;
+    const user=await Admin.findOne({email})
+    if(user)
+    {
+        let token=generateToken(user._id);
+
+        let mailTransporter = nodemailer.createTransport({
+            service: 'gmail',
+            name:"busx",
+            auth: {
+                user: 'kashanalikhalid@gmail.com',
+                pass: process.env.GMAIL_APP_PASSWORD
+            }
+        });
+
+        let info = await mailTransporter.sendMail({
+            from: 'support@busx.com', // sender address
+            to:   `${email}`, // list of receivers
+            subject: "Busx password reset", // Subject line
+            text: `http://localhost:3000/resetpassword/${token}`, // plain text body
+        });
+
+        console.log("Message sent: %s", info.messageId);
+
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        res.json({info})
+    }
+    else{
+        res.status(404)
+        throw new Error('User not found')
+    }
+
+})
+
 const getAdminProfile= asyncHandler(async(req,res)=>{
 let admin=await Admin.findById(req.admin._id)
     if(!admin)
@@ -48,6 +85,7 @@ let admin=await Admin.findById(req.admin._id)
     }
 })
 
+
 const addAdmin=asyncHandler(async(req,res)=>{
     const data=req.body;
 
@@ -60,7 +98,6 @@ const addAdmin=asyncHandler(async(req,res)=>{
 const updateAdmin=asyncHandler(async(req,res)=>{
     const data=req.body;
     const admin= await Admin.findById(req.params.id)
-    console.log(data.institute)
     if(admin)
     {
         admin.name=data.name||admin.name
@@ -82,5 +119,22 @@ const updateAdmin=asyncHandler(async(req,res)=>{
 })
 
 
+const resetPassword=asyncHandler(async(req,res)=>{
+    const {token,password}=req.body;
 
-export {authAdmin,addAdmin,getAdminProfile,updateAdmin}
+    try{
+        const decoded=jwt.verify(token,process.env.JWT_SECRET)
+        let admin=await Admin.findById(decoded.id).select('-password')
+        admin.password=password
+        const updatedAdmin=await admin.save()
+        res.json(updatedAdmin);
+
+    } catch(error){
+        res.status(401)
+        throw new Error('Not authorized, token failed')
+    }
+})
+
+
+
+export {authAdmin,addAdmin,getAdminProfile,updateAdmin,forgotPassword,resetPassword}

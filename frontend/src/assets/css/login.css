@@ -202,7 +202,7 @@ position:absolute;
 .login-forgot{
 position:absolute;
     right:0;
-    top:5px;
+    top:125px;
     cursor: pointer;
     font-family:'Nunito';
     font-weight:bold;
@@ -250,3 +250,7 @@ position:absolute;
     display:none !important;
 
 }
+
+/*.form-gap {*/
+/*    padding-top: 70px;*/
+/*}*/

@@ -37,6 +37,7 @@ import UpdateRoute from "./views/UpdateRoute";
 import RouteList from "./views/RouteList";
 import Profile from "./views/Profile";
 import FuelManagement from "./views/FuelManagement";
+import ForgotPassword from "./views/ForgotPassword";
 
 const dashboardRoutes = [
 

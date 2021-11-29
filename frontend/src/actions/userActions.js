@@ -3,7 +3,13 @@ import {USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGOUT, US
     USER_UPDATE_FAIL,
     USER_PROFILE_REQUEST,
     USER_PROFILE_SUCCESS,
-    USER_PROFILE_FAIL
+    USER_PROFILE_FAIL,
+    USER_PASSWORD_SUCCESS,
+    USER_PASSWORD_REQUEST,
+    USER_PASSWORD_FAIL,
+    USER_PASSWORD_RESET_SUCCESS,
+    USER_PASSWORD_RESET_FAIL,
+    USER_PASSWORD_RESET_REQUEST
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -139,6 +145,61 @@ export const userProfile=(id,userType)=>{
         } catch(error){
             dispatch({
                 type:USER_PROFILE_FAIL,
+                payload:error.response && error.response.data.message ?
+                    error.response.data.message :error.message,
+            })
+        }
+    }
+}
+
+export const forgotPassword=(email)=>{
+    return async (dispatch,getState)=>{
+        try{
+            dispatch({
+                type:USER_PASSWORD_REQUEST
+            })
+
+                let {data} = await axios.post(`/admin/password`, {email}
+                )
+
+            dispatch({
+                type:USER_PASSWORD_SUCCESS,
+                payload:data
+            })
+
+
+
+        } catch(error){
+            dispatch({
+                type:USER_PASSWORD_FAIL,
+                payload:error.response && error.response.data.message ?
+                    error.response.data.message :error.message,
+            })
+        }
+    }
+}
+
+
+export const resetPassword=(password,token)=>{
+    return async (dispatch)=>{
+        try{
+            dispatch({
+                type:USER_PASSWORD_RESET_REQUEST
+            })
+
+            let {data} = await axios.post(`/admin/resetpassword`, {password,token}
+            )
+
+            dispatch({
+                type:USER_PASSWORD_RESET_SUCCESS,
+                payload:data
+            })
+
+
+
+        } catch(error){
+            dispatch({
+                type:USER_PASSWORD_RESET_FAIL,
                 payload:error.response && error.response.data.message ?
                     error.response.data.message :error.message,
             })

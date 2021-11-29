@@ -16,6 +16,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 import AdminLayout from "layouts/Admin.js";
+import ForgotPassword from "./views/ForgotPassword";
+import ResetPassword from "./views/ResetPassword";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -24,6 +26,8 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/login" render={(props) => <Login {...props} />} />
+      <Route path="/forgotpassword" render={(props) => <ForgotPassword {...props} />} />
+      <Route path="/resetpassword/:token" render={(props) => <ResetPassword {...props} />} />
       <Route path="/403" render={(props) => <Forbidden {...props} />} />
       <Redirect from="/" to="/login"/>
     </Switch>

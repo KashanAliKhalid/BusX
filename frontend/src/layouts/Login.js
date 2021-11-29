@@ -206,9 +206,10 @@ const Login = ({history}) => {
                                     <div className="login-form-checkbox">
                                     </div>
 
-                                    <h5 className="login-forgot ml-5">Forgot password?</h5>
+
                                 </Form.Group>
-                                <YellowButton type="submit" className="mt-2 float-left" width={200} content="Login"/>
+                                <h5 onClick={()=>{history.push('/forgotpassword')}} className="login-forgot ml-5 mt-5">Forgot password?</h5>
+                                <YellowButton  type="submit" className="mt-2 float-left" width={200} content="Login"/>
                                 <Row className="d-flex flex-column align-items-center justify-content-center d-md-none">
                                     <Switch
                                         className="mt-2 ml-5"

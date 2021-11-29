@@ -32,7 +32,8 @@ import {
 import {
     userLoginReducer,
     updateUserReducer,
-    userProfileReducer
+    userProfileReducer,
+    forgotPasswordReducer, resetPasswordReducer
 
 } from "./reducers/userReducer";
 
@@ -83,6 +84,8 @@ const reducer= combineReducers({
     userLogin:userLoginReducer,
     updatedUser:updateUserReducer,
     userProfile:userProfileReducer,
+    forgotPassword:forgotPasswordReducer,
+    resetPassword:resetPasswordReducer,
 
     addedRoute:addRouteReducer,
     routeList:routeListReducer,
