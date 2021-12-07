@@ -43,6 +43,10 @@ const Login = ({history}) => {
             {
                 history.push('/admin/dashboard')
             }
+            else if(userInfo.type==='SuperAdmin')
+            {
+                history.push('/superadmin/addlicense')
+            }
         }
     },[userInfo])
 
@@ -68,7 +72,15 @@ const Login = ({history}) => {
 
     const submitHandler=(e)=>{
         e.preventDefault();
-        dispatch(userLogin(email,password,selectedUser,remember))
+        if(selectedUser==='Admin')
+        {
+            dispatch(userLogin(email,password,selectedUser,remember))
+
+        }
+        else{
+            dispatch(userLogin(email,password,selectedUser,remember))
+
+        }
     }
 
 

@@ -35,6 +35,7 @@ import '../assets/css/addData.css'
 import {getStudent} from "../actions/studentActions";
 import UpdateLoader from "../components/Loaders/UpdateLoader";
 import ProfileLoader from "../components/Loaders/ProfileLoader";
+import YellowButton from "../components/Buttons/YellowButton";
 
 
 const DriverProfileUpdate=({match})=> {
@@ -316,14 +317,13 @@ const DriverProfileUpdate=({match})=> {
                                                     />
                                                 </Col>
                                             </Row>
-                                            <Button
-                                                className="btn-fill pull-right"
+                                            <YellowButton
+                                                className="pull-right"
                                                 type="submit"
-                                                variant="info"
-                                                disabled={addProfileButton}
-                                            >
-                                                Update Profile
-                                            </Button>
+                                                width={200}
+                                                content="Update Profile"
+                                            />
+                                            <div className="clearfix"></div>
                                             <div className="clearfix"></div>
                                         </Form>
                                     </Card.Body>

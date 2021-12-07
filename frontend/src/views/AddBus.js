@@ -31,6 +31,7 @@ import {
 } from "react-bootstrap";
 
 import '../assets/css/addData.css'
+import YellowButton from "../components/Buttons/YellowButton";
 
 
 const AddBus=({match})=> {
@@ -234,13 +235,12 @@ const AddBus=({match})=> {
                                             />
                                         </Col>
                                     </Row>
-                                    <Button
-                                        className="btn-fill pull-right"
+                                    <YellowButton
+                                        className="pull-right"
                                         type="submit"
-                                        variant="info"
-                                    >
-                                        Add Bus
-                                    </Button>
+                                        width={200}
+                                        content="Add Bus"
+                                    />
                                     <div className="clearfix"></div>
                                 </Form>
                             </Card.Body>

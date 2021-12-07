@@ -28,6 +28,11 @@ const adminSchema=mongoose.Schema({
         }
 
 
+    },
+    license:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'License',
+        required:true
     }
 
 

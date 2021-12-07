@@ -131,6 +131,20 @@ span{
     padding-left:0 !important;
 }
 
+.revoke-button::before{
+    background:red !important;
+}
 
+.revoke-button:hover:before{
+    background:white !important;
+}
 
+.revoke-button
+{
+    color:white !important;
+}
 
+.revoke-button:hover
+{
+    color:black !important;
+}

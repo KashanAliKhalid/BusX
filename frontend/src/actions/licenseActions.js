@@ -1,32 +1,32 @@
 import axios from 'axios'
 import{
-    ADD_ROUTE_REQUEST,
-    ADD_ROUTE_SUCCESS,
-    ADD_ROUTE_FAIL,
-    UPDATE_ROUTE_REQUEST,
-    UPDATE_ROUTE_SUCCESS,
-    UPDATE_ROUTE_FAIL,
-    DELETE_ROUTE_REQUEST,
-    DELETE_ROUTE_SUCCESS,
-    DELETE_ROUTE_FAIL,
-    ROUTE_LIST_REQUEST,
-    ROUTE_LIST_SUCCESS,
-    ROUTE_LIST_FAIL,
-    ROUTE_DETAILS_REQUEST,
-    ROUTE_DETAILS_SUCCESS,
-    ROUTE_DETAILS_FAIL,
-    ROUTE_COUNT_REQUEST,
-    ROUTE_COUNT_SUCCESS,
-    ROUTE_COUNT_FAIL
-} from '../constants/routeConstants'
+    ADD_LICENSE_REQUEST,
+    ADD_LICENSE_SUCCESS,
+    ADD_LICENSE_FAIL,
+    UPDATE_LICENSE_REQUEST,
+    UPDATE_LICENSE_SUCCESS,
+    UPDATE_LICENSE_FAIL,
+    DELETE_LICENSE_REQUEST,
+    DELETE_LICENSE_SUCCESS,
+    DELETE_LICENSE_FAIL,
+    LICENSE_LIST_REQUEST,
+    LICENSE_LIST_SUCCESS,
+    LICENSE_LIST_FAIL,
+    LICENSE_DETAILS_REQUEST,
+    LICENSE_DETAILS_SUCCESS,
+    LICENSE_DETAILS_FAIL,
+    LICENSE_COUNT_REQUEST,
+    LICENSE_COUNT_SUCCESS,
+    LICENSE_COUNT_FAIL
+} from '../constants/licenseConstants'
 
 
 
-export const addRoute=(route)=>{
+export const addLicense=(license)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:ADD_ROUTE_REQUEST,
+                type:ADD_LICENSE_REQUEST,
             })
             const {userLogin:{userInfo}}=getState()
 
@@ -36,10 +36,10 @@ export const addRoute=(route)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
-            const {data}= await axios.post('/admin/route', route,config)
+            const {data}= await axios.post('/superadmin/license', license,config)
 
             dispatch({
-                type:ADD_ROUTE_SUCCESS,
+                type:ADD_LICENSE_SUCCESS,
                 payload:data
             })
         }
@@ -51,18 +51,19 @@ export const addRoute=(route)=>{
                     : error.message
 
             dispatch({
-                type:ADD_ROUTE_FAIL,
+                type:ADD_LICENSE_FAIL,
                 payload:message
             })
         }
     }
 }
 
-export const routeList=(url)=>{
+
+export const licenseList=(url)=>{
     return async(dispatch,getState)=>{
         try {
             dispatch({
-                type:ROUTE_LIST_REQUEST
+                type:LICENSE_LIST_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -75,7 +76,7 @@ export const routeList=(url)=>{
             }
             if(!url)
             {
-                var {data} = await axios.get('/admin/allroutes',config)
+                var {data} = await axios.get('/superadmin/alllicenses',config)
             }
             else{
                 var {data} = await axios.get(url.toString(),config)
@@ -83,13 +84,13 @@ export const routeList=(url)=>{
             }
 
             dispatch({
-                type:ROUTE_LIST_SUCCESS,
+                type:LICENSE_LIST_SUCCESS,
                 payload:data
             })
         }
         catch (error) {
             dispatch({
-                type:ROUTE_LIST_FAIL,
+                type:LICENSE_LIST_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message,
@@ -98,12 +99,11 @@ export const routeList=(url)=>{
     }
 }
 
-
-export const deleteRoute=(id)=>{
+export const deleteLicense=(id)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:DELETE_ROUTE_REQUEST
+                type:DELETE_LICENSE_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -115,15 +115,15 @@ export const deleteRoute=(id)=>{
                 }
             }
 
-            await axios.delete(`/admin/route/${id}`,config)
+            await axios.delete(`/superadmin/license/${id}`,config)
             dispatch({
-                type:DELETE_ROUTE_SUCCESS,
+                type:DELETE_LICENSE_SUCCESS,
             })
         }
         catch(error)
         {
             dispatch({
-                type:DELETE_ROUTE_FAIL,
+                type:DELETE_LICENSE_FAIL,
                 payload: error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -132,11 +132,11 @@ export const deleteRoute=(id)=>{
     }
 }
 
-export const getRoute=(id)=>{
+export const getLicense=(id)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:ROUTE_DETAILS_REQUEST
+                type:LICENSE_DETAILS_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -148,16 +148,16 @@ export const getRoute=(id)=>{
                 }
             }
 
-            const {data}=await axios.get(`/admin/route/${id}`,config)
+            const {data}=await axios.get(`/superadmin/license/${id}`,config)
             dispatch({
-                type:ROUTE_DETAILS_SUCCESS,
+                type:LICENSE_DETAILS_SUCCESS,
                 payload:data
             })
         }
         catch (error)
         {
             dispatch({
-                type:ROUTE_DETAILS_FAIL,
+                type:LICENSE_DETAILS_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -166,11 +166,12 @@ export const getRoute=(id)=>{
     }
 }
 
-export const updateRoute=(id,route)=>{
+
+export const updateLicense=(id,license)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:UPDATE_ROUTE_REQUEST
+                type:UPDATE_LICENSE_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -182,15 +183,15 @@ export const updateRoute=(id,route)=>{
                 }
             }
 
-            const {data}=await axios.patch(`/admin/route/${id}`,route,config)
+            const {data}=await axios.patch(`/superadmin/license/${id}`,license,config)
             dispatch({
-                type:UPDATE_ROUTE_SUCCESS,
+                type:UPDATE_LICENSE_SUCCESS,
                 payload:data
             })
         }
         catch(error){
             dispatch({
-                type:UPDATE_ROUTE_FAIL,
+                type:UPDATE_LICENSE_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -198,6 +199,3 @@ export const updateRoute=(id,route)=>{
         }
     }
 }
-
-
-

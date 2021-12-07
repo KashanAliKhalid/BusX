@@ -33,8 +33,11 @@ export const userLogin=(email,password,userType,remember)=>{
                     config
                 )
             }
-            // else if(userType==='Super Admin')
-            //     console.log("super admin")
+            else if(userType==='Super Admin')
+                var {data} = await axios.post('/superadmin/login',
+                    {email, password},
+                    config
+                )
 
             dispatch({
                 type:USER_LOGIN_SUCCESS,

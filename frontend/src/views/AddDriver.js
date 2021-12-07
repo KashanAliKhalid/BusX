@@ -5,6 +5,7 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import {useDispatch, useSelector} from "react-redux";
 import {addDriver} from '../actions/driverActions.js'
+import SimpleLoader from "../components/Loaders/SimpleLoader";
 
 
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
@@ -32,6 +33,7 @@ import {
 } from "react-bootstrap";
 
 import '../assets/css/addData.css'
+import YellowButton from "../components/Buttons/YellowButton";
 
 
 const AddDriver=({match})=> {
@@ -97,10 +99,8 @@ const AddDriver=({match})=> {
         }
     }
 
-
-    return (
-        <>
-
+    const displayForm=()=>{
+        return(
             <Container fluid>
                 <Row>
                     <Col md="8">
@@ -175,17 +175,17 @@ const AddDriver=({match})=> {
                                         </Col>
                                     </Row>
                                     <Row>
-                                            <Col className="pr-1" md="6">
-                                                <Form.Group>
-                                                    <label>Contact</label>
-                                                    <Form.Control
-                                                        onChange={(value)=>validateNum(value,11)}
-                                                        value={contact}
-                                                        placeholder="03XX5XXXXXX"
-                                                        type="number"
-                                                    ></Form.Control>
-                                                </Form.Group>
-                                            </Col>
+                                        <Col className="pr-1" md="6">
+                                            <Form.Group>
+                                                <label>Contact</label>
+                                                <Form.Control
+                                                    onChange={(value)=>validateNum(value,11)}
+                                                    value={contact}
+                                                    placeholder="03XX5XXXXXX"
+                                                    type="number"
+                                                ></Form.Control>
+                                            </Form.Group>
+                                        </Col>
                                         <Col md="6">
                                             <Form.Group>
                                                 <label>CNIC</label>
@@ -295,14 +295,14 @@ const AddDriver=({match})=> {
                                             />
                                         </Col>
                                     </Row>
-                                    <Button
-                                        className="btn-fill pull-right"
+                                    <YellowButton
+                                        className="pull-right"
                                         type="submit"
-                                        variant="info"
+                                        width={200}
+                                        content="Add driver"
                                         disabled={addProfileButton}
-                                    >
-                                        Add driver
-                                    </Button>
+                                    />
+
                                     <div className="clearfix"></div>
                                 </Form>
                             </Card.Body>
@@ -346,6 +346,13 @@ const AddDriver=({match})=> {
                     </Col>
                 </Row>
             </Container>
+        )
+    }
+
+    return (
+        <>
+            {loading===true? <SimpleLoader/> : displayForm() }
+
         </>
     );
 }

@@ -1,32 +1,28 @@
 import axios from 'axios'
 import{
-    ADD_ROUTE_REQUEST,
-    ADD_ROUTE_SUCCESS,
-    ADD_ROUTE_FAIL,
-    UPDATE_ROUTE_REQUEST,
-    UPDATE_ROUTE_SUCCESS,
-    UPDATE_ROUTE_FAIL,
-    DELETE_ROUTE_REQUEST,
-    DELETE_ROUTE_SUCCESS,
-    DELETE_ROUTE_FAIL,
-    ROUTE_LIST_REQUEST,
-    ROUTE_LIST_SUCCESS,
-    ROUTE_LIST_FAIL,
-    ROUTE_DETAILS_REQUEST,
-    ROUTE_DETAILS_SUCCESS,
-    ROUTE_DETAILS_FAIL,
-    ROUTE_COUNT_REQUEST,
-    ROUTE_COUNT_SUCCESS,
-    ROUTE_COUNT_FAIL
-} from '../constants/routeConstants'
+    ADD_PAYMENT_REQUEST,
+    ADD_PAYMENT_SUCCESS,
+    ADD_PAYMENT_FAIL,
+    UPDATE_PAYMENT_REQUEST,
+    UPDATE_PAYMENT_SUCCESS,
+    UPDATE_PAYMENT_FAIL,
+    DELETE_PAYMENT_REQUEST,
+    DELETE_PAYMENT_SUCCESS,
+    DELETE_PAYMENT_FAIL,
+    PAYMENT_LIST_REQUEST,
+    PAYMENT_LIST_SUCCESS,
+    PAYMENT_LIST_FAIL,
+    PAYMENT_DETAILS_REQUEST,
+    PAYMENT_DETAILS_SUCCESS,
+    PAYMENT_DETAILS_FAIL,
+} from '../constants/paymentConstants'
 
 
-
-export const addRoute=(route)=>{
+export const addPayment=(payment)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:ADD_ROUTE_REQUEST,
+                type:ADD_PAYMENT_REQUEST,
             })
             const {userLogin:{userInfo}}=getState()
 
@@ -36,10 +32,10 @@ export const addRoute=(route)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
-            const {data}= await axios.post('/admin/route', route,config)
+            const {data}= await axios.post('/superadmin/payment', payment,config)
 
             dispatch({
-                type:ADD_ROUTE_SUCCESS,
+                type:ADD_PAYMENT_SUCCESS,
                 payload:data
             })
         }
@@ -51,18 +47,18 @@ export const addRoute=(route)=>{
                     : error.message
 
             dispatch({
-                type:ADD_ROUTE_FAIL,
+                type:ADD_PAYMENT_FAIL,
                 payload:message
             })
         }
     }
 }
 
-export const routeList=(url)=>{
+export const paymentList=(url)=>{
     return async(dispatch,getState)=>{
         try {
             dispatch({
-                type:ROUTE_LIST_REQUEST
+                type:PAYMENT_LIST_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -73,23 +69,19 @@ export const routeList=(url)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
-            if(!url)
-            {
-                var {data} = await axios.get('/admin/allroutes',config)
-            }
-            else{
-                var {data} = await axios.get(url.toString(),config)
 
-            }
+
+                let {data} = await axios.get(url.toString(),config)
+
 
             dispatch({
-                type:ROUTE_LIST_SUCCESS,
+                type:PAYMENT_LIST_SUCCESS,
                 payload:data
             })
         }
         catch (error) {
             dispatch({
-                type:ROUTE_LIST_FAIL,
+                type:PAYMENT_LIST_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message,
@@ -98,12 +90,11 @@ export const routeList=(url)=>{
     }
 }
 
-
-export const deleteRoute=(id)=>{
+export const deletePayment=(id)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:DELETE_ROUTE_REQUEST
+                type:DELETE_PAYMENT_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -115,15 +106,15 @@ export const deleteRoute=(id)=>{
                 }
             }
 
-            await axios.delete(`/admin/route/${id}`,config)
+            await axios.delete(`/superadmin/payment/${id}`,config)
             dispatch({
-                type:DELETE_ROUTE_SUCCESS,
+                type:DELETE_PAYMENT_SUCCESS,
             })
         }
         catch(error)
         {
             dispatch({
-                type:DELETE_ROUTE_FAIL,
+                type:DELETE_PAYMENT_FAIL,
                 payload: error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -132,11 +123,12 @@ export const deleteRoute=(id)=>{
     }
 }
 
-export const getRoute=(id)=>{
+
+export const getPayment=(id)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:ROUTE_DETAILS_REQUEST
+                type:PAYMENT_DETAILS_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -148,16 +140,16 @@ export const getRoute=(id)=>{
                 }
             }
 
-            const {data}=await axios.get(`/admin/route/${id}`,config)
+            const {data}=await axios.get(`/superadmin/payment/${id}`,config)
             dispatch({
-                type:ROUTE_DETAILS_SUCCESS,
+                type:PAYMENT_DETAILS_SUCCESS,
                 payload:data
             })
         }
         catch (error)
         {
             dispatch({
-                type:ROUTE_DETAILS_FAIL,
+                type:PAYMENT_DETAILS_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -166,11 +158,11 @@ export const getRoute=(id)=>{
     }
 }
 
-export const updateRoute=(id,route)=>{
+export const updatePayment=(id,payment)=>{
     return async (dispatch,getState)=>{
         try{
             dispatch({
-                type:UPDATE_ROUTE_REQUEST
+                type:UPDATE_PAYMENT_REQUEST
             })
 
             const {userLogin:{userInfo}}=getState()
@@ -182,15 +174,15 @@ export const updateRoute=(id,route)=>{
                 }
             }
 
-            const {data}=await axios.patch(`/admin/route/${id}`,route,config)
+            const {data}=await axios.patch(`/superadmin/payment/${id}`,payment,config)
             dispatch({
-                type:UPDATE_ROUTE_SUCCESS,
+                type:UPDATE_PAYMENT_SUCCESS,
                 payload:data
             })
         }
         catch(error){
             dispatch({
-                type:UPDATE_ROUTE_FAIL,
+                type:UPDATE_PAYMENT_FAIL,
                 payload:error.response && error.response.data.message
                     ? error.response.data.message
                     : error.message
@@ -198,6 +190,4 @@ export const updateRoute=(id,route)=>{
         }
     }
 }
-
-
 

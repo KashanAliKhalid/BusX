@@ -16,6 +16,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 
 import AdminLayout from "layouts/Admin.js";
+import SuperAdminLayout from "./layouts/SuperAdmin";
 import ForgotPassword from "./views/ForgotPassword";
 import ResetPassword from "./views/ResetPassword";
 
@@ -25,6 +26,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+      <Route path="/superadmin" render={(props) => <SuperAdminLayout {...props} />} />
       <Route path="/login" render={(props) => <Login {...props} />} />
       <Route path="/forgotpassword" render={(props) => <ForgotPassword {...props} />} />
       <Route path="/resetpassword/:token" render={(props) => <ResetPassword {...props} />} />

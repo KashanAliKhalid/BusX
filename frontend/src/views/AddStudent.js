@@ -28,6 +28,7 @@ import {
 } from "react-bootstrap";
 
 import '../assets/css/addData.css'
+import YellowButton from "../components/Buttons/YellowButton";
 
 
 const User=({match})=> {
@@ -327,14 +328,13 @@ const User=({match})=> {
                                         </Col>
                                         {profile===''? '' :console.log(profile)}
                                     </Row>
-                                    <Button
-                                        className="btn-fill pull-right"
+                                    <YellowButton
+                                        className="pull-right"
                                         type="submit"
-                                        variant="info"
+                                        width={200}
+                                        content="Add Student"
                                         disabled={addProfileButton}
-                                    >
-                                        Add student
-                                    </Button>
+                                    />
                                     <div className="clearfix"></div>
                                 </Form>
                             </Card.Body>

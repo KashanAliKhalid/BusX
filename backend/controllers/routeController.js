@@ -32,14 +32,8 @@ const routeList= asyncHandler(async(req,res)=>{
 
 
 const allRoutes= asyncHandler(async(req,res)=>{
-
-
-
     const routes=await Route.find()
-
-
     res.json({ routes })
-
 })
 
 const deleteRoute=asyncHandler(async(req,res)=>{

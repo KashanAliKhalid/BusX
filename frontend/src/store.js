@@ -46,6 +46,32 @@ import {
     routeCountReducer,
 } from "./reducers/routeReducer";
 
+import {
+    addLicenseReducer,
+    deleteLicenseReducer,
+    updateLicenseReducer,
+    licenseCountReducer,
+    licenseDetailsReducer,
+    licenseListReducer
+} from "./reducers/licenseReducer";
+
+import {
+    addAdminReducer,
+    deleteAdminReducer,
+    updateAdminReducer,
+    adminDetailsReducer,
+    adminListReducer,
+    adminCountReducer,
+} from "./reducers/adminReducer";
+
+import {
+    addPaymentReducer,
+    deletePaymentReducer,
+    updatePaymentReducer,
+    paymentDetailsReducer,
+    paymentListReducer
+} from "./reducers/paymentReducer";
+
 let userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
@@ -93,6 +119,26 @@ const reducer= combineReducers({
     routeDetails:routeDetailsReducer,
     updatedRoute:updateRouteReducer,
     routeCount:routeCountReducer,
+
+    addedLicense:addLicenseReducer,
+    licenseList:licenseListReducer,
+    licenseDelete:deleteLicenseReducer,
+    licenseDetails:licenseDetailsReducer,
+    updatedLicense:updateLicenseReducer,
+    licenseCount:licenseCountReducer,
+
+    addedAdmin:addAdminReducer,
+    adminList:adminListReducer,
+    adminDelete:deleteAdminReducer,
+    adminDetails:adminDetailsReducer,
+    updatedAdmin:updateAdminReducer,
+    adminCount:adminCountReducer,
+
+    addedPayment:addPaymentReducer,
+    paymentList:paymentListReducer,
+    paymentDelete:deletePaymentReducer,
+    paymentDetails:paymentDetailsReducer,
+    updatedPayment:updatePaymentReducer
 
 })
 

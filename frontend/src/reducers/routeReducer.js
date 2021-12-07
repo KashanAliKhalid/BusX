@@ -18,21 +18,7 @@ import{
     ROUTE_COUNT_SUCCESS,
     ROUTE_COUNT_FAIL
 } from '../constants/routeConstants'
-import {
-    DELETE_DRIVER_FAIL,
-    DELETE_DRIVER_REQUEST,
-    DELETE_DRIVER_SUCCESS, DRIVER_COUNT_FAIL,
-    DRIVER_COUNT_REQUEST, DRIVER_COUNT_SUCCESS,
-    DRIVER_DETAILS_FAIL,
-    DRIVER_DETAILS_REQUEST,
-    DRIVER_DETAILS_SUCCESS,
-    DRIVER_LIST_FAIL,
-    DRIVER_LIST_REQUEST,
-    DRIVER_LIST_SUCCESS,
-    UPDATE_DRIVER_FAIL,
-    UPDATE_DRIVER_REQUEST,
-    UPDATE_DRIVER_SUCCESS
-} from "../constants/driverConstants";
+
 
 export const addRouteReducer=(state={},action)=>{
     switch(action.type)
@@ -121,13 +107,13 @@ export const updateRouteReducer =(state={}, action)=>{
 
 export const routeCountReducer = (state={},action)=>{
     switch(action.type){
-        case DRIVER_COUNT_REQUEST:{
+        case ROUTE_COUNT_REQUEST:{
             return{routeLoading:true}
         }
-        case DRIVER_COUNT_SUCCESS:{
+        case ROUTE_COUNT_SUCCESS:{
             return{routeLoading:false,routeCount:action.payload}
         }
-        case DRIVER_COUNT_FAIL:{
+        case ROUTE_COUNT_FAIL:{
             return{routeLoading:false, error:action.payload}
         }
         default:
