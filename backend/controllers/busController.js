@@ -18,8 +18,9 @@ const busList= asyncHandler(async(req,res)=>{
                 $regex: req.query.search,
                 $options: 'i',
             },
+            institute:`${req.admin.institute}`
         }
-        : {}
+        : {institute:`${req.admin.institute}`}
 
     const count= await Bus.countDocuments({...keyword})
     const buses=await Bus.find({...keyword})
@@ -45,7 +46,7 @@ const deleteBus= asyncHandler(async(req,res)=>{
 
 const getBus=asyncHandler(async(req,res)=>{
     const id=req.params.id
-    const bus= await Bus.findById(id);
+    const bus= await Bus.findById(id).populate('route').populate('driver').populate('driverHistory').populate('students')
 
     if(bus)
     {
@@ -58,18 +59,27 @@ const getBus=asyncHandler(async(req,res)=>{
 
 
 const updateBus=asyncHandler(async (req,res)=>{
-    const bus= await Bus.findById(req.params.id)
-
+    const bus= await Bus.findById(req.params.id).populate('route').populate('driver').populate('driverHistory').populate('students')
     if(bus){
+        const drivers=bus.driverHistory
+        const lastDriver=drivers.slice(-1).pop()
+        if(lastDriver._id.toString()!==req.body.driver.toString())
+        {
+            drivers.push(req.body.driver)
+        }
         bus.busNumber= req.body.busNumber || bus.busNumber;
         bus.registrationNumber=req.body.registrationNumber || bus.registrationNumber;
         bus.photo=req.body.photo || bus.photo
         bus.purchaseDate=req.body.purchaseDate || bus.purchaseDate;
         bus.model= req.body.model||bus.model;
         bus.manufacturer= req.body.manufacturer || bus.manufacturer;
-        bus.registrationCard= req.body.registration || bus.registrationCard;
+        bus.registrationCard= req.body.registrationCard || bus.registrationCard;
         bus.fitnessReport= req.body.fitnessReport || bus.fitnessReport
         bus.photoType= req.body.photoType || bus.photoType
+        bus.route=req.body.route || bus.route
+        bus.driver=req.body.driver || bus.driver
+        bus.students=bus.students
+        bus.driverHistory=drivers
 
         const updatedStudent=await bus.save()
         res.json(updatedStudent)
@@ -84,7 +94,7 @@ const updateBus=asyncHandler(async (req,res)=>{
 
 
 const busCount=asyncHandler (async(req,res)=>{
-    const count= await Bus.countDocuments({})
+    const count= await Bus.countDocuments({institute:`${req.admin.institute}`})
     res.json({count})
 })
 

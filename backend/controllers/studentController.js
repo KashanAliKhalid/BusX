@@ -18,8 +18,9 @@ const studentList= asyncHandler(async(req,res)=>{
                 $regex: req.query.search,
                 $options: 'i',
             },
+            institute:`${req.admin.institute}`
         }
-        : {}
+        : {institute:`${req.admin.institute}`}
 
     const count= await Student.countDocuments({...keyword})
     const students=await Student.find({...keyword})
@@ -90,7 +91,7 @@ const updateStudent=asyncHandler(async (req,res)=>{
 
 
 const studentCount=asyncHandler (async(req,res)=>{
-    const count= await Student.countDocuments({})
+    const count= await Student.countDocuments({institute:`${req.admin.institute}`})
     res.json({count})
 })
 

@@ -94,9 +94,15 @@ const driverSchema=mongoose.Schema({
         }
 
 
+    },
+    institute:{
+        type:String,
+        required:true
     }
 
 })
+
+driverSchema.index({ 'institute': 1, 'cnic': 1}, { unique: true });
 
 
 driverSchema.pre('save',async function (next){

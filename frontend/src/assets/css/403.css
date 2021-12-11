@@ -3,6 +3,18 @@
     height:100vh;
     background:black;
 }
+
+.expired-body{
+    width:100vw;
+    height:100vh;
+    background:#00afcc;
+}
+
+
+.expired-image{
+    margin-left:27%;
+}
+
 .whistle{
     width: 20%;
     fill: #fdda00;
@@ -41,4 +53,41 @@
     font-size: 30px;
     text-transform: uppercase;
     font-weight: 700;
+    margin-top: -10px;
+}
+
+.h2-forbidden a{
+    color: black;
+    text-align: center;
+    font-family: 'Raleway', serif;
+    font-size: 30px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: -10px;
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 600px) {
+    .expired-image{
+        margin-left:-50%;
+    }
+
+    .h1-forbidden{
+        margin-top: -190px;
+        margin-bottom: 20px;
+        color: white;
+        text-align: center;
+        font-family: 'Raleway', serif;
+        font-size: 90px;
+        font-weight: 800;
+    }
+    .h2-forbidden{
+        color: white;
+        text-align: center;
+        font-family: 'Raleway', serif;
+        font-size: 30px;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-top: -10px;
+    }
 }

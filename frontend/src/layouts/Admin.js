@@ -23,7 +23,21 @@ function Admin({history}) {
 
   },[userInfo])
 
+  const feeStatus=(date)=>{
+    date= new Date(date)
+    let today= new Date()
+    return Math.round((today-date)/(1000*60*60*24));
+  }
+
+
   const redirect=(url)=> <Redirect to={`${url}`}/>
+
+  const checkDefaulter=()=>{
+    let years=parseInt(userInfo.license.type.charAt(0))
+    let days=feeStatus(userInfo.license.paymentDate)-1
+    return (days <= (365 * years))
+  }
+
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
@@ -41,8 +55,9 @@ function Admin({history}) {
     });
   };
   React.useEffect(() => {
+    checkDefaulter()
 
-    if(userInfo!==null && userInfo.type==="Admin")
+    if(userInfo!==null && userInfo.type==="Admin" && checkDefaulter())
     {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
@@ -68,9 +83,14 @@ function Admin({history}) {
     {
       return redirect('/403')
     }
+    else if(!checkDefaulter())
+    {
+      return redirect('/expired')
+    }
     else{
       return (
           <div>
+
             <div className="wrapper">
               <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
               <div className="main-panel" ref={mainPanel}>

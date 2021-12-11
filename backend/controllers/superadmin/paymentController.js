@@ -15,7 +15,7 @@ const paymentList= asyncHandler(async(req,res)=>{
 
 
     const count= await Payment.countDocuments()
-    const payments=await Payment.find({})
+    const payments=await Payment.find({}).populate("institute")
     .limit(pageSize)
     .skip(pageSize*(page-1))
 
@@ -37,7 +37,7 @@ const deletePayment=asyncHandler(async(req,res)=>{
 
 const getPayment=asyncHandler(async(req,res)=>{
     const id=req.params.id
-    const payment= await Payment.findById(id);
+    const payment= await Payment.findById(id).populate("institute");
 
     if(payment)
     {
@@ -57,8 +57,7 @@ const updatePayment=asyncHandler(async (req,res)=>{
         payment.paymentDate=data.paymentDate || payment.paymentDate
         payment.type=data.type || payment.type
         payment.address=data.address || payment.address
-        payment.licenseDate=data.licenseDate || payment.license
-        payment.status=data.status||payment.status
+        payment.details=data.details||payment.details
 
 
         const updatedPayment=await payment.save()

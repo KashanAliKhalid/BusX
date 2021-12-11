@@ -136,12 +136,12 @@ const AddRoute=()=>{
     const [time,setTime]=useState(0)
     const [addresses,setAddresses]=useState([])
 
+
     const [req,setReq]=useState(0)
     const textInput = useRef(null);
 
-    const userLogindata=useSelector(state=>state.userLogin)
+    const {userInfo}=useSelector(state=>state.userLogin)
     const routeData=useSelector(state=>state.addedRoute)
-    const {userInfo}=userLogindata
     const {loading,error,route}=routeData
     const dispatch=useDispatch()
 
@@ -297,7 +297,8 @@ const AddRoute=()=>{
         addStops.shift()
         const data={name,stops:addStops,addresses,
             traveltime:(time/60).toFixed(2),
-            distance:(distance/1000).toFixed(2)
+            distance:(distance/1000).toFixed(2),
+            institute:userInfo.institute
         }
         dispatch(addRoute(data));
 

@@ -31,8 +31,6 @@ connectDB();
 io.on("connection",socket=>{
 
     Bus.watch().on('change',(change)=>{
-        console.log('Something has changed')
-        console.log(change)
         io.sockets.emit("track_bus_data_changed",change)
         // io.to(change.documentKey._id).emit('changes',change.fullDocument)
     })
@@ -41,6 +39,7 @@ io.on("connection",socket=>{
         const buses=await Bus.find({})
         io.sockets.emit("initial_track_bus_data",buses)
     });
+
     console.log("socket connected")
 })
 

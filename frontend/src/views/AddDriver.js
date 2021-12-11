@@ -40,6 +40,7 @@ const AddDriver=({match})=> {
     const dispatch= useDispatch();
     const addedDriver =useSelector(state=>state.addedDriver)
     const{loading,error,driver}=addedDriver
+    const {userInfo} =useSelector(state=>state.userLogin)
 
     const [cnic,setCnic] =useState('');
     const [contact,setContact] =useState('');
@@ -68,6 +69,7 @@ const AddDriver=({match})=> {
             photo:profile[0].getFileEncodeBase64String(),
             photoType:profile[0].fileType,
             license:license[0].getFileEncodeBase64String(),
+            institute:userInfo.institute
         }
         dispatch(addDriver(data))
     }

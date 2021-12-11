@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler"
 import Admin from "../models/adminModel.js";
+import License from "../models/licenseModel.js";
 import generateToken from "../utils/generateToken.js";
 import nodemailer from 'nodemailer'
 import jwt from "jsonwebtoken";
@@ -10,7 +11,9 @@ const {email,password}=req.body
 
     const user=await Admin.findOne({email})
 
+
     if(user && await user.matchPassword(password)) {
+        const license=await License.findOne({institute:`${user.institute}`})
         res.json({
             _id:user._id,
             name:user.name,
@@ -18,7 +21,8 @@ const {email,password}=req.body
             token:generateToken(user._id),
             type:'Admin',
             institute:user.institute,
-            instituteLocation:user.instituteLocation
+            instituteLocation:user.instituteLocation,
+            license
         })
     } else{
         res.status(404)
@@ -134,6 +138,8 @@ const resetPassword=asyncHandler(async(req,res)=>{
         throw new Error('Not authorized, token failed')
     }
 })
+
+
 
 
 

@@ -4,7 +4,6 @@ const routeSchema=mongoose.Schema({
     name:{
         type:Number,
         required:true,
-        unique:true
     },
     stops:[
         {
@@ -31,8 +30,12 @@ const routeSchema=mongoose.Schema({
                 type: String,
                 required: true
         }
-    ]
+    ],
+    institute:{
+        type:String,
+        required:true
+    }
 })
-
+routeSchema.index({ 'institute': 1, 'name': 1}, { unique: true });
 const Route =mongoose.model('Route', routeSchema)
 export default Route;

@@ -93,7 +93,6 @@ const busSchema=mongoose.Schema({
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:'Student',
-            default:null
         }
     ],
     currentLocation:{
@@ -104,7 +103,13 @@ const busSchema=mongoose.Schema({
             type:Number
         }
     },
+    institute:{
+        type:String,
+        required:true
+    }
 })
+busSchema.index({ 'institute': 1, 'busNumber': 1}, { unique: true });
+
 
 const Bus=mongoose.model('Bus',busSchema)
 export default Bus

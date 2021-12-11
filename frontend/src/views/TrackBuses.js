@@ -2,28 +2,16 @@ import React, {useEffect, useState,useRef} from 'react'
 import socketIOClient from "socket.io-client";
 require('dotenv').config()
 import {socket} from "../socket";
-import {useDispatch, useSelector} from "react-redux";
 
 import {
     GoogleMap,
     LoadScript,
     Marker,
-    StandaloneSearchBox,
-    DirectionsRenderer,
-    DirectionsService,
-    DistanceMatrixService
+    TrafficLayer,
+    TransitLayer
 } from "@react-google-maps/api";
-import {
-    Button,
-    Card,
-    Form,
-    Container,
-    Row,
-    Col,
-} from "react-bootstrap";
 import YellowButton from "../components/Buttons/YellowButton";
 import '../assets/css/trackBuses.css'
-import * as locations from "react-bootstrap/ElementChildren";
 
 const containerStyle = {
     height: '80vh'
@@ -36,13 +24,14 @@ const libraries=["places"]
 
 
  const TrackBuses=()=>{
-
+     const [buses,setBuses]=useState([])
+     const [traffic,setTraffic]=useState(false)
      const [center,setCenter]=useState({
          lat: 33.68749873779495,
          lng: 73.05121603557306
      })
 
-     const [buses,setBuses]=useState([])
+
 
     const mapStyle= [
          { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -126,7 +115,20 @@ const libraries=["places"]
 
 
      const changeData=(change)=>{
-         console.log(change)
+         console.log(change.documentKey)
+         console.log(change.updateDescription.updatedFields)
+         if(change.updateDescription.updatedFields.currentLocation || change.updateDescription.updatedFields.busNumber)
+         {
+             const arr=buses.map((bus)=>{
+                 if(bus._id===change.documentKey)
+                 {
+                     bus.location=change.updateDescription.updatedFields.currentLocation
+                 }
+                 return bus
+             })
+             console.log(arr)
+         }
+
      }
 
      const initialData=(data)=>{
@@ -134,17 +136,16 @@ const libraries=["places"]
          data.forEach((location)=>{
              let bus={
                  id:location._id,
-                 location:location.currentLocation
+                 location:location.currentLocation,
              }
              locations.push(bus)
          })
-         console.log(locations)
-         setBuses(locations)
+         setBuses([...locations])
+         console.log(buses)
      }
 
      const renderMarkers=()=>{
          return buses.map((bus,index)=>{
-             console.log(bus)
              return (
                  <Marker
                      key={index}
@@ -153,12 +154,13 @@ const libraries=["places"]
                  />
              )
          })
+
      }
 
-
      const loadContent=()=>{
-
          return   <LoadScript libraries={libraries} googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API} >
+
+
 
              <GoogleMap
                  mapContainerStyle={containerStyle}
@@ -167,7 +169,8 @@ const libraries=["places"]
                  options={{styles:mapStyle}}>
 
                  {renderMarkers()}
-
+                 {traffic?<TrafficLayer/>:''}
+                 <YellowButton onClick={()=>{setTraffic(!traffic)}} className="draw-route-button ml-1" content={traffic?"Disable Traffic":"Enable Traffic"}/>
              </GoogleMap>
          </LoadScript>
 
@@ -178,7 +181,11 @@ const libraries=["places"]
          socket.emit("initial_track_bus_data")
          socket.on("initial_track_bus_data",initialData)
          socket.on("track_bus_data_changed",changeData)
-     },[])
+         return () => {
+             socket.off('initial_track_bus_data', initialData);
+             socket.off("track_bus_data_changed",changeData)
+         }
+     },[buses])
 
    return(
       <>

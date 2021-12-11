@@ -8,6 +8,14 @@ const complaintSchema=mongoose.Schema({
     description:{
         type:String,
         required: true
+    },
+    date:{
+        type:Date,
+        required:true
+    },
+    institute:{
+        type:String,
+        required:true
     }
 })
 

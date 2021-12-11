@@ -2,43 +2,35 @@ import React, {useEffect, useState} from 'react';
 import {Alert, Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import YellowButton from "../../components/Buttons/YellowButton";
 import {useDispatch, useSelector} from "react-redux";
-import {getLicense,updateLicense} from "../../actions/licenseActions";
-import ProfileLoader from "../../components/Loaders/ProfileLoader";
+import {licenseList} from "../../actions/licenseActions";
+import {getPayment, updatePayment} from "../../actions/paymentActions";
+import SimpleLoader from "../../components/Loaders/SimpleLoader";
 import UpdateLoader from "../../components/Loaders/UpdateLoader";
+import ProfileLoader from "../../components/Loaders/ProfileLoader";
 
-const LicenseDetails = ({match,history}) => {
+const AddPayment = ({match}) => {
 
     const dispatch= useDispatch()
-    const {loading,license,error} =useSelector(state=>state.licenseDetails)
-    const {updateLoading,updatedLicense} =useSelector(state=>state.updatedLicense)
+    const {loading,payment,error} =useSelector(state=>state.paymentDetails)
+    const {updateLoading} =useSelector(state=>state.updatedPayment)
 
-    const [type,setType]=useState(null)
-    const [licenseDate,setLicenseDate]=useState(null)
-    const [address,setAddress]=useState(null)
-    const [institute,setInstitute]=useState(null)
-    const [paymentDate,setPaymentDate]=useState(null)
-    const[status,setStatus]=useState(null)
+    const [details,setDetails]=useState(null)
 
-    const revokeButtonHandler=()=>{
-        setStatus(status===null?!license.status:!status)
-    }
-    console.log(status)
+    useEffect(()=>{
+        dispatch(licenseList())
+        dispatch(getPayment(match.params.id))
+    },[])
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const data={
-            type,licenseDate:licenseDate===null?license.licenseDate:licenseDate,institute,address,paymentDate:paymentDate===null?license.paymentDate:paymentDate,status
+            details
         }
-        dispatch(updateLicense(license._id,data))
+        dispatch(updatePayment(match.params.id,data))
     }
 
-    useEffect(()=>{
-        dispatch(getLicense(match.params.id))
-
-    },[updatedLicense,dispatch])
-
     const displayForm=()=> {
-        if (license !== undefined) {
+        if (payment !== undefined) {
             if (updateLoading === true)
                 return <UpdateLoader/>
             else
@@ -48,7 +40,7 @@ const LicenseDetails = ({match,history}) => {
                             <Col md="12">
                                 <Card>
                                     <Card.Header>
-                                        <Card.Title as="h4">Add License</Card.Title>
+                                        <Card.Title as="h4">Add Payment</Card.Title>
                                     </Card.Header>
                                     <Card.Body>
                                         <Form onSubmit={(e) => {
@@ -57,46 +49,40 @@ const LicenseDetails = ({match,history}) => {
                                             <Row>
                                                 <Col className="pr-1" md="5">
                                                     <Form.Group>
-                                                        <label>Institute Name</label>
+                                                        <label>Payment Type</label>
                                                         <Form.Control
-                                                            required='true'
-                                                            onChange={(e) => {
-                                                                setInstitute(e.target.value)
-                                                            }}
-                                                            value={institute===null?license.institute:institute}
-                                                            placeholder="ABC institute of technology"
                                                             type="text"
-                                                        ></Form.Control>
+                                                            disabled
+                                                            value={payment.paymentType}
+                                                            required={true}
+                                                        >
+
+                                                        </Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                                 <Col className="px-1" md="3">
                                                     <Form.Group>
-                                                        <label>License Type</label>
+                                                        <label>Institute Name</label>
                                                         <Form.Control
-                                                            as="select"
-                                                            value={type===null?license.type:type}
+                                                            type="text"
+                                                            value={payment.institute.institute}
                                                             required={true}
-                                                            onChange={e => {
-                                                                setType(e.target.value)
-                                                            }}
+                                                            disabled
                                                         >
-                                                            <option value=""></option>
-                                                            <option value="1 year">1 year</option>
-                                                            <option value="2 years">2 years</option>
                                                         </Form.Control>
                                                     </Form.Group>
                                                 </Col>
                                                 <Col className="pl-1" md="4">
                                                     <Form.Group>
                                                         <label>
-                                                            Address
+                                                            Amount
                                                         </label>
                                                         <Form.Control
                                                             required='true'
-                                                            placeholder="xyz street sector y islamabad"
-                                                            type="text"
-                                                            onChange={(e) => setAddress(e.target.value)}
-                                                            value={address===null?license.address:address}
+                                                            type="number"
+                                                            disabled
+                                                            onChange={(e) => setAmount(e.target.value)}
+                                                            value={payment.amount}
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -106,13 +92,14 @@ const LicenseDetails = ({match,history}) => {
                                                 <Col className="pl-3" md="4">
                                                     <Form.Group>
                                                         <label>
-                                                            License Start Date
+                                                            Payment Details
                                                         </label>
                                                         <Form.Control
                                                             required='true'
-                                                            type="date"
-                                                            onChange={(e) => setLicenseDate(e.target.value)}
-                                                            value={licenseDate===null?license.licenseDate:licenseDate}
+                                                            as="textarea"
+                                                            placeholder="Instrument number, transaction ID, Bank name etc"
+                                                            onChange={(e) => setDetails(e.target.value)}
+                                                            value={details === null ? payment.details : details}
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -125,8 +112,9 @@ const LicenseDetails = ({match,history}) => {
                                                         <Form.Control
                                                             required='true'
                                                             type="date"
+                                                            disabled
                                                             onChange={(e) => setPaymentDate(e.target.value)}
-                                                            value={paymentDate===null?license.paymentDate:paymentDate}
+                                                            value={payment.paymentDate}
                                                         ></Form.Control>
                                                     </Form.Group>
                                                 </Col>
@@ -137,14 +125,7 @@ const LicenseDetails = ({match,history}) => {
                                                 className="pull-right"
                                                 type="submit"
                                                 width={180}
-                                                content="Update License"
-                                            />
-                                            <YellowButton
-                                                className="pull-right revoke-button mr-3"
-                                                width={180}
-                                                content={status===null? license.status===true? 'Revoke License' :'Allow license':status===true?'Revoke License':'Allow license'}
-                                                onClick={revokeButtonHandler}
-
+                                                content="Update Details"
                                             />
 
                                             <div className="clearfix"></div>
@@ -169,4 +150,4 @@ const LicenseDetails = ({match,history}) => {
     );
 };
 
-export default LicenseDetails;
+export default AddPayment;

@@ -101,9 +101,15 @@ const studentSchema= mongoose.Schema({
     notificationToken:{
         type:String,
         default: null
+    },
+    institute:{
+        type:String,
+        required:true
     }
 
 },{timeStamps:true})
+
+studentSchema.index({ 'institute': 1, 'cnic': 1}, { unique: true });
 
 studentSchema.pre('save',async function (next){
     const user=this;

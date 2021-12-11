@@ -78,6 +78,7 @@ function AdminProfile({history}) {
   const onMapClick=(e)=>{
     let marker=e.latLng.toJSON();
     setLocation(marker)
+    setInstituteLocation(marker)
   }
 
   const showProfile=()=> {
@@ -127,6 +128,7 @@ function AdminProfile({history}) {
                               <Form.Control
                                   placeholder="Institute Name"
                                   type="text"
+                                  disabled
                                   required
                                   onChange={(e) => setInstitute(e.target.value)}
                                   value={institute === null ? user.institute : institute}

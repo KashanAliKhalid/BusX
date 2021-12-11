@@ -15,9 +15,10 @@ const routeList= asyncHandler(async(req,res)=>{
     const page = Number(req.query.page) || 1
     const keyword = req.query.search
         ? {
-            name: parseInt(req.query.search)
+            name: parseInt(req.query.search),
+            institute:`${req.admin.institute}`
         }
-        : {}
+        : {institute:`${req.admin.institute}`}
 
 
 
@@ -32,7 +33,7 @@ const routeList= asyncHandler(async(req,res)=>{
 
 
 const allRoutes= asyncHandler(async(req,res)=>{
-    const routes=await Route.find()
+    const routes=await Route.find({institute:`${req.admin.institute}`})
     res.json({ routes })
 })
 
@@ -85,7 +86,7 @@ const updateRoute=asyncHandler(async (req,res)=>{
 })
 
 const routeCount=asyncHandler (async(req,res)=>{
-    const count= await Route.countDocuments({})
+    const count= await Route.countDocuments({institute:`${req.admin.institute}`})
     res.json({count})
 })
 

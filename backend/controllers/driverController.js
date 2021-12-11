@@ -19,8 +19,9 @@ const driverList= asyncHandler(async(req,res)=>{
                 $regex: req.query.search,
                 $options: 'i',
             },
+            institute:`${req.admin.institute}`
         }
-        : {}
+        : {institute:`${req.admin.institute}`}
 
     const count= await Driver.countDocuments({...keyword})
     const drivers=await Driver.find({...keyword})
@@ -35,7 +36,7 @@ const allDrivers= asyncHandler(async(req,res)=>{
 
 
 
-    const drivers=await Driver.find()
+    const drivers=await Driver.find({institute:`${req.admin.institute}`})
 
 
     res.json({ drivers })
@@ -104,7 +105,7 @@ const updateDriver=asyncHandler(async (req,res)=>{
 })
 
 const driverCount=asyncHandler (async(req,res)=>{
-    const count= await Driver.countDocuments({})
+    const count= await Driver.countDocuments({institute:`${req.admin.institute}`})
     res.json({count})
 })
 

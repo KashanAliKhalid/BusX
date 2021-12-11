@@ -35,15 +35,20 @@ import {
 import '../assets/css/addData.css'
 import ProfileLoader from "../components/Loaders/ProfileLoader";
 import UpdateLoader from "../components/Loaders/UpdateLoader";
+import {routeList} from "../actions/routeActions";
+import {driverList} from "../actions/driverActions";
+import { Page,pdfjs } from 'react-pdf';
+import { Document } from 'react-pdf/dist/esm/entry.webpack';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
-const BusProfileUpdate=({match})=> {
+const BusProfileUpdate=({match,history})=> {
     const dispatch= useDispatch();
-    const busProfile=useSelector(state=>state.busProfile)
-    const updatedBusProfile=useSelector(state=>state.updatedBus)
+    const {bus,loading,error}=useSelector(state=>state.busProfile)
+    const {routes} =useSelector(state=>state.routeList)
+    const {drivers} =useSelector(state=>state.driverList)
+    const {updateLoading, updatedBus}=useSelector(state=>state.updatedBus)
 
-    const {bus,loading,error}=busProfile;
-    const{updateLoading, updatedBus}=updatedBusProfile;
 
     const[busNumber,setBusNumber] =useState(null);
     const[registrationNumber,setRegistrationNumber] =useState(null);
@@ -53,14 +58,19 @@ const BusProfileUpdate=({match})=> {
     const[manufacturer,setManufacturer]=useState(null)
     const[model,setModel]=useState(null)
     const [purchaseDate, setPurchaseDate]=useState(null)
+    const [driver, setDriver]=useState(null)
+    const [route, setRoute]=useState(null)
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
 
 
 
     const onSubmitHandler= (e)=>{
-        console.log("hi")
         e.preventDefault();
         const data={
             busNumber,registrationNumber,manufacturer,model,purchaseDate,
+            driver:driver===null?bus.driver._id:driver,
+            route:route===null?bus.route:route,
             registrationCard:registrationCard===''? bus.registrationCard: registrationCard[0].getFileEncodeBase64String(),
             fitnessReport:fitnessReport===''? bus.fitnessReport: fitnessReport[0].getFileEncodeBase64String(),
             photo:profile===''? bus.photo: profile[0].getFileEncodeBase64String(),
@@ -68,9 +78,14 @@ const BusProfileUpdate=({match})=> {
         }
         dispatch(updateBus(bus._id,data))
     }
+    function onDocumentLoadSuccess({ numPages }) {
+        setNumPages(numPages);
+    }
 
     useEffect(()=>{
         dispatch(getBus(match.params.id))
+        dispatch(routeList())
+        dispatch(driverList())
 
     },[dispatch,updatedBus])
 
@@ -155,6 +170,50 @@ const BusProfileUpdate=({match})=> {
                                                     ></Form.Control>
                                                 </Form.Group>
                                             </Col>
+
+                                            <Col className="pl-1" md="4">
+                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                    <Form.Label>Driver Name</Form.Label>
+                                                    <Form.Control
+                                                        as="select"
+                                                        value={driver===null?bus.driver?`${bus.driver.firstName} ${bus.driver.lastName}`:'':driver}
+                                                        required={true}
+                                                        onChange={e=>{
+                                                            setDriver(e.target.value)
+                                                        }}
+                                                    >
+                                                        {
+                                                            !drivers?'': drivers.drivers.map((value)=>{
+                                                                return(<option selected={`${value.firstName} ${value.lastName}`=== `${bus.driver.firstName} ${bus.driver.lastName}`} value={value._id}>{`${value.firstName} ${value.lastName}`}</option>)
+                                                            })
+                                                        }
+                                                    </Form.Control>
+                                                </Form.Group>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="pl-3" md="4">
+                                                <Form.Group controlId="exampleForm.ControlSelect1">
+                                                    <Form.Label>Route Number</Form.Label>
+                                                    <Form.Control
+                                                        as="select"
+                                                        value={route===null?bus.route?bus.route.name:'':route}
+                                                        required={true}
+                                                        onChange={e=>{
+                                                            console.log(e.target.value)
+                                                            setRoute(e.target.value)
+                                                        }}
+                                                    >
+                                                        {
+                                                            !routes?'': routes.routes.map((value)=>{
+                                                                return(<option selected={bus.route.name===value.name} value={value._id}>{value.name}</option>)
+                                                            })
+                                                        }
+
+
+                                                    </Form.Control>
+                                                </Form.Group>
+                                            </Col>
                                         </Row>
                                         <Row>
                                             <Col className="pl-3" md="4">
@@ -189,12 +248,43 @@ const BusProfileUpdate=({match})=> {
                                                 />
                                             </Col>
                                         </Row>
-                                        <YellowButton
-                                            className="pull-right"
-                                            type="submit"
-                                            width={200}
-                                            content="Update Profile"
-                                        />
+                                        <Row>
+                                            <Col  md={3}>
+                                                <YellowButton
+                                                    className="pull-right mt-2 mt-md-0"
+                                                    type="submit"
+                                                    width={200}
+                                                    content="Update Profile"
+                                                />
+                                            </Col>
+
+                                            <Col className='mt-2 mt-md-0' md={3}>
+                                                <YellowButton
+                                                    className="pull-right"
+                                                    width={200}
+                                                    onClick={()=>{history.push('/admin/driverhistory')}}
+                                                    content="Driver History"
+                                                />
+                                            </Col>
+
+                                            <Col className='mt-2 mt-md-0' md={3}>
+                                                <YellowButton
+                                                    className="pull-right"
+                                                    width={200}
+                                                    content="Maintainance History"
+                                                />
+                                            </Col>
+
+                                            <Col className='mt-2 mt-md-0' md={3}>
+                                                <YellowButton
+                                                    className="pull-right"
+                                                    width={200}
+                                                    content="Students List"
+                                                    onClick={()=>{history.push('/admin/studentlist')}}
+                                                />
+                                            </Col>
+
+                                        </Row>
                                         <div className="clearfix"></div>
                                     </Form>
                                 </Card.Body>
@@ -245,6 +335,20 @@ const BusProfileUpdate=({match})=> {
 
                         </Col>
                     </Row>
+                    <Row>
+                        <Col md={6}>
+                            <Document onLoadSuccess={onDocumentLoadSuccess} file={`data:application/pdf;base64,${Buffer.from(bus.registrationCard).toString('ascii')}`} >
+                                <Page pageNumber={pageNumber} />
+                            </Document>
+                        </Col>
+
+                        <Col md={6}>
+                            <Document onLoadSuccess={onDocumentLoadSuccess} file={`data:application/pdf;base64,${Buffer.from(bus.fitnessReport).toString('ascii')}`} >
+                                <Page pageNumber={pageNumber} />
+                            </Document>
+                        </Col>
+                    </Row>
+
                 </Container>
             )
         }

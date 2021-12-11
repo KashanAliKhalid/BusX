@@ -83,30 +83,6 @@ function Sidebar({ color, image, routes }) {
             </li>
 
 
-            <li
-                className={
-                    activeRoute('/admin/drivers')
-                }
-            >
-                <NavLink to='/admin/drivers'   className="nav-link">
-                    <span> <i className='nc-icon nc-single-02' /> <p>Drivers</p> </span>
-                </NavLink>
-
-            </li>
-
-            <li
-                className={
-                    activeRoute('/admin/assets')
-                }
-            >
-                <NavLink to='/admin/assets'   className="nav-link">
-                    <span> <i className='nc-icon nc-bus-front-12' /> <p>Assets</p> </span>
-                </NavLink>
-
-            </li>
-
-
-
                 <li
                     className={
                         activeRoute('/admin/fuel')

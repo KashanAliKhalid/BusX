@@ -28,6 +28,7 @@
     "react-filepond": "^7.1.1",
     "react-geocode": "^0.2.3",
     "react-notification-alert": "0.0.13",
+    "react-pdf": "^5.5.0",
     "react-redux": "^7.2.4",
     "react-responsive-pagination": "^1.1.4",
     "react-router": "5.2.0",

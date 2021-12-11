@@ -33,11 +33,13 @@ const adminSchema=mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'License',
         required:true
-    }
+    },
 
 
 
 },{timeStamps:true})
+
+adminSchema.index({ 'institute': 1, 'email': 1}, { unique: true });
 
 adminSchema.methods.matchPassword=async function (enteredPassword){
     return await bcrypt.compare(enteredPassword,this.password)

@@ -19,6 +19,7 @@ import AdminLayout from "layouts/Admin.js";
 import SuperAdminLayout from "./layouts/SuperAdmin";
 import ForgotPassword from "./views/ForgotPassword";
 import ResetPassword from "./views/ResetPassword";
+import LicenseExpired from "./views/LicenseExpired";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Route path="/forgotpassword" render={(props) => <ForgotPassword {...props} />} />
       <Route path="/resetpassword/:token" render={(props) => <ResetPassword {...props} />} />
       <Route path="/403" render={(props) => <Forbidden {...props} />} />
+      <Route path="/expired" render={(props) => <LicenseExpired {...props} />} />
       <Redirect from="/" to="/login"/>
     </Switch>
   </BrowserRouter>

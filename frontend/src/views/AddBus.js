@@ -39,6 +39,7 @@ const AddBus=({match})=> {
     const addedBus=useSelector(state=>state.addedBus)
     const {routes} =useSelector(state=>state.routeList)
     const {drivers} =useSelector(state=>state.driverList)
+    const {userInfo} =useSelector(state=>state.userLogin)
     const {bus,loading,error}=addedBus;
 
     const[busNumber,setBusNumber] =useState('');
@@ -62,6 +63,7 @@ const AddBus=({match})=> {
             fitnessReport:fitnessReport[0].getFileEncodeBase64String(),
             photo:profile===undefined?'':profile[0].getFileEncodeBase64String(),
             photoType:profile===undefined?'':profile[0].fileType,
+            institute:userInfo.institute
         }
         dispatch(addBus(data))
     }

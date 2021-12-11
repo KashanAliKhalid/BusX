@@ -6,6 +6,9 @@ import LicenseDetails from "./views/superAdminViews/LicenseDetails";
 import AddAdmin from "./views/superAdminViews/AddAdmin";
 import AdminList from "./views/superAdminViews/AdminList";
 import AdminProfile from "./views/superAdminViews/AdminProfile";
+import Payments from "./views/superAdminViews/Payments";
+import AddPayment from "./views/superAdminViews/AddPayment";
+import PaymentDetails from "./views/superAdminViews/PaymentDetails";
 
 const SuperAdminRoutes = [
 
@@ -38,7 +41,23 @@ const SuperAdminRoutes = [
         path: "/admin/:id",
         component: AdminProfile,
         layout: "/superadmin",
-    }
+    },
+    {
+        path: "/payments",
+        component: Payments,
+        layout: "/superadmin",
+    },
+    {
+        path: "/addpayment",
+        component: AddPayment,
+        layout: "/superadmin",
+    },
+    {
+        path: "/payment/:id",
+        component: PaymentDetails,
+        layout: "/superadmin",
+    },
+
 
 
 ];
