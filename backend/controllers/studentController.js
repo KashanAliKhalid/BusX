@@ -73,6 +73,7 @@ const updateStudent=asyncHandler(async (req,res)=>{
          student.regNo= req.body.regNo || student.regNo
          student.photo=req.body.photo || student.photo
          student.photoType= req.body.photoType || student.photoType
+        student.feeStatus=req.body.feeStatus|| student.feeStatus
 
          if(req.body.password!=='')
          {
@@ -95,7 +96,12 @@ const studentCount=asyncHandler (async(req,res)=>{
     res.json({count})
 })
 
+const allStudents=asyncHandler (async(req,res)=>{
+    const students= await Student.find({institute:`${req.admin.institute}`})
+    res.json({students})
+})
 
 
-export {addStudent, studentList,deleteStudent, getStudent,updateStudent,studentCount}
+
+export {addStudent, studentList,deleteStudent, getStudent,updateStudent,studentCount,allStudents}
 

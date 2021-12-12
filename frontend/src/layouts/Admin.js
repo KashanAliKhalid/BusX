@@ -57,7 +57,7 @@ function Admin({history}) {
   React.useEffect(() => {
     checkDefaulter()
 
-    if(userInfo!==null && userInfo.type==="Admin" && checkDefaulter())
+    if(userInfo!==null && userInfo.type==="Admin" && checkDefaulter() && userInfo.license.status)
     {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
@@ -80,6 +80,10 @@ function Admin({history}) {
     if(userInfo==null)
       return redirect('/login');
     else if(userInfo.type!=="Admin")
+    {
+      return redirect('/403')
+    }
+    else if(!userInfo.license.status)
     {
       return redirect('/403')
     }

@@ -12,6 +12,7 @@ import {
 } from "@react-google-maps/api";
 import YellowButton from "../components/Buttons/YellowButton";
 import '../assets/css/trackBuses.css'
+import {useSelector} from "react-redux";
 
 const containerStyle = {
     height: '80vh'
@@ -26,6 +27,7 @@ const libraries=["places"]
  const TrackBuses=()=>{
      const [buses,setBuses]=useState([])
      const [traffic,setTraffic]=useState(false)
+     const {userInfo} =useSelector(state=>state.userLogin)
      const [center,setCenter]=useState({
          lat: 33.68749873779495,
          lng: 73.05121603557306
@@ -115,8 +117,8 @@ const libraries=["places"]
 
 
      const changeData=(change)=>{
-         console.log(change.documentKey)
-         console.log(change.updateDescription.updatedFields)
+         // console.log(change.documentKey)
+         // console.log(change.updateDescription.updatedFields)
          if(change.updateDescription.updatedFields.currentLocation || change.updateDescription.updatedFields.busNumber)
          {
              const arr=buses.map((bus)=>{
@@ -126,8 +128,9 @@ const libraries=["places"]
                  }
                  return bus
              })
-             console.log(arr)
+             setBuses(arr)
          }
+
 
      }
 
@@ -137,11 +140,12 @@ const libraries=["places"]
              let bus={
                  id:location._id,
                  location:location.currentLocation,
+                 name:location.busNumber
              }
-             locations.push(bus)
+             if(location.institute===userInfo.institute)
+             {locations.push(bus)}
          })
          setBuses([...locations])
-         console.log(buses)
      }
 
      const renderMarkers=()=>{
@@ -149,6 +153,7 @@ const libraries=["places"]
              return (
                  <Marker
                      key={index}
+                     title={bus.busNumber}
                      icon={"https://i.ibb.co/ThymvQs/bus.png"}
                      position={bus.location}
                  />

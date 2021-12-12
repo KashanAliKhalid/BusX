@@ -36,14 +36,17 @@ import {getStudent} from "../actions/studentActions";
 import UpdateLoader from "../components/Loaders/UpdateLoader";
 import ProfileLoader from "../components/Loaders/ProfileLoader";
 import YellowButton from "../components/Buttons/YellowButton";
+import { Document } from 'react-pdf/dist/esm/entry.webpack';
+import { Page,pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 
 const DriverProfileUpdate=({match})=> {
     const dispatch= useDispatch();
     const driverProfile =useSelector(state=>state.driverProfile)
     const updateDriverData=useSelector(state=>state.updatedDriver)
-    const{loading,error,driver}=driverProfile
-    const {updateLoading, updatedDriver}=updateDriverData
+    const{loading,driver}=driverProfile
+    const {updateLoading,error, updatedDriver}=updateDriverData
 
 
     const [cnic,setCnic] =useState(null);
@@ -62,6 +65,21 @@ const DriverProfileUpdate=({match})=> {
     const [license, setLicense]=useState('')
     const [dob, setDob]=useState(null)
     const [age,setAge]=useState(null)
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [alertBox,setAlertBox] = useState(true)
+
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Profile not updated!</Alert.Heading>
+                    </Alert>
+                )
+        }
+    }
+
 
 
     useEffect(()=>{
@@ -107,6 +125,10 @@ const DriverProfileUpdate=({match})=> {
         }
     }
 
+    function onDocumentLoadSuccess({ numPages }) {
+        setNumPages(numPages);
+    }
+
     const showProfile= ()=> {
         if (driver !== undefined) {
             if (updateLoading === true)
@@ -114,6 +136,9 @@ const DriverProfileUpdate=({match})=> {
             else
                 return (
                     <Container fluid>
+                        {
+                        showAlert()
+                    }
                         <Row>
                             <Col md="8">
                                 <Card>
@@ -296,7 +321,6 @@ const DriverProfileUpdate=({match})=> {
                                                 <Col className="pl-3" md="4">
                                                     <FilePond
                                                         allowMultiple={false}
-                                                        required={true}
                                                         acceptedFileTypes={['application/pdf']}
                                                         labelIdle='Drag & Drop license document <span class="filepond--label-action">Browse</span>'
                                                         files={license}
@@ -307,7 +331,6 @@ const DriverProfileUpdate=({match})=> {
                                                 <Col className="pl-3" md="4">
                                                     <FilePond
                                                         allowMultiple={false}
-                                                        required={true}
                                                         imageResizeTargetHeight={150}
                                                         imageResizeTargetWidth={150}
                                                         labelIdle='Drag & Drop profile photo <span class="filepond--label-action">Browse</span>'
@@ -371,6 +394,13 @@ const DriverProfileUpdate=({match})=> {
                                 </Row>
 
 
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6}>
+                                <Document onLoadSuccess={onDocumentLoadSuccess} file={`data:application/pdf;base64,${Buffer.from(driver.license).toString('ascii')}`} >
+                                    <Page pageNumber={pageNumber} />
+                                </Document>
                             </Col>
                         </Row>
                     </Container>

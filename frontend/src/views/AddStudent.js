@@ -59,6 +59,7 @@ const User=({match})=> {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const {userInfo}=useSelector(state=>state.userLogin)
+    const [alertBox,setAlertBox] = useState(true)
 
 
     const onSubmitHandler= (e)=>{
@@ -107,11 +108,25 @@ const User=({match})=> {
         }
     }
 
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Student not added!</Alert.Heading>
+                    </Alert>
+                )
+        }
+    }
+
     const loadContent=()=>{
         return(
             <>
 
                 <Container fluid>
+                    {
+                        showAlert()
+                    }
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Body><img width='310' src={require("assets/img/scan rfid.gif").default} alt='scan rfid'/></Modal.Body>
                         <Modal.Footer>

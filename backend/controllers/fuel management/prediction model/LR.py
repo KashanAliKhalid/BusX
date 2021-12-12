@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Lasso
 from sklearn.linear_model import Ridge
-from sklearn.metrics import r2_score 
+from sklearn.metrics import r2_score
 import pickle
 
 df=pd.read_csv('final.csv')
@@ -13,8 +13,8 @@ dataset=df.values
 
 tx=df
 
-X = dataset[:,0:2]
-Y = dataset[:,2]
+X = dataset[:,0:1]
+Y = dataset[:,1]
 
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3)

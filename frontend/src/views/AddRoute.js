@@ -24,7 +24,7 @@ import {
     Form,
     Container,
     Row,
-    Col,
+    Col, Alert,
 } from "react-bootstrap";
 import YellowButton from "../components/Buttons/YellowButton";
 import '../assets/css/trackBuses.css'
@@ -142,6 +142,7 @@ const AddRoute=()=>{
 
     const {userInfo}=useSelector(state=>state.userLogin)
     const routeData=useSelector(state=>state.addedRoute)
+    const [alertBox,setAlertBox] = useState(true)
     const {loading,error,route}=routeData
     const dispatch=useDispatch()
 
@@ -304,11 +305,26 @@ const AddRoute=()=>{
 
     }
 
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Route not added!</Alert.Heading>
+                    </Alert>
+                )
+        }
+    }
+
     const loadContent=()=>{
 
        return   <LoadScript libraries={libraries} googleMapsApiKey= {process.env.REACT_APP_GOOGLE_MAPS_API} >
             <Form>
+
                 <Row>
+                    {
+                        showAlert()
+                    }
                     <Col xs={6}>
                         <Form.Group className="yellow-form-group">
                             <label className="yellow-form-label">Route Number</label>

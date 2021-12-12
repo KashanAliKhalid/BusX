@@ -15,7 +15,6 @@ import AddDriver from "./views/AddDriver";
 import DriverList from "./views/DriverList";
 import DriverProfileUpdate from "./views/DriverProfileUpdate";
 import AssetManageList from "./views/AssetManageList";
-import BusDetails from "./views/BusDetails";
 import AddRoute from "./views/AddRoute";
 import UpdateRoute from "./views/UpdateRoute";
 import RouteList from "./views/RouteList";
@@ -24,6 +23,10 @@ import FuelManagement from "./views/FuelManagement";
 import ForgotPassword from "./views/ForgotPassword";
 import DriverHistory from "./views/DriverHistory";
 import BusStudentList from "./views/BusStudentList";
+import MaintenanceList from "./views/MaintenanceHistory";
+import AddMaintenance from "./views/AddMaintenance";
+import MaintenanceDetails from "./views/MaintenanceDetails";
+import ComplaintList from "./views/complaintList";
 
 const dashboardRoutes = [
 
@@ -141,12 +144,6 @@ const dashboardRoutes = [
 
   },
   {
-    path:"/busdetails",
-    component:BusDetails,
-    layout: "/admin",
-
-  },
-  {
     path:"/busprofile/:id",
     component:Profile,
     layout: "/admin",
@@ -168,7 +165,26 @@ const dashboardRoutes = [
     component:BusStudentList,
     layout: "/admin",
   },
-
+  {
+    path:"/maintenancelist/:id",
+    component:MaintenanceList,
+    layout: "/admin",
+  },
+  {
+    path:"/addmaintenance",
+    component:AddMaintenance,
+    layout: "/admin",
+  },
+  {
+    path:"/maintenancedetails/:id",
+    component:MaintenanceDetails,
+    layout: "/admin",
+  },
+  {
+    path:"/complaints",
+    component:ComplaintList,
+    layout: "/admin",
+  },
 
 
 

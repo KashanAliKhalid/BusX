@@ -24,7 +24,7 @@ import {
     Form,
     Container,
     Row,
-    Col,
+    Col, Alert,
 } from "react-bootstrap";
 import YellowButton from "../components/Buttons/YellowButton";
 import '../assets/css/trackBuses.css'
@@ -138,13 +138,26 @@ const UpdateRoute=({match})=>{
 
     const [req,setReq]=useState(0)
     const textInput = useRef(null);
+    const [alertBox,setAlertBox] = useState(true)
 
     const routeData=useSelector(state=>state.routeDetails)
     const userLogindata=useSelector(state=>state.userLogin)
-    const {updateLoading,updatedRoute}=useSelector(state=>state.updatedRoute)
-    const {loading,error,route}=routeData
+    const {updateLoading,updatedRoute,error}=useSelector(state=>state.updatedRoute)
+    const {loading,route}=routeData
     const {userInfo}=userLogindata
     const dispatch=useDispatch()
+
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Profile not updated!</Alert.Heading>
+                    </Alert>
+                )
+        }
+    }
+
 
 
     useEffect(()=>{

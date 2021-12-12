@@ -59,6 +59,7 @@ const AddDriver=({match})=> {
     const [license, setLicense]=useState('')
     const [dob, setDob]=useState('')
     const [age,setAge]=useState('')
+    const [alertBox,setAlertBox] = useState(true)
 
 
 
@@ -101,9 +102,22 @@ const AddDriver=({match})=> {
         }
     }
 
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Student not added!</Alert.Heading>
+                    </Alert>
+                )
+        }
+    }
     const displayForm=()=>{
         return(
             <Container fluid>
+                {
+                    showAlert()
+                }
                 <Row>
                     <Col md="8">
                         <Card>

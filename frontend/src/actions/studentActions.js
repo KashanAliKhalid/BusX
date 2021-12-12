@@ -72,8 +72,15 @@ export const studentList=(url)=>{
                     Authorization: `Bearer ${userInfo.token}`
                 }
             }
+            if(url)
+            {
+                var {data} = await axios.get(url.toString(),config)
+            }
+            else
+            {
+                var {data} = await axios.get('/admin/data/allstudents',config)
 
-            const {data} = await axios.get(url.toString(),config)
+            }
             dispatch({
                 type:STUDENT_LIST_SUCCESS,
                 payload:data

@@ -62,14 +62,13 @@ const licenseCount=asyncHandler (async(req,res)=>{
 const updateLicense=asyncHandler(async (req,res)=>{
     const license= await License.findById(req.params.id)
     const data=req.body
-
     if(license){
         license.institute= data.license || license.institute
         license.paymentDate=data.paymentDate || license.paymentDate
         license.type=data.type || license.type
         license.address=data.address || license.address
         license.licenseDate=data.licenseDate || license.license
-        license.status=data.status||license.status
+        license.status=data.status
 
 
         const updatedLicense=await license.save()

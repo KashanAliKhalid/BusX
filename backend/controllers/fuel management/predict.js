@@ -14,7 +14,7 @@ exports.predict=async (req,res)=>{
       if (err)
         throw err;
 
-      console.log(results[0]);price:results[0],s
+      console.log(results[0]);price:results[0]
       res.json({success:true})
     });
 }

@@ -33,14 +33,8 @@ const driverList= asyncHandler(async(req,res)=>{
 })
 
 const allDrivers= asyncHandler(async(req,res)=>{
-
-
-
     const drivers=await Driver.find({institute:`${req.admin.institute}`})
-
-
     res.json({ drivers })
-
 })
 
 const deleteDriver=asyncHandler(async(req,res)=>{

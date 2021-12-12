@@ -3,6 +3,7 @@ import ChartistGraph from "react-chartist";
 import {countBus} from '../actions/busActions'
 import {countStudent} from '../actions/studentActions'
 import {countDriver} from '../actions/driverActions'
+import {studentList} from "../actions/studentActions";
 
 
 import {
@@ -20,6 +21,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
+import {complaintList} from "../actions/complaintActions";
 
 function Dashboard({history}) {
 
@@ -27,7 +29,8 @@ function Dashboard({history}) {
   const bus =useSelector(state=>state.busCount)
   const student =useSelector(state=>state.studentCount)
   const driver =useSelector(state=>state.driverCount)
-
+  const {students,loading}=useSelector(state=>state.studentList)
+  const {complaints} =useSelector(state=>state.complaintList)
   const {busLoading,busCount}=bus
   const {studentLoading,studentCount}=student
   const {driverLoading,driverCount}=driver
@@ -36,10 +39,52 @@ function Dashboard({history}) {
     dispatch(countStudent())
     dispatch(countDriver())
     dispatch(countBus())
+    dispatch(studentList())
+    dispatch(complaintList())
   },[dispatch])
 
+  const feeStatus=()=>{
+    let paid=0;
+    let unpaid=0
+    students.students.forEach((value)=>{
+      if(value.feeStatus==='Paid' || value.feeStatus==='paid')
+      {
+        paid=paid+1
+      }
+      else{
+        unpaid=unpaid+1
+      }
+    })
+    return{paid,unpaid}
+  }
+
+  const complaintStats=()=>{
+    const data=[0,0,0,0,0,0,0,0,0,0,0,0]
+    let high;
+    let low;
+    if(complaints){
+      complaints.complaints.forEach(complaint=>{
+        data[complaint.month-1]=data[complaint.month-1]+1
+      })
+    }
+    high=(data[0])
+    low=(data[0])
+    data.forEach((value)=>{
+      if(value>high)
+      {
+        high=value
+      }
+      if(value<low)
+      {
+        low=value
+      }
+    })
+    return {data,low,high}
+  }
+
+
   const showDashboad=()=>{
-    if(busLoading==false && studentLoading==false && driverLoading ==false)
+    if(busLoading==false && studentLoading==false && driverLoading ==false && !loading && complaints)
     {
         return( <Container fluid>
         <Row>
@@ -115,7 +160,7 @@ function Dashboard({history}) {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Complaints</p>
-                      <Card.Title as="h4">5</Card.Title>
+                      <Card.Title as="h4">{complaints.complaints.length}</Card.Title>
                     </div>
                   </Col>
                 </Row>
@@ -149,13 +194,13 @@ function Dashboard({history}) {
                           "Dec",
                         ],
                         series: [
-                          [23, 113, 67, 108, 190, 239, 307, 308,582,900,200,100],
+                          complaintStats(),
                         ],
                       }}
                       type="Line"
                       options={{
-                        low: 0,
-                        high: 1000,
+                        low: complaintStats().low,
+                        high: complaintStats().high ,
                         showArea: false,
                         height: "245px",
                         axisX: {
@@ -197,6 +242,7 @@ function Dashboard({history}) {
             <Card>
               <Card.Header>
                 <Card.Title as="h4">Fee statistics</Card.Title>
+                <p className="card-category">No. of students</p>
               </Card.Header>
               <Card.Body>
                 <div
@@ -205,8 +251,8 @@ function Dashboard({history}) {
                 >
                   <ChartistGraph
                       data={{
-                        labels: ["80%", "20%"],
-                        series: [80, 20],
+                        labels: [`${feeStatus().paid}`, `${feeStatus().unpaid}`],
+                        series: [feeStatus().paid, feeStatus().unpaid],
                       }}
                       type="Pie"
                   />

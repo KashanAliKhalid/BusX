@@ -27,7 +27,8 @@ const LicenseDetails = ({match,history}) => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const data={
-            type,licenseDate:licenseDate===null?license.licenseDate:licenseDate,institute,address,paymentDate:paymentDate===null?license.paymentDate:paymentDate,status
+            type,licenseDate:licenseDate===null?license.licenseDate:licenseDate,institute,address,paymentDate:paymentDate===null?license.paymentDate:paymentDate,
+            status:status===null?license.status:status
         }
         dispatch(updateLicense(license._id,data))
     }

@@ -72,6 +72,15 @@ import {
     paymentListReducer
 } from "./reducers/paymentReducer";
 
+import {
+    addMaintenanceReducer,
+    deleteMaintenanceReducer,
+    maintenanceListReducer,
+    maintenanceDetailsReducer
+} from './reducers/maintenanceReducer'
+
+import {complaintListReducer} from "./reducers/complaintReducer";
+
 let userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
@@ -138,7 +147,14 @@ const reducer= combineReducers({
     paymentList:paymentListReducer,
     paymentDelete:deletePaymentReducer,
     paymentDetails:paymentDetailsReducer,
-    updatedPayment:updatePaymentReducer
+    updatedPayment:updatePaymentReducer,
+
+    addedMaintenance:addMaintenanceReducer,
+    maintenanceList:maintenanceListReducer,
+    maintenanceDetails:maintenanceDetailsReducer,
+    maintenanceDelete:deleteMaintenanceReducer,
+
+    complaintList:complaintListReducer
 
 })
 

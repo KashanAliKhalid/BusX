@@ -63,10 +63,16 @@ const updateBus=asyncHandler(async (req,res)=>{
     if(bus){
         const drivers=bus.driverHistory
         const lastDriver=drivers.slice(-1).pop()
-        if(lastDriver._id.toString()!==req.body.driver.toString())
-        {
+        if(lastDriver)
+        {if(lastDriver._id.toString()!==req.body.driver.toString())
+            {
+                drivers.push(req.body.driver)
+            }
+        }
+        else{
             drivers.push(req.body.driver)
         }
+
         bus.busNumber= req.body.busNumber || bus.busNumber;
         bus.registrationNumber=req.body.registrationNumber || bus.registrationNumber;
         bus.photo=req.body.photo || bus.photo

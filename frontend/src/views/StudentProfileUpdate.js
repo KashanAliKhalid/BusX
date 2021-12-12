@@ -37,8 +37,8 @@ const StudentProfileUpdate=({match})=> {
     const dispatch= useDispatch();
     const studentProfile =useSelector(state=>state.studentProfile)
     const updateStudentData=useSelector(state=>state.updatedStudent)
-    const{loading,error,student}=studentProfile
-    const {updateLoading, updatedStudent}=updateStudentData
+    const{loading,student}=studentProfile
+    const {updateLoading, updatedStudent,error}=updateStudentData
 
 
     const [cnic,setCnic] =useState( null);
@@ -58,7 +58,8 @@ const StudentProfileUpdate=({match})=> {
     const [show, setShow] = useState(false);
     const [rfid, setRfid] = useState(null);
     const [profile, setProfile]=useState('')
-
+    const [alertBox,setAlertBox] = useState(true)
+    const[feeStatus,setFeeStatus]=useState(null)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -85,6 +86,17 @@ const StudentProfileUpdate=({match})=> {
             setShow(true)
         else
             setShow(false)
+    }
+
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Profile not updated!</Alert.Heading>
+                    </Alert>
+                )
+        }
     }
 
 
@@ -122,6 +134,9 @@ const StudentProfileUpdate=({match})=> {
             else
                 return (
                 <Container fluid>
+                    {
+                        showAlert()
+                    }
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Body><img width='310' src={require("assets/img/scan rfid.gif").default} alt='scan rfid'/></Modal.Body>
                         <Modal.Footer>
@@ -343,6 +358,23 @@ const StudentProfileUpdate=({match})=> {
                                                         onFocus={handleRFID}
                                                         onBlur={handleRFID}
                                                     ></Form.Control>
+                                                </Form.Group>
+                                            </Col>
+                                            <Col className="pl-3" md="4">
+                                                <Form.Group>
+                                                    <label>Fee status</label>
+                                                    <Form.Control
+                                                        type="number"
+                                                        as="select"
+                                                        required
+                                                        value={feeStatus===null?student.feeStatus:feeStatus}
+                                                        onChange={(e) => {
+                                                            setFeeStatus(e.target.value);
+                                                        }}
+                                                    >
+                                                        <option selected={feeStatus===null?student.feeStatus==="Paid":feeStatus==="Paid"} value="Paid">Paid</option>
+                                                        <option selected={feeStatus===null?student.feeStatus==="Not Paid":feeStatus==="Not Paid"} value="Not Paid">Not Paid</option>
+                                                    </Form.Control>
                                                 </Form.Group>
                                             </Col>
                                             <Col className="pl-3" md="4">

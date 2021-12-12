@@ -29,7 +29,7 @@ import {
     Form,
     Container,
     Row,
-    Col,
+    Col, Alert,
 } from "react-bootstrap";
 
 import '../assets/css/addData.css'
@@ -44,10 +44,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const BusProfileUpdate=({match,history})=> {
     const dispatch= useDispatch();
-    const {bus,loading,error}=useSelector(state=>state.busProfile)
+    const {bus,loading}=useSelector(state=>state.busProfile)
     const {routes} =useSelector(state=>state.routeList)
     const {drivers} =useSelector(state=>state.driverList)
-    const {updateLoading, updatedBus}=useSelector(state=>state.updatedBus)
+    const {updateLoading, updatedBus,error}=useSelector(state=>state.updatedBus)
 
 
     const[busNumber,setBusNumber] =useState(null);
@@ -62,6 +62,7 @@ const BusProfileUpdate=({match,history})=> {
     const [route, setRoute]=useState(null)
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
+    const [alertBox,setAlertBox] = useState(true)
 
 
 
@@ -89,6 +90,18 @@ const BusProfileUpdate=({match,history})=> {
 
     },[dispatch,updatedBus])
 
+    const showAlert=()=>{
+        if(error) {
+            if(alertBox)
+                return (
+                    <Alert variant="danger" onClose={() => setAlertBox(false)} dismissible>
+                        <Alert.Heading>Profile not updated!</Alert.Heading>
+                    </Alert>
+                )
+        }
+    }
+
+
     const showProfile=()=>{
         if(bus!==undefined)
         {
@@ -97,6 +110,9 @@ const BusProfileUpdate=({match,history})=> {
             else
                 return (
                 <Container fluid>
+                    {
+                        showAlert()
+                    }
                     <Row>
                         <Col md="8">
                             <Card>
@@ -184,7 +200,7 @@ const BusProfileUpdate=({match,history})=> {
                                                     >
                                                         {
                                                             !drivers?'': drivers.drivers.map((value)=>{
-                                                                return(<option selected={`${value.firstName} ${value.lastName}`=== `${bus.driver.firstName} ${bus.driver.lastName}`} value={value._id}>{`${value.firstName} ${value.lastName}`}</option>)
+                                                                return(<option selected={value?`${value.firstName} ${value.lastName}`=== `${bus.driver.firstName} ${bus.driver.lastName}`:''} value={value._id}>{`${value.firstName} ${value.lastName}`}</option>)
                                                             })
                                                         }
                                                     </Form.Control>
@@ -206,7 +222,7 @@ const BusProfileUpdate=({match,history})=> {
                                                     >
                                                         {
                                                             !routes?'': routes.routes.map((value)=>{
-                                                                return(<option selected={bus.route.name===value.name} value={value._id}>{value.name}</option>)
+                                                                return(<option selected={value?bus.route.name===value.name:''} value={value._id}>{value.name}</option>)
                                                             })
                                                         }
 
@@ -271,7 +287,8 @@ const BusProfileUpdate=({match,history})=> {
                                                 <YellowButton
                                                     className="pull-right"
                                                     width={200}
-                                                    content="Maintainance History"
+                                                    onClick={()=>{history.push(`/admin/maintenancelist/${match.params.id}`)}}
+                                                    content="Maintenance History"
                                                 />
                                             </Col>
 

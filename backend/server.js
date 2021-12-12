@@ -14,7 +14,9 @@ import routeRoutes from "./routes/admin/routeRoutes.js";
 import superAdminRoutes from "./routes/superAdmin/superAdminRoutes.js";
 import licenseRoutes from "./routes/superAdmin/licenseRoutes.js";
 import paymentRoutes from "./routes/superAdmin/paymentRoutes.js";
-
+import maintenanceRoutes from "./routes/admin/maintenanceRoutes.js";
+import fuelRoutes from './routes/admin/fuelRoutes.js'
+import complaintRoutes from "./routes/admin/complaintRoutes.js";
 import bodyParser from 'body-parser'
 
 
@@ -53,6 +55,9 @@ app.use('/admin/',busRoutes)
 app.use('/admin/',driverRoutes)
 app.use('/admin/',adminRoutes)
 app.use('/admin/',routeRoutes)
+app.use('/admin/',maintenanceRoutes)
+app.use('/admin/',fuelRoutes)
+app.use('/admin/',complaintRoutes)
 app.use('/superadmin/',superAdminRoutes)
 app.use('/superadmin/',licenseRoutes)
 app.use('/superadmin/',adminRoutesSuperAdmin)

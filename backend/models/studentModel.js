@@ -18,9 +18,13 @@ const studentSchema= mongoose.Schema({
 
     },
     route:{
+        routeId:{
             type:mongoose.Schema.Types.ObjectId,
-            ref:'Route',
-            default:null
+            ref:'Route'
+        },
+        routeName:{
+            type:String
+        }
     },
     bus:{
           type:mongoose.Schema.Types.ObjectId,
@@ -91,9 +95,9 @@ const studentSchema= mongoose.Schema({
             default:0
         }
     },
-    // feeStatus:{
-    //     type:String,
-    // },
+    feeStatus:{
+        type:String,
+    },
     attendance:{
         type:String,
         default:"present"
@@ -105,7 +109,11 @@ const studentSchema= mongoose.Schema({
     institute:{
         type:String,
         required:true
-    }
+    },
+    forgetPasswordLink:{
+        type:String,
+    },
+
 
 },{timeStamps:true})
 

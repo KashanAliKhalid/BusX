@@ -32,22 +32,6 @@ const busSchema=mongoose.Schema({
       type:Date,
         default:null
     },
-    repairHistory:[
-        {
-            repairType:{
-                type:String,
-            },
-            cost:{
-                type:Number,
-            },
-            Date:{
-                type:Number,
-            },
-            receipt:{
-                type:String,
-            }
-        }
-    ],
     driverHistory:[
         {
             type:mongoose.Schema.Types.ObjectId,

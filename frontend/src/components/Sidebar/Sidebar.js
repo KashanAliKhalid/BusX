@@ -136,6 +136,16 @@ function Sidebar({ color, image, routes }) {
                 </NavDropdown>
 
             </li>
+
+            <li
+                className={
+                    activeRoute('/admin/complaints')
+                }
+            >
+                <NavLink to='/admin/complaints'   className="nav-link">
+                    <span> <i className='nc-icon nc-email-85' /> <p>Complaints</p> </span>
+                </NavLink>
+            </li>
         </Nav>
       </div>
     </div>

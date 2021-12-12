@@ -1,8 +1,15 @@
 import React from 'react';
 import '../assets/css/403.css'
+import {userLogout} from "../actions/userActions";
+import {useDispatch} from "react-redux";
 
-const Forbidden
-= () => {
+const Forbidden = ({history}) => {
+    const dispatch= useDispatch()
+
+    const logoutHandler=()=>{
+        dispatch(userLogout())
+        history.push('/login')
+    }
     return (
         <div className='error-body'>
             <use>
@@ -17,7 +24,7 @@ const Forbidden
 </svg>
             </use>
             <h1 className='h1-forbidden'>403</h1>
-            <h2 className='h2-forbidden'>Not this time, access forbidden!</h2>
+            <h2 className='h2-forbidden'>Not this time, access forbidden! <h1 onClick={logoutHandler} className="flickr">LOG<span id="offset">O</span>UT</h1></h2>
         </div>
     );
 };
